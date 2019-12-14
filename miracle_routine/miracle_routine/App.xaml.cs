@@ -13,8 +13,7 @@ namespace miracle_routine
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new NavigationPage(new ItemsPage());
+            MainPage = new NavigationPage(new RoutinesPage());
         }
 
         protected override void OnStart()

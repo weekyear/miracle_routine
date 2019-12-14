@@ -16,24 +16,24 @@ namespace miracle_routine.Views
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class ItemsPage : ContentPage
+    public partial class RoutinesPage : ContentPage
     {
-        ItemsViewModel viewModel;
+        RoutinesViewModel viewModel;
 
-        public ItemsPage()
+        public RoutinesPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = viewModel = new RoutinesViewModel();
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
+            var item = args.SelectedItem as Routine;
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            await Navigation.PushAsync(new RoutineDetailPage(new RoutineDetailViewModel(item)));
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;
@@ -41,7 +41,7 @@ namespace miracle_routine.Views
 
         async void AddItem_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
+            await Navigation.PushModalAsync(new NavigationPage(new RoutinePage()));
         }
 
         protected override void OnAppearing()

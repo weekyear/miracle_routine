@@ -10,20 +10,20 @@ using miracle_routine.Views;
 
 namespace miracle_routine.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class RoutinesViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<Routine> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ItemsViewModel()
+        public RoutinesViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<Routine>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<RoutinePage, Routine>(this, "AddItem", async (obj, item) =>
             {
-                var newItem = item as Item;
+                var newItem = item as Routine;
                 Items.Add(newItem);
                 await DataStore.AddItemAsync(newItem);
             });

@@ -11,15 +11,15 @@ namespace miracle_routine.Views
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class NewItemPage : ContentPage
+    public partial class RoutinePage : ContentPage
     {
-        public Item Item { get; set; }
+        public Routine Item { get; set; }
 
-        public NewItemPage()
+        public RoutinePage()
         {
             InitializeComponent();
 
-            Item = new Item
+            Item = new Routine
             {
                 Text = "Item name",
                 Description = "This is an item description."

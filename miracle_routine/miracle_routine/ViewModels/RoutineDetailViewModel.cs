@@ -4,10 +4,10 @@ using miracle_routine.Models;
 
 namespace miracle_routine.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel
+    public class RoutineDetailViewModel : BaseViewModel
     {
-        public Item Item { get; set; }
-        public ItemDetailViewModel(Item item = null)
+        public Routine Item { get; set; }
+        public RoutineDetailViewModel(Routine item = null)
         {
             Title = item?.Text;
             Item = item;
