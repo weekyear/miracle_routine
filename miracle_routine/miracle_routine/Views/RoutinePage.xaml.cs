@@ -21,8 +21,7 @@ namespace miracle_routine.Views
 
             Item = new Routine
             {
-                Text = "Item name",
-                Description = "This is an item description."
+                Name = "Item name",
             };
 
             BindingContext = this;

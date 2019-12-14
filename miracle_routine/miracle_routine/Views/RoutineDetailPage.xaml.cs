@@ -28,8 +28,7 @@ namespace miracle_routine.Views
 
             var item = new Routine
             {
-                Text = "Item 1",
-                Description = "This is an item description."
+                Name = "Item 1",
             };
 
             viewModel = new RoutineDetailViewModel(item);
