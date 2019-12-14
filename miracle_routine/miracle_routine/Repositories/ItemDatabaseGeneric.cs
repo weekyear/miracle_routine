@@ -17,6 +17,8 @@ namespace miracle_routine.Repositories
             this.connection = connection;
             connection.CreateTable<Routine>();
             connection.CreateTable<Habit>();
+            connection.CreateTable<Record>();
+            connection.CreateTable<DaysOfWeek>();
         }
 
         public IEnumerable<T> GetObjects<T>() where T : IObject, new()

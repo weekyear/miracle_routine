@@ -12,7 +12,11 @@ namespace miracle_routine.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Routine> DataStore => DependencyService.Get<IDataStore<Routine>>();
+        protected readonly INavigation Navigation;
+        public BaseViewModel(INavigation navigation)
+        {
+            Navigation = navigation;
+        }
 
         bool isBusy = false;
         public bool IsBusy

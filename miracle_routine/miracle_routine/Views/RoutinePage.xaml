@@ -3,22 +3,78 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:miracle_routine.Helpers"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RoutinePage"
-             Title="New Item">
+             Title="{local:Translate RoutineSetting}"
+             BackgroundColor="{StaticResource BackgroundColor}">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small" />
-            <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small" Margin="0" />
-        </StackLayout>
+        <Frame CornerRadius="15" BackgroundColor="White" VerticalOptions="Start" Margin="10" Padding="0">
+            <StackLayout Spacing="5" Padding="0">
+                <StackLayout Orientation="Horizontal" Margin="15, 5">
+                    <Label Text="{local:Translate Name}" FontSize="Medium" VerticalTextAlignment="Center" />
+                    <Entry x:Name="ToDo_Name"  Text="{Binding Name}"
+                           Margin="5"
+                           d:Text="ToDoName" 
+                           FontSize="Medium"
+                           HorizontalOptions="FillAndExpand"
+                           Placeholder="{local:Translate PleaseWriteSchedule}"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="15, 5">
+                    <Label Text="{local:Translate StartTime}" FontSize="Medium" VerticalTextAlignment="Center" />
+                    <TimePicker Time="{Binding StartTime}"/>
+                </StackLayout>
+
+
+                <StackLayout Orientation="Horizontal" Margin="15, 5">
+                    <Label Text="{local:Translate StartTime}" FontSize="Medium" VerticalTextAlignment="Center" />
+                    <ListView x:Name="HabitListView" Grid.RowSpan="2"
+                              BackgroundColor="White"
+                              ItemsSource="{Binding Habits}"
+                              ItemTapped="HabitListView_ItemTapped"
+                              ItemSelected="HabitListView_ItemSelected"
+                              RowHeight="50"
+                              VerticalOptions="FillAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" Margin="7, 0">
+                                        <Image Source="ic_blank_app.png" 
+                                               HorizontalOptions="Start" 
+                                               VerticalOptions="CenterAndExpand"
+                                               WidthRequest="32"
+                                               HeightRequest="32"/>
+                                        <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
+                                               Text="{Binding Name}"
+                                               TextColor="DarkBlue"
+                                               FontSize="18"/>
+                                        <Label Margin="10, 0" 
+                                               HorizontalOptions="End"
+                                               VerticalOptions="CenterAndExpand" 
+                                               Text="{Binding Seconds}"
+                                               TextColor="DarkBlue"
+                                               FontSize="18"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Label Grid.Row="0" Text="{local:Translate ThereIsNoHabit}"
+                           FontSize="28"
+                           IsVisible="{Binding HasNoHabit}"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           VerticalTextAlignment="Center"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
     
 </ContentPage>

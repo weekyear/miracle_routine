@@ -37,5 +37,18 @@ namespace miracle_routine.Views
         {
             await Navigation.PopModalAsync();
         }
+
+        private void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
+        }
+
+        private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (HabitListView.SelectedItem != null || e.SelectedItem != null)
+            {
+                ((ListView)sender).SelectedItem = null;
+            }
+        }
     }
 }

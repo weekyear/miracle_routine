@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace miracle_routine.Models
 {
@@ -16,10 +17,13 @@ namespace miracle_routine.Models
         public int DaysId { get; set; }
         public bool IsLocation { get; set; }
 
-        public TimeSpan StartTime { get; set; }
+        public TimeSpan StartTime { get; set; } = new TimeSpan(7, 0, 0);
 
         [Ignore]
-        public List<Habit> HabitList { get; set; }
+        public IEnumerable<Habit> HabitList
+        {
+            get { return App.HabitService.Habits.Where((habit) => habit.RoutineId == Id); }
+        }
 
         [Ignore]
         public TimeSpan TotalTime

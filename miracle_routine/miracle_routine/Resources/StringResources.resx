@@ -117,25 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ForgotRoutineName" xml:space="preserve">
+    <value>You forgot the Routine name!</value>
+  </data>
   <data name="Friday" xml:space="preserve">
-    <value>금</value>
+    <value>F</value>
   </data>
   <data name="Monday" xml:space="preserve">
-    <value>월</value>
+    <value>M</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Saturday" xml:space="preserve">
-    <value>토</value>
+    <value>S</value>
   </data>
   <data name="Sunday" xml:space="preserve">
-    <value>일</value>
+    <value>S</value>
   </data>
   <data name="Thursday" xml:space="preserve">
-    <value>목</value>
+    <value>T</value>
   </data>
   <data name="Tuesday" xml:space="preserve">
-    <value>화</value>
+    <value>T</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
-    <value>수</value>
+    <value>W</value>
   </data>
 </root>

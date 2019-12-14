@@ -16,9 +16,17 @@ namespace miracle_routine.Models
         public string Name { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
-        public TimeSpan Time { get; set; }
         public int RoutineId { get; set; }
         public int Index { get; set; }
+
+        public int Minutes { get; set; } = 0;
+        public int Seconds { get; set; } = 10;
+
+        [Ignore]
+        public TimeSpan Time
+        {
+            get { return new TimeSpan(0, Minutes, Seconds); }
+        }
 
         public Habit() { }
 
@@ -28,9 +36,10 @@ namespace miracle_routine.Models
             Name = habit.Name;
             Image = habit.Image;
             Description = habit.Description;
-            Time = habit.Time;
             RoutineId = habit.RoutineId;
             Index = habit.Index;
+            Minutes = habit.Minutes;
+            Seconds = habit.Seconds;
         }
     }
 }

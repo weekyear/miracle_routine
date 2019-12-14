@@ -61,7 +61,25 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 금.
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You forgot the Routine name!.
+        /// </summary>
+        internal static string ForgotRoutineName {
+            get {
+                return ResourceManager.GetString("ForgotRoutineName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to F.
         /// </summary>
         internal static string Friday {
             get {
@@ -70,7 +88,7 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 월.
+        ///   Looks up a localized string similar to M.
         /// </summary>
         internal static string Monday {
             get {
@@ -79,7 +97,34 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 토.
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Routine setting.
+        /// </summary>
+        internal static string RoutineSetting {
+            get {
+                return ResourceManager.GetString("RoutineSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S.
         /// </summary>
         internal static string Saturday {
             get {
@@ -88,7 +133,16 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 일.
+        ///   Looks up a localized string similar to Start time.
+        /// </summary>
+        internal static string StartTime {
+            get {
+                return ResourceManager.GetString("StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S.
         /// </summary>
         internal static string Sunday {
             get {
@@ -97,7 +151,16 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 목.
+        ///   Looks up a localized string similar to There is no habit..
+        /// </summary>
+        internal static string ThereIsNoHabit {
+            get {
+                return ResourceManager.GetString("ThereIsNoHabit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to T.
         /// </summary>
         internal static string Thursday {
             get {
@@ -106,7 +169,7 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 화.
+        ///   Looks up a localized string similar to T.
         /// </summary>
         internal static string Tuesday {
             get {
@@ -115,7 +178,7 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 수.
+        ///   Looks up a localized string similar to W.
         /// </summary>
         internal static string Wednesday {
             get {

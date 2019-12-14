@@ -7,7 +7,7 @@ using System.Text;
 
 namespace miracle_routine.Services
 {
-    public class HabitService
+    public class HabitService : IHabitService
     {
         public HabitService(IHabitRepo repository)
         {
