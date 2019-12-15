@@ -8,9 +8,9 @@ namespace miracle_routine.Helpers
 {
     public class MyMessagingCenter
     {
-        public void SendChangeRecordsMessage(IEnumerable<Routine> timelyRecords)
+        public void SendChangeHabitMessage(Habit habit)
         {
-            MessagingCenter.Send(this, "changeRoutine", timelyRecords);
+            MessagingCenter.Send(this, "changeHabit", habit);
         }
     }
 }

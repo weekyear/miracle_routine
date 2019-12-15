@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:miracle_routine.Helpers"
+             xmlns:custom="clr-namespace:miracle_routine.CustomControls"
+             mc:Ignorable="d"
+             x:Class="miracle_routine.Views.RoutinesPage"
+             Title="{Binding Title}"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{StaticResource BackgroundColor}">
+
+
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Text="{local:Translate MiracleRoutine}"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Start"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   FontSize="Medium" />
+            <StackLayout Orientation="Horizontal" Grid.Column="1">
+                <ImageButton WidthRequest="32" HeightRequest="32"
+                             Source="ic_add.png"
+                             Margin="5, 0"
+                             BackgroundColor="{StaticResource BackgroundColor}"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             Command="{Binding ShowRoutineCommand}"/>
+                <ImageButton WidthRequest="32" HeightRequest="32"
+                             Source="ic_menu.png"
+                             Margin="5, 0"
+                             BackgroundColor="{StaticResource BackgroundColor}"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             Command="{Binding ShowRoutineCommand}"/>
+            </StackLayout>
+        </Grid>
+
+        <custom:NoRippleListView x:Name="RoutineListView" Grid.Row="1"
+                                 ItemsSource="{Binding Routines}"
+                                 VerticalOptions="FillAndExpand"
+                                 HasUnevenRows="True"
+                                 ItemSelected="OnItemSelected"
+                                 SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <custom:RoutineTemplate/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </custom:NoRippleListView>
+    </Grid>
+
+</ContentPage>

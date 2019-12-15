@@ -31,7 +31,7 @@ namespace miracle_routine.Views
                 Name = "Item 1",
             };
 
-            viewModel = new RoutineDetailViewModel(item);
+            viewModel = new RoutineDetailViewModel(Navigation, item);
             BindingContext = viewModel;
         }
     }

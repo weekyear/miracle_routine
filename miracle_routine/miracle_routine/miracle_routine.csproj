@@ -29,20 +29,21 @@
     <Compile Update="Views\RoutinePage.xaml.cs">
       <DependentUpon>RoutinePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\RoutinesPage.xaml.cs">
-      <DependentUpon>RoutinesPage.xaml</DependentUpon>
+    <Compile Update="Views\RoutineMainPage.xaml.cs">
+      <DependentUpon>RoutineMainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CustomControls\" />
-    <Folder Include="Converters\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <EmbeddedResource Update="CustomControls\RoutineTemplate.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\StringResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\HabitSettingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

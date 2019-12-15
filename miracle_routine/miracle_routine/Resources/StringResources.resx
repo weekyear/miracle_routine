@@ -120,23 +120,56 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ForgotHabit" xml:space="preserve">
+    <value>You must set up at least one habit.</value>
+  </data>
   <data name="ForgotRoutineName" xml:space="preserve">
     <value>You forgot the Routine name!</value>
   </data>
   <data name="Friday" xml:space="preserve">
     <value>F</value>
   </data>
+  <data name="HabitList" xml:space="preserve">
+    <value>Habit list</value>
+  </data>
+  <data name="HabitSetting" xml:space="preserve">
+    <value>Habit setting</value>
+  </data>
+  <data name="MiracleRoutine" xml:space="preserve">
+    <value>Miracle routine</value>
+  </data>
   <data name="Monday" xml:space="preserve">
     <value>M</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="PleaseWriteHabitName" xml:space="preserve">
+    <value>Please write habit name</value>
+  </data>
+  <data name="RoutineSetting" xml:space="preserve">
+    <value>Routine setting</value>
+  </data>
   <data name="Saturday" xml:space="preserve">
     <value>S</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Start time</value>
+  </data>
   <data name="Sunday" xml:space="preserve">
     <value>S</value>
+  </data>
+  <data name="ThereIsNoHabit" xml:space="preserve">
+    <value>There is no habit.</value>
   </data>
   <data name="Thursday" xml:space="preserve">
     <value>T</value>

@@ -1,9 +1,11 @@
 ﻿using miracle_routine.Helpers;
 using miracle_routine.Models;
 using miracle_routine.Resources;
+using miracle_routine.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -17,16 +19,27 @@ namespace miracle_routine.ViewModels
             Routine = new Routine(routine);
 
             ConstructCommand();
+            SubscribeMessage();
         }
         private void ConstructCommand()
         {
             CloseCommand = new Command(async () => await ClosePopup());
             SaveCommand = new Command(async () => await Save());
+            ShowHabitSettingCommand = new Command(async () => await ShowHabitSetting());
+        }
+
+        private void SubscribeMessage()
+        {
+            MessagingCenter.Subscribe<MyMessagingCenter, Habit>(this, "changeHabit", (sender, habit) =>
+            {
+                ChangeHabitList(habit);
+            });
         }
 
         #region PROPERTY
         public Command CloseCommand { get; set; }
         public Command SaveCommand { get; set; }
+        public Command ShowHabitSettingCommand { get; set; }
 
         public Routine Routine
         {
@@ -90,6 +103,14 @@ namespace miracle_routine.ViewModels
                 }
             }
         }
+        
+        public bool HasHabit
+        {
+            get
+            {
+                return !HasNoHabit;
+            }
+        }
 
         #endregion
 
@@ -103,9 +124,19 @@ namespace miracle_routine.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("", StringResources.ForgotRoutineName, StringResources.OK);
             }
+            else if (HasNoHabit)
+            {
+                await Application.Current.MainPage.DisplayAlert("", StringResources.ForgotHabit, StringResources.OK);
+            }
             else
             {
-                App.RoutineService.SaveRoutine(Routine);
+                var id = App.RoutineService.SaveRoutine(Routine);
+
+                foreach (var habit in Habits)
+                {
+                    habit.RoutineId = id;
+                }
+                App.HabitService.SaveHabits(Habits);
 
                 await ClosePopup();
             }
@@ -113,7 +144,31 @@ namespace miracle_routine.ViewModels
 
         private async Task ClosePopup()
         {
-            await Navigation.PopAsync(true);
+            await Navigation.PopModalAsync(true);
+        }
+        
+        private async Task ShowHabitSetting()
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new HabitSettingPage(new Habit()))).ConfigureAwait(false);
+        }
+
+        private void ChangeHabitList(Habit habit)
+        {
+            if (habit.Index == -1)
+            {
+                habit.Index = Habits.Count;
+                Habits.Add(habit);
+            }
+            else
+            {
+                var oldHabit = Habits.FirstOrDefault(h => h.Index == habit.Index);
+                int i = Habits.IndexOf(oldHabit);
+                Habits.Remove(oldHabit);
+                Habits.Insert(i, habit);
+            }
+            OnPropertyChanged(nameof(HasNoHabit));
+            OnPropertyChanged(nameof(HasHabit));
+            OnPropertyChanged(nameof(Habits));
         }
 
         #endregion

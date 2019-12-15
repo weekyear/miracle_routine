@@ -12,7 +12,7 @@ namespace miracle_routine.Helpers
     [ContentProperty("Text")]
     public class TranslateExtension : IMarkupExtension
     {
-        const string ResourceId = "daily_report.Resources.AppResources";
+        const string ResourceId = "miracle_routine.Resources.StringResources";
         public string Text { get; set; }
 
         public object ProvideValue(IServiceProvider serviceProvider)

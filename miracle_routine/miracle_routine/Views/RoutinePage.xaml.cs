@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using miracle_routine.Models;
+using miracle_routine.ViewModels;
 
 namespace miracle_routine.Views
 {
@@ -14,17 +15,13 @@ namespace miracle_routine.Views
     public partial class RoutinePage : ContentPage
     {
         public Routine Item { get; set; }
+        private RoutineViewModel viewModel;
 
         public RoutinePage()
         {
             InitializeComponent();
 
-            Item = new Routine
-            {
-                Name = "Item name",
-            };
-
-            BindingContext = this;
+            BindingContext = viewModel = new RoutineViewModel(Navigation, new Routine());
         }
 
         async void Save_Clicked(object sender, EventArgs e)
@@ -38,9 +35,10 @@ namespace miracle_routine.Views
             await Navigation.PopModalAsync();
         }
 
-        private void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-
+            var habit = e.Item as Habit;
+            await Navigation.PushModalAsync(new NavigationPage(new HabitSettingPage(new Habit(habit)))).ConfigureAwait(false);
         }
 
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

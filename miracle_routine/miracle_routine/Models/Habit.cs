@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 
 namespace miracle_routine.Models
@@ -17,10 +18,10 @@ namespace miracle_routine.Models
         public string Image { get; set; }
         public string Description { get; set; }
         public int RoutineId { get; set; }
-        public int Index { get; set; }
+        public int Index { get; set; } = -1;
 
-        public int Minutes { get; set; } = 0;
-        public int Seconds { get; set; } = 10;
+        public int Minutes { get; set; } = 1;
+        public int Seconds { get; set; } = 3;
 
         [Ignore]
         public TimeSpan Time

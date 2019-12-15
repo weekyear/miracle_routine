@@ -31,9 +31,9 @@ namespace miracle_routine.Services
             return Repository.RoutinesFromDB;
         }
 
-        public int SaveRoutine(Routine dailyRecord)
+        public int SaveRoutine(Routine routine)
         {
-            var id = Repository.SaveRoutine(dailyRecord);
+            var id = Repository.SaveRoutine(routine);
             RefreshRoutines();
             //DependencyService.Get<MyMessagingCenter>().SendChangeRoutinesMessage();
 

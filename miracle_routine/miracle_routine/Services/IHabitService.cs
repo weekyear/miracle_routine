@@ -13,6 +13,7 @@ namespace miracle_routine.Services
         Habit GetHabit(int id);
         int DeleteHabit(int id);
         int SaveHabit(Habit habit);
+        void SaveHabits(IEnumerable<Habit> habits);
         void DeleteAllHabits();
         List<Habit> GetAllHabits();
         void RefreshHabits();

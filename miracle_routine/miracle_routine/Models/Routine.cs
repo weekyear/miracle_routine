@@ -19,13 +19,11 @@ namespace miracle_routine.Models
 
         public TimeSpan StartTime { get; set; } = new TimeSpan(7, 0, 0);
 
-        [Ignore]
-        public IEnumerable<Habit> HabitList
+        public List<Habit> HabitList
         {
-            get { return App.HabitService.Habits.Where((habit) => habit.RoutineId == Id); }
+            get { return App.HabitService.Habits.Where((habit) => habit.RoutineId == Id).ToList(); }
         }
 
-        [Ignore]
         public TimeSpan TotalTime
         {
             get
@@ -38,6 +36,12 @@ namespace miracle_routine.Models
                 return totalTime;
             }
         }
+
+        public int Height
+        {
+            get { return (HabitList.Count * 40) + (HabitList.Count * 10); }
+        }
+
         public Routine() { }
 
         public Routine(Routine routine)

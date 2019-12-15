@@ -31,9 +31,9 @@ namespace miracle_routine.Services
             return Repository.HabitsFromDB;
         }
 
-        public int SaveHabit(Habit dailyRecord)
+        public int SaveHabit(Habit habit)
         {
-            var id = Repository.SaveHabit(dailyRecord);
+            var id = Repository.SaveHabit(habit);
             RefreshHabits();
             //DependencyService.Get<MyMessagingCenter>().SendChangeHabitsMessage();
 
@@ -59,6 +59,15 @@ namespace miracle_routine.Services
             {
                 DeleteHabit(dailyRecord.Id);
             }
+        }
+
+        public void SaveHabits(IEnumerable<Habit> habits)
+        {
+            foreach (var habit in habits)
+            {
+                Repository.SaveHabit(habit);
+            }
+            RefreshHabits();
         }
     }
 }

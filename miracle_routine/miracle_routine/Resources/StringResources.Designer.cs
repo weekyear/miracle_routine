@@ -70,6 +70,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must set up at least one habit..
+        /// </summary>
+        internal static string ForgotHabit {
+            get {
+                return ResourceManager.GetString("ForgotHabit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You forgot the Routine name!.
         /// </summary>
         internal static string ForgotRoutineName {
@@ -84,6 +93,33 @@ namespace miracle_routine.Resources {
         internal static string Friday {
             get {
                 return ResourceManager.GetString("Friday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Habit list.
+        /// </summary>
+        internal static string HabitList {
+            get {
+                return ResourceManager.GetString("HabitList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Habit setting.
+        /// </summary>
+        internal static string HabitSetting {
+            get {
+                return ResourceManager.GetString("HabitSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miracle routine.
+        /// </summary>
+        internal static string MiracleRoutine {
+            get {
+                return ResourceManager.GetString("MiracleRoutine", resourceCulture);
             }
         }
         
@@ -115,6 +151,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please write habit name.
+        /// </summary>
+        internal static string PleaseWriteHabitName {
+            get {
+                return ResourceManager.GetString("PleaseWriteHabitName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Routine setting.
         /// </summary>
         internal static string RoutineSetting {
@@ -129,6 +174,24 @@ namespace miracle_routine.Resources {
         internal static string Saturday {
             get {
                 return ResourceManager.GetString("Saturday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        internal static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
             }
         }
         

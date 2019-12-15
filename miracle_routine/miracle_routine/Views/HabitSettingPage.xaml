@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:miracle_routine.Helpers"
+             xmlns:custom="clr-namespace:miracle_routine.CustomControls"
+             Title="{local:Translate HabitSetting}"
+             mc:Ignorable="d"
+             x:Class="miracle_routine.Views.HabitSettingPage">
+    <ContentPage.Content>
+        <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10" Padding="0">
+            <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" Padding="0" Margin="10, 0">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 10">
+                    <Label Text="{local:Translate Name}" FontSize="Body"
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           VerticalOptions="CenterAndExpand"/>
+                    <Entry Text="{Binding Name}" 
+                           HorizontalOptions="FillAndExpand"
+                           Margin="5, 0"
+                           Style="{DynamicResource ListItemTextStyle}"
+                           Placeholder="{local:Translate PleaseWriteHabitName}"
+                           FontSize="Body"
+                           VerticalTextAlignment="Center" />
+                </StackLayout>
+                <Label Text="소요 시간" FontSize="Body" Margin="15, 0"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       VerticalOptions="CenterAndExpand"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="15, 10" HeightRequest="80">
+                    <custom:NumberPicker Value="{Binding Minutes}" PickerType="Minutes" Margin="0"/>
+                    <Label Text="분" FontSize="Body"
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           VerticalOptions="CenterAndExpand"/>
+                    <custom:NumberPicker Value="{Binding Seconds}" PickerType="Seconds" Margin="0"/>
+                    <Label Text="초" FontSize="Body"
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+                <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="0">
+                    <Button Text="{local:Translate Cancel}"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource SecondaryTextColor}"
+                            HorizontalOptions="FillAndExpand"
+                            CornerRadius="15"
+                            Command="{Binding CloseCommand}" 
+                            BackgroundColor="White"/>
+                    <Button Text="{local:Translate Save}"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource ColorAccent}"
+                            HorizontalOptions="FillAndExpand"
+                            CornerRadius="15"
+                            Command="{Binding SaveCommand}"
+                            BackgroundColor="White"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>
