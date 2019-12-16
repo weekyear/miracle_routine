@@ -67,7 +67,10 @@ namespace miracle_routine.ViewModels
         #region METHOD
         private async Task Save()
         {
-            Habit.Seconds = Habit.Seconds * 10;
+            if (Seconds < 10)
+            {
+                Habit.Seconds = Habit.Seconds * 10;
+            }
             DependencyService.Get<MyMessagingCenter>().SendChangeHabitMessage(Habit);
 
             await ClosePopup();

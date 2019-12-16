@@ -17,12 +17,25 @@ namespace miracle_routine.ViewModels
         public RoutineMainViewModel(INavigation navigation) : base(navigation)
         {
             ConstructCommand();
+            SubscribeMessage();
         }
         private void ConstructCommand()
         {
             ShowRoutineCommand = new Command(async () => await ShowRoutine());
         }
 
+        private void SubscribeMessage()
+        {
+            MessagingCenter.Subscribe<MyMessagingCenter>(this, "changeRoutine", (sender) =>
+            {
+                RefreshRoutines();
+            });
+            
+            MessagingCenter.Subscribe<MyMessagingCenter, Routine>(this, "showRoutine",  async (sender, routine) =>
+            {
+                await NavigateRoutinePage(routine);
+            });
+        }
 
         private ObservableCollection<Routine> routines;
         public ObservableCollection<Routine> Routines
@@ -55,7 +68,12 @@ namespace miracle_routine.ViewModels
         public Command ShowRoutineCommand { get; set; }
         private async Task ShowRoutine()
         {
-            await Navigation.PushModalAsync(new NavigationPage(new RoutinePage()));
+            await NavigateRoutinePage(new Routine());
+        }
+
+        private async Task NavigateRoutinePage(Routine routine)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new RoutinePage(routine)));
         }
 
         public void RefreshRoutines()

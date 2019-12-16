@@ -17,11 +17,11 @@ namespace miracle_routine.Views
         public Routine Item { get; set; }
         private RoutineViewModel viewModel;
 
-        public RoutinePage()
+        public RoutinePage(Routine routine)
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new RoutineViewModel(Navigation, new Routine());
+            BindingContext = viewModel = new RoutineViewModel(Navigation, routine);
         }
 
         async void Save_Clicked(object sender, EventArgs e)

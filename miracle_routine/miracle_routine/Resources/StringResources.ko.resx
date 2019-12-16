@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AskDeleteRoutine" xml:space="preserve">
+    <value>이 루틴을 삭제하시겠습니까?</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DeleteRoutine" xml:space="preserve">
+    <value>루틴 삭제</value>
   </data>
   <data name="ForgotHabit" xml:space="preserve">
     <value>적어도 하나의 습관을 설정하셔야 합니다.</value>
@@ -135,8 +144,17 @@
   <data name="HabitSetting" xml:space="preserve">
     <value>습관 설정</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>메뉴</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>분</value>
+  </data>
   <data name="MiracleRoutine" xml:space="preserve">
     <value>미라클 루틴</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>수정</value>
   </data>
   <data name="Monday" xml:space="preserve">
     <value>월</value>
@@ -158,6 +176,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>저장</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>초</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>시 작</value>

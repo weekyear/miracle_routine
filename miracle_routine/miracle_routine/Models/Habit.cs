@@ -15,7 +15,7 @@ namespace miracle_routine.Models
         [PrimaryKey, NotNull, AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string Image { get; set; } = "ic_blank_app.png";
         public string Description { get; set; }
         public int RoutineId { get; set; }
         public int Index { get; set; } = -1;

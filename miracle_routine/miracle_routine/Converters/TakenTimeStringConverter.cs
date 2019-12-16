@@ -1,4 +1,5 @@
-﻿using System;
+﻿using miracle_routine.Resources;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -29,15 +30,17 @@ namespace miracle_routine.Converters
                 return "None";
             }
 
-
-            switch (CultureInfo.CurrentCulture.Name)
+            if (timeSpan.Minutes == 0)
             {
-                case "ko-KR":
-                    return $"{timeSpan.Minutes}분 {timeSpan.Seconds}초";
-                case "en-US":
-                    return $"{timeSpan.Minutes}min {timeSpan.Seconds}sec)";
-                default:
-                    return $"{timeSpan.Minutes}min {timeSpan.Seconds}sec)";
+                return $"{timeSpan.Seconds}{StringResources.Second}";
+            }
+            else if (timeSpan.Seconds == 0)
+            {
+                return $"{timeSpan.Minutes}{StringResources.Minute}";
+            }
+            else
+            {
+                return $"{timeSpan.Minutes}{StringResources.Minute} {timeSpan.Seconds}{StringResources.Second}";
             }
         }
     }

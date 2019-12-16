@@ -18,7 +18,6 @@
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{local:Translate Save}" Command="{Binding SaveCommand}" />
-        <ToolbarItem Text="{local:Translate Cancel}" Command="{Binding CloseCommand}" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -70,7 +69,7 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout Orientation="Horizontal" Margin="7, 7">
-                                        <Image Source="ic_blank_app.png" 
+                                        <Image Source="{Binding Image}" 
                                                HorizontalOptions="Start" 
                                                VerticalOptions="CenterAndExpand"
                                                WidthRequest="32"

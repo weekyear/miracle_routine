@@ -61,11 +61,38 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this routine?.
+        /// </summary>
+        internal static string AskDeleteRoutine {
+            get {
+                return ResourceManager.GetString("AskDeleteRoutine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete routine.
+        /// </summary>
+        internal static string DeleteRoutine {
+            get {
+                return ResourceManager.GetString("DeleteRoutine", resourceCulture);
             }
         }
         
@@ -115,11 +142,38 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Menu.
+        /// </summary>
+        internal static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to min.
+        /// </summary>
+        internal static string Minute {
+            get {
+                return ResourceManager.GetString("Minute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Miracle routine.
         /// </summary>
         internal static string MiracleRoutine {
             get {
                 return ResourceManager.GetString("MiracleRoutine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify.
+        /// </summary>
+        internal static string Modify {
+            get {
+                return ResourceManager.GetString("Modify", resourceCulture);
             }
         }
         
@@ -183,6 +237,15 @@ namespace miracle_routine.Resources {
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sec.
+        /// </summary>
+        internal static string Second {
+            get {
+                return ResourceManager.GetString("Second", resourceCulture);
             }
         }
         

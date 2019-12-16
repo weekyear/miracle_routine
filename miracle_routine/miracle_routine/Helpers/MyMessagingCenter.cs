@@ -12,5 +12,14 @@ namespace miracle_routine.Helpers
         {
             MessagingCenter.Send(this, "changeHabit", habit);
         }
+
+        public void SendChangeRoutineMessage()
+        {
+            MessagingCenter.Send(this, "changeRoutine");
+        }
+        public void SendShowRoutineMessage(Routine routine)
+        {
+            MessagingCenter.Send(this, "showRoutine", routine);
+        }
     }
 }
