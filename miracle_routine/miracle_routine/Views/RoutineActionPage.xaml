@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:miracle_routine.Helpers"
+             xmlns:conv="clr-namespace:miracle_routine.Converters"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White"
+             mc:Ignorable="d"
+             x:Class="miracle_routine.Views.RoutineActionPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Grid Margin="15, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="{Binding Routine.Name}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       LineBreakMode="TailTruncation"
+                       HorizontalOptions="Start"
+                       VerticalOptions="CenterAndExpand"/>
+                <Label Text="{Binding TotalTime}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"/>
+                <ImageButton Source="ic_menu.png"
+                             WidthRequest="24" HeightRequest="24"
+                             BackgroundColor="White"
+                             HorizontalOptions="End"
+                             Command="{Binding CloseCommand}"/>
+            </Grid>
+            <StackLayout Orientation="Vertical"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding HabitName}"
+                       FontSize="35"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Start"/>
+                <Image Source="{Binding CurrentHabit.Image}"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Start"/>
+                <Label Text="{Binding CurrentHabitTime}"
+                       FontSize="45"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Start"/>
+                <ImageButton Source="ic_pause.png"
+                             Command="{Binding PauseCommand}"/>
+                <Button Text="{local:Translate Complete}"
+                        FontSize="Body"
+                        TextColor="{StaticResource PrimaryTextColor}"
+                        BorderColor="Accent"
+                        BorderWidth="2"
+                        BackgroundColor="White"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="StartAndExpand"
+                        Command="{Binding ShowNextHabitCommand}"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         Margin="15, 0"
+                         VerticalOptions="End">
+                <Label Text="{local:Translate NextHabit}"
+                           HorizontalOptions="StartAndExpand"
+                           VerticalOptions="Center"  
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           FontSize="Body"
+                           VerticalTextAlignment="Center" />
+                <Label Text="{Binding CurrentCount}"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"  
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           FontSize="Body"
+                           VerticalTextAlignment="Center" />
+                <Label Text="/"
+                           Margin="5, 0"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"  
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           FontSize="Body"
+                           VerticalTextAlignment="Center" />
+                <Label Text="{Binding TotalCount}"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"  
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           FontSize="Body"
+                           VerticalTextAlignment="Center" />
+            </StackLayout>
+            <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         Margin="15, 5, 15, 15"
+                         VerticalOptions="End">
+                <Image Source="{Binding NextHabit.Image}"
+                       WidthRequest="28" HeightRequest="28"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       IsVisible="{Binding IsNotLastHabit}"/>
+                <Label Text="{Binding NextHabitName}"
+                       Margin="15, 0"
+                       HorizontalOptions="StartAndExpand"
+                       VerticalOptions="Center"  
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       FontSize="Body"
+                       VerticalTextAlignment="Center" />
+                <Label Text="{Binding NextHabitTime, Converter={StaticResource TakenTimeStringConverter}}"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"  
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       FontSize="Body"
+                       VerticalTextAlignment="Center" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -21,5 +21,10 @@ namespace miracle_routine.Helpers
         {
             MessagingCenter.Send(this, "showRoutine", routine);
         }
+
+        public void SendShowRoutineActionMessage(Routine routine)
+        {
+            MessagingCenter.Send(this, "showRoutineAction", routine);
+        }
     }
 }

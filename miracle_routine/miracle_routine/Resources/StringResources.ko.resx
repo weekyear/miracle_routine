@@ -123,6 +123,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
+  <data name="Complete" xml:space="preserve">
+    <value>완료</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>삭제</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Friday" xml:space="preserve">
     <value>금</value>
+  </data>
+  <data name="GiveUp" xml:space="preserve">
+    <value>포기</value>
   </data>
   <data name="HabitList" xml:space="preserve">
     <value>습관 목록</value>
@@ -161,6 +167,9 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>이름</value>
+  </data>
+  <data name="NextHabit" xml:space="preserve">
+    <value>다음 습관</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>확인</value>

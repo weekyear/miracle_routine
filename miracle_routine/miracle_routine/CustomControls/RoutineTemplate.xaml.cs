@@ -75,5 +75,12 @@ namespace miracle_routine.CustomControls
             App.RoutineService.DeleteRoutine(routine.Id);
             DependencyService.Get<MyMessagingCenter>().SendChangeRoutineMessage();
         }
+
+        private void StartButton_Clicked(object sender, EventArgs e)
+        {
+            var menuBtn = sender as Button;
+            routine = menuBtn.BindingContext as Routine;
+            DependencyService.Get<MyMessagingCenter>().SendShowRoutineActionMessage(routine);
+        }
     }
 }

@@ -82,7 +82,8 @@
                     <Button Text="{local:Translate Start}" 
                             FontSize="Medium"
                             FontAttributes="Bold"
-                            TextColor="{StaticResource ColorAccent}"
+                            TextColor="{StaticResource PrimaryTextColor}"
+                            Clicked="StartButton_Clicked"
                             HorizontalOptions="FillAndExpand"
                             CornerRadius="15"
                             BackgroundColor="White"/>

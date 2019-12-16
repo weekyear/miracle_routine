@@ -35,6 +35,11 @@ namespace miracle_routine.ViewModels
             {
                 await NavigateRoutinePage(routine);
             });
+            
+            MessagingCenter.Subscribe<MyMessagingCenter, Routine>(this, "showRoutineAction",  async (sender, routine) =>
+            {
+                await NavigateRoutineActionPage(routine);
+            });
         }
 
         private ObservableCollection<Routine> routines;
@@ -73,7 +78,15 @@ namespace miracle_routine.ViewModels
 
         private async Task NavigateRoutinePage(Routine routine)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new RoutinePage(routine)));
+            await Navigation.PushModalAsync(new NavigationPage(new RoutinePage(routine))
+            {
+                BarBackgroundColor = (Color) App.Current.Resources["Accent"]
+            });
+        }
+        
+        private async Task NavigateRoutineActionPage(Routine routine)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new RoutineActionPage(routine, 0)));
         }
 
         public void RefreshRoutines()

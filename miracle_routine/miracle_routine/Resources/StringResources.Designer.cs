@@ -79,6 +79,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        internal static string Complete {
+            get {
+                return ResourceManager.GetString("Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string Delete {
@@ -120,6 +129,15 @@ namespace miracle_routine.Resources {
         internal static string Friday {
             get {
                 return ResourceManager.GetString("Friday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Give up.
+        /// </summary>
+        internal static string GiveUp {
+            get {
+                return ResourceManager.GetString("GiveUp", resourceCulture);
             }
         }
         
@@ -192,6 +210,15 @@ namespace miracle_routine.Resources {
         internal static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next habit.
+        /// </summary>
+        internal static string NextHabit {
+            get {
+                return ResourceManager.GetString("NextHabit", resourceCulture);
             }
         }
         

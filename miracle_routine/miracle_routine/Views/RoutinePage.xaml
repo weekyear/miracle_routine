@@ -17,7 +17,7 @@
     </ContentPage.Resources>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{local:Translate Save}" Command="{Binding SaveCommand}" />
+        <ToolbarItem Text="{local:Translate Save}" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

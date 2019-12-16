@@ -49,7 +49,7 @@
                     <Button Text="{local:Translate Save}"
                             FontSize="Medium"
                             FontAttributes="Bold"
-                            TextColor="{StaticResource ColorAccent}"
+                            TextColor="{StaticResource PrimaryTextColor}"
                             HorizontalOptions="FillAndExpand"
                             CornerRadius="15"
                             Command="{Binding SaveCommand}"

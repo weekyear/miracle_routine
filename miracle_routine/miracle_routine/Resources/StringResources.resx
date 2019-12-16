@@ -123,6 +123,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Friday" xml:space="preserve">
     <value>F</value>
+  </data>
+  <data name="GiveUp" xml:space="preserve">
+    <value>Give up</value>
   </data>
   <data name="HabitList" xml:space="preserve">
     <value>Habit list</value>
@@ -161,6 +167,9 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="NextHabit" xml:space="preserve">
+    <value>Next habit</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
