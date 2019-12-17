@@ -28,10 +28,10 @@ namespace miracle_routine.CustomControls
 
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            //if (HabitListView.SelectedItem != null || e.SelectedItem != null)
-            //{
-            //    ((ListView)sender).SelectedItem = null;
-            //}
+            if (HabitListView.SelectedItem != null || e.SelectedItem != null)
+            {
+                ((ListView)sender).SelectedItem = null;
+            }
         }
 
         private async void MenuButton_Clicked(object sender, EventArgs e)

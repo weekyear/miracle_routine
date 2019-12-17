@@ -14,6 +14,16 @@ namespace miracle_routine.Models
 
         [PrimaryKey, NotNull, AutoIncrement]
         public int Id { get; set; }
+        [Ignore]
+        public int TimeSpanId
+        {
+            get { return -Id; }
+        }
+        [Ignore]
+        public string NameId
+        {
+            get { return Name + Id; }
+        }
         public string Name { get; set; }
         public string Image { get; set; } = "ic_blank_app.png";
         public string Description { get; set; }

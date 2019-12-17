@@ -24,24 +24,21 @@ namespace miracle_routine.Converters
         private object TimeToString(object value)
         {
             var timeSpan = (TimeSpan)value;
+            string timeString = timeSpan.ToString(@"mm\:ss");
 
             if (timeSpan == TimeSpan.MinValue)
             {
                 return "None";
             }
 
-            if (timeSpan.Minutes == 0)
+            if (timeSpan.Hours > 0) timeString = timeSpan.ToString(@"hh\:mm\:ss");
+
+            if (timeSpan.TotalSeconds < 0)
             {
-                return $"{timeSpan.Seconds}{StringResources.Second}";
+                timeString = $"+ {timeString}";
             }
-            else if (timeSpan.Seconds == 0)
-            {
-                return $"{timeSpan.Minutes}{StringResources.Minute}";
-            }
-            else
-            {
-                return $"{timeSpan.Minutes}{StringResources.Minute} {timeSpan.Seconds}{StringResources.Second}";
-            }
+
+            return timeString;
         }
     }
 }

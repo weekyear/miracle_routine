@@ -50,7 +50,14 @@ namespace miracle_routine.ViewModels
 
         public int Seconds
         {
-            get { return Habit.Seconds; }
+            get 
+            {
+                if (Habit.Seconds >= 10)
+                {
+                    return Habit.Seconds / 10;
+                }
+                return Habit.Seconds; 
+            }
             set
             {
                 if (Habit.Seconds == value) return;

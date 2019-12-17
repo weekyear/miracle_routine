@@ -168,6 +168,9 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="NextHabit" xml:space="preserve">
     <value>Next habit</value>
   </data>

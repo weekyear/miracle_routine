@@ -58,11 +58,13 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BroadcastReceivers\NotificationReceiver.cs" />
     <Compile Include="CustomRenderers\NoRippleListViewRenderer.cs" />
     <Compile Include="CustomRenderers\NumberPickerRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\NotificationSetterAndroid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

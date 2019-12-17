@@ -9,6 +9,7 @@ using miracle_routine.Models;
 using miracle_routine.Views;
 using miracle_routine.Helpers;
 using System.Linq;
+using Plugin.SharedTransitions;
 
 namespace miracle_routine.ViewModels
 {
@@ -86,7 +87,7 @@ namespace miracle_routine.ViewModels
         
         private async Task NavigateRoutineActionPage(Routine routine)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new RoutineActionPage(routine, 0)));
+            Application.Current.MainPage = new SharedTransitionNavigationPage(new RoutineActionPage(routine, 0));
         }
 
         public void RefreshRoutines()

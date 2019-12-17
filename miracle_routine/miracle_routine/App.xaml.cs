@@ -17,6 +17,7 @@ namespace miracle_routine
             InitializeComponent();
 
             DependencyService.Register<INavigation>();
+            DependencyService.Register<INotifySetter>();
             DependencyService.Register<IAlarmSetter>();
             DependencyService.Register<MyMessagingCenter>();
             DependencyService.Register<MessageBoxService>();

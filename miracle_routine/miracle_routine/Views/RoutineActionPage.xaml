@@ -4,7 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:miracle_routine.Helpers"
+             xmlns:transition="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
              xmlns:conv="clr-namespace:miracle_routine.Converters"
+             transition:SharedTransitionNavigationPage.TransitionDuration="700"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="White"
              mc:Ignorable="d"
@@ -13,6 +15,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
+            <conv:IsMinusTextColorConverter x:Key="IsMinusTextColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -32,7 +35,7 @@
                        LineBreakMode="TailTruncation"
                        HorizontalOptions="Start"
                        VerticalOptions="CenterAndExpand"/>
-                <Label Text="{Binding TotalTime}"
+                <Label Text="{Binding ElapsedTime, Converter={StaticResource TakenTimeStringConverter}}"
                        FontSize="Medium"
                        TextColor="{StaticResource PrimaryTextColor}"
                        HorizontalOptions="CenterAndExpand"
@@ -46,22 +49,25 @@
             <StackLayout Orientation="Vertical"
                          HorizontalOptions="FillAndExpand"
                          VerticalOptions="CenterAndExpand">
+                <Image Source="{Binding CurrentHabit.Image}" transition:Transition.Name="{Binding CurrentHabit.Id}"
+                       WidthRequest="200" HeightRequest="200"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Start"/>
                 <Label Text="{Binding HabitName}"
+                       transition:Transition.Name="{Binding CurrentHabit.NameId}"
                        FontSize="35"
                        TextColor="{StaticResource PrimaryTextColor}"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
-                <Image Source="{Binding CurrentHabit.Image}"
-                       HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="Start"/>
-                <Label Text="{Binding CurrentHabitTime}"
+                <Label Text="{Binding CurrentHabitTime, Converter={StaticResource TakenTimeStringConverter}}"
+                       transition:Transition.Name="{Binding CurrentHabit.TimeSpanId}"
                        FontSize="45"
-                       TextColor="{StaticResource PrimaryTextColor}"
+                       TextColor="{Binding IsMinusHabitTime, Converter={StaticResource IsMinusTextColorConverter}}"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
                 <ImageButton Source="ic_pause.png"
                              Command="{Binding PauseCommand}"/>
-                <Button Text="{local:Translate Complete}"
+                <Button Text="{Binding DoneBtnName}"
                         FontSize="Body"
                         TextColor="{StaticResource PrimaryTextColor}"
                         BorderColor="Accent"
@@ -105,14 +111,16 @@
             <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
             <StackLayout Orientation="Horizontal"
                          HorizontalOptions="FillAndExpand"
+                         HeightRequest="30"
                          Margin="15, 5, 15, 15"
                          VerticalOptions="End">
-                <Image Source="{Binding NextHabit.Image}"
+                <Image Source="{Binding NextHabit.Image}" transition:Transition.Name="{Binding NextHabit.Id}"
                        WidthRequest="28" HeightRequest="28"
                        HorizontalOptions="Start"
                        VerticalOptions="Center"
                        IsVisible="{Binding IsNotLastHabit}"/>
                 <Label Text="{Binding NextHabitName}"
+                       transition:Transition.Name="{Binding NextHabit.NameId}"
                        Margin="15, 0"
                        HorizontalOptions="StartAndExpand"
                        VerticalOptions="Center"  
@@ -120,6 +128,7 @@
                        FontSize="Body"
                        VerticalTextAlignment="Center" />
                 <Label Text="{Binding NextHabitTime, Converter={StaticResource TakenTimeStringConverter}}"
+                       transition:Transition.Name="{Binding NextHabit.TimeSpanId}"
                        HorizontalOptions="End"
                        VerticalOptions="Center"  
                        TextColor="{StaticResource PrimaryTextColor}"

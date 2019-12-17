@@ -19,6 +19,18 @@ namespace miracle_routine.Models
 
         public TimeSpan StartTime { get; set; } = new TimeSpan(7, 0, 0);
 
+        [Ignore]
+        public int Height
+        {
+            get { return (HabitList.Count * 40) + (HabitList.Count * 10); }
+        }
+
+        [Ignore]
+        public TimeSpan ElapsedTime
+        {
+            get; set;
+        }
+
         public List<Habit> HabitList
         {
             get { return App.HabitService.Habits.Where((habit) => habit.RoutineId == Id).ToList(); }
@@ -37,11 +49,6 @@ namespace miracle_routine.Models
             }
         }
 
-        public int Height
-        {
-            get { return (HabitList.Count * 40) + (HabitList.Count * 10); }
-        }
-
         public Routine() { }
 
         public Routine(Routine routine)
@@ -51,6 +58,7 @@ namespace miracle_routine.Models
             DaysId = routine.DaysId;
             IsLocation = routine.IsLocation;
             StartTime = routine.StartTime;
+            ElapsedTime = routine.ElapsedTime;
         }
     }
 }

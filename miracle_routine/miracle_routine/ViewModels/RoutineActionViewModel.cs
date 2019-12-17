@@ -2,12 +2,14 @@
 using miracle_routine.Models;
 using miracle_routine.Resources;
 using miracle_routine.Views;
+using Plugin.SharedTransitions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Forms;
 
 namespace miracle_routine.ViewModels
@@ -21,6 +23,7 @@ namespace miracle_routine.ViewModels
 
             ConstructCommand();
             SubscribeMessage();
+            SetHabitTimer();
         }
         private void ConstructCommand()
         {
@@ -32,10 +35,52 @@ namespace miracle_routine.ViewModels
             ShowNextHabitCommand = new Command(async () => await ShowNextHabit());
         }
 
+        private void SetHabitTimer()
+        {
+            HabitTimer.Elapsed += HabitTimer_Elapsed;
+            TotalTimer.Elapsed += TotalTimer_Elapsed;
+        }
+
+        private void HabitTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            var currentHabitTimeSeconds = CurrentHabitTime.TotalSeconds - 1;
+
+            CurrentHabitTime = TimeSpan.FromSeconds(currentHabitTimeSeconds);
+
+            if (currentHabitTimeSeconds == 0)
+            {
+                DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
+            }
+
+            if (currentHabitTimeSeconds < 0 && !IsMinusHabitTime)
+            {
+                IsMinusHabitTime = true;
+            }
+        }
+        
+        private void TotalTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            var totalTimeSeconds = ElapsedTime.TotalSeconds + 1;
+
+            ElapsedTime = TimeSpan.FromSeconds(totalTimeSeconds);
+        }
+
         #region PROPERTY
         public Command CloseCommand { get; set; }
         public Command ShowNextHabitCommand { get; set; }
         public Command ShowHabitSettingCommand { get; set; }
+
+        private Timer HabitTimer { get; } = new Timer()
+        {
+            Enabled = true,
+            Interval = 1000
+        };
+
+        private Timer TotalTimer { get; } = new Timer()
+        {
+            Enabled = true,
+            Interval = 1000
+        };
 
         public Routine Routine
         {
@@ -118,12 +163,12 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        private TimeSpan currentHabittime;
+        private TimeSpan currentHabittime = TimeSpan.MinValue;
         public TimeSpan CurrentHabitTime
         {
             get
             {
-                if (currentHabittime == null) currentHabittime = CurrentHabit.Time;
+                if (currentHabittime == TimeSpan.MinValue) currentHabittime = CurrentHabit.Time;
                 return currentHabittime;
             }
             set
@@ -132,17 +177,34 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        private TimeSpan totalTime;
-        public TimeSpan TotalTime
+        public bool IsMinusHabitTime { get; set; } = false;
+
+        public TimeSpan ElapsedTime
         {
             get
             {
-                if (totalTime == null) totalTime = new TimeSpan(0);
-                return totalTime;
+                return Routine.ElapsedTime;
             }
             set
             {
-                SetProperty(ref totalTime, value, nameof(TotalTime));
+                if (Routine.ElapsedTime == value) return;
+                Routine.ElapsedTime = value;
+                OnPropertyChanged(nameof(ElapsedTime));
+            }
+        }
+
+        public string DoneBtnName
+        {
+            get
+            {
+                if (IsNotLastHabit)
+                {
+                    return StringResources.Next;
+                }
+                else
+                {
+                    return StringResources.Complete;
+                }
             }
         }
 
@@ -152,14 +214,14 @@ namespace miracle_routine.ViewModels
 
         private async Task ClosePopup()
         {
-            await Navigation.PopModalAsync(true);
+            Application.Current.MainPage = new NavigationPage(new RoutinesPage());
         }
         
         private async Task ShowNextHabit()
         {
             if (IsNotLastHabit)
             {
-                await Navigation.PushModalAsync(new NavigationPage(new RoutineActionPage(Routine, CurrentIndex + 1)));
+                await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1));
             }
             else
             {
