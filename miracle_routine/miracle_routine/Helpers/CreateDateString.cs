@@ -1,0 +1,74 @@
+﻿using miracle_routine.Models;
+using miracle_routine.Resources;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+
+namespace miracle_routine.Helpers
+{
+    public class CreateDateString
+    {
+        public static string CreateTimeRemainingString(DateTime dateTime)
+        {
+            var diff = dateTime.Subtract(DateTime.Now);
+
+            switch (CultureInfo.CurrentCulture.Name)
+            {
+                case "ko-KR":
+                    return CreateTimeRemainingString_ko_KR(dateTime, diff);
+                case "en-US":
+                    return CreateTimeRemainingString_en_US(dateTime, diff);
+                default:
+                    return CreateTimeRemainingString_en_US(dateTime, diff);
+            }
+        }
+
+        private static string CreateTimeRemainingString_ko_KR(DateTime dateTime, TimeSpan diff)
+        {
+            if (diff.Days > 0)
+            {
+                return $"{dateTime.Month}월 {dateTime.Day}일 {dateTime.ToString("tt")} {dateTime.Hour}:{dateTime.ToString("mm")}에 미라클 루틴을 실행합니다!";
+            }
+            else if (diff.Hours > 0)
+            {
+                return $"{diff.Hours}시간 {diff.Minutes + 1}분 후에 미라클 루틴을 실행합니다!";
+            }
+            else if (diff.Minutes > 0)
+            {
+                return $"{diff.Minutes + 1}분 후에 미라클 루틴을 실행합니다!";
+            }
+            else if (diff.Seconds > 0)
+            {
+                return $"{diff.Seconds}초 후에 미라클 루틴을 실행합니다!";
+            }
+            else
+            {
+                return "이미 지난 시간입니다.";
+            }
+        }
+        private static string CreateTimeRemainingString_en_US(DateTime dateTime, TimeSpan diff)
+        {
+            if (diff.Days > 0)
+            {
+                return $"Alarm set for  {dateTime.Hour}:{dateTime.ToString("mm")} {dateTime.ToString("tt")} on {dateTime.DayOfWeek}, {dateTime.Month} {dateTime.Day}";
+            }
+            else if (diff.Hours > 0)
+            {
+                return $"Alarm set for {diff.Hours} hours {diff.Minutes + 1} minutes from now.";
+            }
+            else if (diff.Minutes > 0)
+            {
+                return $"Alarm set for {diff.Minutes + 1} minutes from now.";
+            }
+            else if (diff.Seconds > 0)
+            {
+                return $"Alarm set for {diff.Seconds} seconds from now.";
+            }
+            else
+            {
+                return "이미 지난 시간입니다.";
+            }
+        }
+    }
+}

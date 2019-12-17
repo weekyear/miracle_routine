@@ -88,6 +88,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Day of week.
+        /// </summary>
+        internal static string DayOfWeek {
+            get {
+                return ResourceManager.GetString("DayOfWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string Delete {
@@ -111,6 +120,15 @@ namespace miracle_routine.Resources {
         internal static string ForgotHabit {
             get {
                 return ResourceManager.GetString("ForgotHabit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You forgot the Routine Day of week..
+        /// </summary>
+        internal static string ForgotRoutineDays {
+            get {
+                return ResourceManager.GetString("ForgotRoutineDays", resourceCulture);
             }
         }
         

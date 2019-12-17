@@ -11,7 +11,7 @@ namespace miracle_routine.Services
         IRoutineRepo Repository { get; }
         List<Routine> Routines { get; }
         Routine GetRoutine(int id);
-        int DeleteRoutine(int id);
+        int DeleteRoutine(Routine routine);
         int SaveRoutine(Routine routine);
         void DeleteAllRoutines();
         List<Routine> GetAllRoutines();

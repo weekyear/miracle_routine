@@ -1,9 +1,11 @@
-﻿using miracle_routine.Models;
+﻿using miracle_routine.Helpers;
+using miracle_routine.Models;
 using miracle_routine.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace miracle_routine.Services
 {
@@ -28,14 +30,41 @@ namespace miracle_routine.Services
 
         public List<Routine> GetAllRoutines()
         {
-            return Repository.RoutinesFromDB;
+            return AssignDaysToRoutines().ToList();
+        }
+
+        private IEnumerable<Routine> AssignDaysToRoutines()
+        {
+            var routines = Repository.RoutinesFromDB;
+            var daysOfWeeks = Repository.DaysOfWeeksFromDB;
+
+            foreach (var days in daysOfWeeks)
+            {
+                foreach (var routine in routines)
+                {
+                    if (routine.DaysId == days.Id)
+                    {
+                        routine.Days = days;
+                    }
+                }
+            }
+
+            return routines;
         }
 
         public int SaveRoutine(Routine routine)
         {
+            var id = SaveRoutineAtLocal(routine);
+            DependencyService.Get<IAlarmSetter>().SetRoutineAlarm(routine);
+
+            return id;
+        }
+
+        public int SaveRoutineAtLocal(Routine routine)
+        {
+            routine.DaysId = Repository.SaveDaysOfWeek(routine.Days);
             var id = Repository.SaveRoutine(routine);
             RefreshRoutines();
-            //DependencyService.Get<MyMessagingCenter>().SendChangeRoutinesMessage();
 
             return id;
         }
@@ -45,19 +74,21 @@ namespace miracle_routine.Services
             Routines = GetAllRoutines();
         }
 
-        public int DeleteRoutine(int id)
+        public int DeleteRoutine(Routine routine)
         {
-            var dailyId = Repository.DeleteRoutine(id);
+            DependencyService.Get<IAlarmSetter>().DeleteRoutineAlarm(routine.Id);
+            var id = Repository.DeleteRoutine(routine.Id);
+            Repository.DeleteDaysOfWeek(routine.DaysId);
             RefreshRoutines();
 
-            return dailyId;
+            return id;
         }
 
         public void DeleteAllRoutines()
         {
-            foreach (var dailyRecord in Routines)
+            foreach (var routine in Routines)
             {
-                DeleteRoutine(dailyRecord.Id);
+                DeleteRoutine(routine);
             }
         }
     }

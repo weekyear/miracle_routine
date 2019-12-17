@@ -45,10 +45,39 @@ namespace miracle_routine.Droid.Services
             return manager;
         }
 
-        public void DeleteAllNotifications()
+        public static void NotifyRoutineStart(Routine routine)
         {
-            var notificationManager = Application.Context.GetSystemService("notification") as NotificationManager;
-            notificationManager.CancelAll();
+            var manager = SetNotificationManager();
+
+            var context = Application.Context;
+
+            string title = $"{routine.Name} 시작!";
+            string message = $"{routine.Name} 루틴을 바로 시작해보세요!";
+
+            Android.Net.Uri alarmSound = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
+
+            var actionIntent1 = CreateActionIntent("취소", routine.Id);
+            var pIntent1 = PendingIntent.GetBroadcast(context, 100, actionIntent1, PendingIntentFlags.OneShot);
+
+            var actionIntent2 = CreateActionIntent("시작", routine.Id);
+            var pIntent2 = PendingIntent.GetBroadcast(context, 100, actionIntent2, PendingIntentFlags.OneShot);
+
+            var notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
+            var notification = notificationBuilder.SetOngoing(true)
+                    .SetSmallIcon(Resource.Mipmap.icon)
+                    .SetContentTitle(title)
+                    .SetContentText(message)
+                    .SetPriority((int)NotificationImportance.High)
+                    .SetVisibility(NotificationCompat.VisibilityPublic)
+                    .SetSound(alarmSound)
+                    .SetAutoCancel(false)
+                    .AddAction(0, "취소", pIntent1)
+                    .AddAction(0, "시작", pIntent2)
+                    .Build();
+
+            VibrateWhenNotified(context);
+
+            manager.Notify(routine.Id, notification);
         }
 
         public void NotifyFinishHabit(Habit habit, string nextHabitName)
@@ -112,15 +141,24 @@ namespace miracle_routine.Droid.Services
             vibrator.Vibrate(VibrationEffect.CreateWaveform(vibrationPattern, -1));
         }
 
-        public void CancelStartNotify()
-        {
-            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
-            manager.Cancel(-99);
-        }
-        public void CancelNextNotify()
+        public void CancelFinishHabitNotify()
         {
             NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
             manager.Cancel(98);
+        }
+
+        public static void CancelRoutineNotification(Context context, int id)
+        {
+            NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
+            if (id != -100000)
+            {
+                manager.Cancel(id);
+            }
+        }
+        public void DeleteAllNotifications()
+        {
+            var notificationManager = Application.Context.GetSystemService("notification") as NotificationManager;
+            notificationManager.CancelAll();
         }
     }
 }

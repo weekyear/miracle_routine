@@ -126,6 +126,9 @@
   <data name="Complete" xml:space="preserve">
     <value>완 료</value>
   </data>
+  <data name="DayOfWeek" xml:space="preserve">
+    <value>요일 반복</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>삭제</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="ForgotHabit" xml:space="preserve">
     <value>적어도 하나의 습관을 설정하셔야 합니다.</value>
+  </data>
+  <data name="ForgotRoutineDays" xml:space="preserve">
+    <value>요일 반복을 설정하셔야 합니다.</value>
   </data>
   <data name="ForgotRoutineName" xml:space="preserve">
     <value>루틴 이름을 깜빡하셨어요!</value>

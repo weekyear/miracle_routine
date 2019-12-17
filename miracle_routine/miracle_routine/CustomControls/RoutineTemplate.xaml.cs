@@ -72,7 +72,7 @@ namespace miracle_routine.CustomControls
             {
                 App.HabitService.DeleteHabit(habit.Id);
             }
-            App.RoutineService.DeleteRoutine(routine.Id);
+            App.RoutineService.DeleteRoutine(routine);
             DependencyService.Get<MyMessagingCenter>().SendChangeRoutineMessage();
         }
 

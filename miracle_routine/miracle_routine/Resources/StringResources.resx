@@ -126,6 +126,9 @@
   <data name="Complete" xml:space="preserve">
     <value>Complete</value>
   </data>
+  <data name="DayOfWeek" xml:space="preserve">
+    <value>Day of week</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="ForgotHabit" xml:space="preserve">
     <value>You must set up at least one habit.</value>
+  </data>
+  <data name="ForgotRoutineDays" xml:space="preserve">
+    <value>You forgot the Routine Day of week.</value>
   </data>
   <data name="ForgotRoutineName" xml:space="preserve">
     <value>You forgot the Routine name!</value>

@@ -30,8 +30,9 @@ namespace miracle_routine.Droid.BroadcastReceivers
             if (intent.Action == "취소")
             {
             }
-            else if (intent.Action == "허용")
+            else if (intent.Action == "시작")
             {
+                OpenMainActivity(context, bundle);
             }
             else if (intent.Action == "입력")
             {

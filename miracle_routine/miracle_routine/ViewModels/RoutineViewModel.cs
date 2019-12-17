@@ -124,6 +124,10 @@ namespace miracle_routine.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("", StringResources.ForgotRoutineName, StringResources.OK);
             }
+            else if (!DaysOfWeek.GetHasADayBeenSelected(Routine.Days))
+            {
+                await Application.Current.MainPage.DisplayAlert("", StringResources.ForgotRoutineDays, StringResources.OK);
+            }
             else if (HasNoHabit)
             {
                 await Application.Current.MainPage.DisplayAlert("", StringResources.ForgotHabit, StringResources.OK);
@@ -139,6 +143,9 @@ namespace miracle_routine.ViewModels
                 App.HabitService.SaveHabits(Habits);
 
                 await ClosePopup();
+
+                var diffString = CreateDateString.CreateTimeRemainingString(Routine.NextAlarmTime);
+                DependencyService.Get<IToastService>().Show(diffString);
             }
         }
 

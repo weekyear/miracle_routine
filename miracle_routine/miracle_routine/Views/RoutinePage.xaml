@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:miracle_routine.Helpers"
+             xmlns:custom="clr-namespace:miracle_routine.CustomControls"
              xmlns:conv ="clr-namespace:miracle_routine.Converters"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RoutinePage"
@@ -37,6 +38,11 @@
                     <Label Text="{local:Translate StartTime}" FontSize="Medium" VerticalTextAlignment="Center" />
                     <TimePicker Time="{Binding StartTime}"
                                 HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Margin="15, 5">
+                    <Label Text="{local:Translate DayOfWeek}" FontSize="Medium" VerticalTextAlignment="Center" />
+                    <custom:DaysOfWeekSelectionView Days="{Binding Routine.Days}" HorizontalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">

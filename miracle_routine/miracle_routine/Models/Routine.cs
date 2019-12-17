@@ -1,4 +1,6 @@
-﻿using SQLite;
+﻿using miracle_routine.Helpers;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +18,9 @@ namespace miracle_routine.Models
         public string Name { get; set; }
         public int DaysId { get; set; }
         public bool IsLocation { get; set; }
+        
+        [OneToOne]
+        public DaysOfWeek Days { get; set; } = new DaysOfWeek();
 
         public TimeSpan StartTime { get; set; } = new TimeSpan(7, 0, 0);
 
@@ -34,6 +39,10 @@ namespace miracle_routine.Models
         public List<Habit> HabitList
         {
             get { return App.HabitService.Habits.Where((habit) => habit.RoutineId == Id).ToList(); }
+        }
+        public DateTime NextAlarmTime
+        {
+            get { return CalculateNextAlarmTime.NextAlarmTime(this); }
         }
 
         public TimeSpan TotalTime
@@ -56,6 +65,7 @@ namespace miracle_routine.Models
             Id = routine.Id;
             Name = routine.Name;
             DaysId = routine.DaysId;
+            Days = routine.Days;
             IsLocation = routine.IsLocation;
             StartTime = routine.StartTime;
             ElapsedTime = routine.ElapsedTime;
