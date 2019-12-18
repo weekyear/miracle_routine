@@ -71,6 +71,7 @@ namespace miracle_routine.Droid.Services
                     .SetVisibility(NotificationCompat.VisibilityPublic)
                     .SetSound(alarmSound)
                     .SetAutoCancel(false)
+                    .SetContentIntent(pIntent2)
                     .AddAction(0, "취소", pIntent1)
                     .AddAction(0, "시작", pIntent2)
                     .Build();
@@ -113,11 +114,12 @@ namespace miracle_routine.Droid.Services
         {
         }
 
-        private static PendingIntent OpenAppIntent()
+        private static PendingIntent OpenAppIntent(int routineId)
         {
             Intent notificationIntent = new Intent(Application.Context, typeof(MainActivity));
 
             notificationIntent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+            notificationIntent.PutExtra("id", routineId);
 
             PendingIntent pendingIntent = PendingIntent.GetActivity(Application.Context, 0, notificationIntent, 0);
 

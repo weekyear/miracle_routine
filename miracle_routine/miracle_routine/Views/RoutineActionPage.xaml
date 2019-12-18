@@ -54,13 +54,11 @@
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
                 <Label Text="{Binding HabitName}"
-                       transition:Transition.Name="{Binding CurrentHabit.NameId}"
                        FontSize="35"
                        TextColor="{StaticResource PrimaryTextColor}"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
                 <Label Text="{Binding CurrentHabitTime, Converter={StaticResource TakenTimeStringConverter}}"
-                       transition:Transition.Name="{Binding CurrentHabit.TimeSpanId}"
                        FontSize="45"
                        TextColor="{Binding IsMinusHabitTime, Converter={StaticResource IsMinusTextColorConverter}}"
                        HorizontalOptions="CenterAndExpand"
@@ -120,7 +118,6 @@
                        VerticalOptions="Center"
                        IsVisible="{Binding IsNotLastHabit}"/>
                 <Label Text="{Binding NextHabitName}"
-                       transition:Transition.Name="{Binding NextHabit.NameId}"
                        Margin="15, 0"
                        HorizontalOptions="StartAndExpand"
                        VerticalOptions="Center"  
@@ -128,7 +125,6 @@
                        FontSize="Body"
                        VerticalTextAlignment="Center" />
                 <Label Text="{Binding NextHabitTime, Converter={StaticResource TakenTimeStringConverter}}"
-                       transition:Transition.Name="{Binding NextHabit.TimeSpanId}"
                        HorizontalOptions="End"
                        VerticalOptions="Center"  
                        TextColor="{StaticResource PrimaryTextColor}"

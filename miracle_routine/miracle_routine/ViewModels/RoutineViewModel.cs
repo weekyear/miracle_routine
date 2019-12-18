@@ -2,6 +2,7 @@
 using miracle_routine.Models;
 using miracle_routine.Resources;
 using miracle_routine.Views;
+using Plugin.SharedTransitions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -156,7 +157,7 @@ namespace miracle_routine.ViewModels
         
         private async Task ShowHabitSetting()
         {
-            await Navigation.PushModalAsync(new NavigationPage(new HabitSettingPage(new Habit()))).ConfigureAwait(false);
+            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new HabitSettingPage(new Habit()))).ConfigureAwait(false);
         }
 
         private void ChangeHabitList(Habit habit)

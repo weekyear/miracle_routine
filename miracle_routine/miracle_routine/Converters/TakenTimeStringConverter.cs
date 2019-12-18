@@ -28,7 +28,7 @@ namespace miracle_routine.Converters
 
             if (timeSpan == TimeSpan.MinValue)
             {
-                return "None";
+                return "";
             }
 
             if (timeSpan.Hours > 0) timeString = timeSpan.ToString(@"hh\:mm\:ss");

@@ -37,32 +37,25 @@ namespace miracle_routine.ViewModels
 
         private void SetHabitTimer()
         {
-            HabitTimer.Elapsed += HabitTimer_Elapsed;
-            TotalTimer.Elapsed += TotalTimer_Elapsed;
-        }
-
-        private void HabitTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            var currentHabitTimeSeconds = CurrentHabitTime.TotalSeconds - 1;
-
-            CurrentHabitTime = TimeSpan.FromSeconds(currentHabitTimeSeconds);
-
-            if (currentHabitTimeSeconds == 0)
+            Device.StartTimer(new TimeSpan(0,0,1), () =>
             {
-                DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
-            }
+                var currentHabitTimeSeconds = CurrentHabitTime.TotalSeconds - 1;
+                var totalTimeSeconds = ElapsedTime.TotalSeconds + 1;
 
-            if (currentHabitTimeSeconds < 0 && !IsMinusHabitTime)
-            {
-                IsMinusHabitTime = true;
-            }
-        }
-        
-        private void TotalTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            var totalTimeSeconds = ElapsedTime.TotalSeconds + 1;
+                CurrentHabitTime = TimeSpan.FromSeconds(currentHabitTimeSeconds);
+                ElapsedTime = TimeSpan.FromSeconds(totalTimeSeconds);
 
-            ElapsedTime = TimeSpan.FromSeconds(totalTimeSeconds);
+                if (currentHabitTimeSeconds == 0)
+                {
+                    DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
+                }
+
+                if (currentHabitTimeSeconds < 0 && !IsMinusHabitTime)
+                {
+                    IsMinusHabitTime = true;
+                }
+                return IsCounting;
+            });
         }
 
         #region PROPERTY
@@ -70,17 +63,7 @@ namespace miracle_routine.ViewModels
         public Command ShowNextHabitCommand { get; set; }
         public Command ShowHabitSettingCommand { get; set; }
 
-        private Timer HabitTimer { get; } = new Timer()
-        {
-            Enabled = true,
-            Interval = 1000
-        };
-
-        private Timer TotalTimer { get; } = new Timer()
-        {
-            Enabled = true,
-            Interval = 1000
-        };
+        public bool IsCounting { get; set; } = true;
 
         public Routine Routine
         {
@@ -214,21 +197,27 @@ namespace miracle_routine.ViewModels
 
         private async Task ClosePopup()
         {
-            Application.Current.MainPage = new NavigationPage(new RoutinesPage());
+            await Navigation.PopAsync(true);
         }
         
         private async Task ShowNextHabit()
         {
+            IsCounting = false;
+
             if (IsNotLastHabit)
             {
-                await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1));
+                await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1), true);
             }
             else
             {
-                Application.Current.MainPage = new NavigationPage(new RoutinesPage());
+                var existingPages = Navigation.NavigationStack.ToList();
+                for (int i = 1; i < existingPages.Count - 1; i++)
+                {
+                    Navigation.RemovePage(existingPages[i]);
+                }
+                await Navigation.PopAsync(true);
             }
         }
-
 
         #endregion
     }

@@ -28,10 +28,11 @@
             <Label Grid.Column="0"
                    Text="{local:Translate MiracleRoutine}"
                    TextColor="Black"
+                   Margin="10, 0"
                    HorizontalTextAlignment="Start"
                    HorizontalOptions="StartAndExpand"
                    VerticalOptions="CenterAndExpand"
-                   FontSize="Medium" />
+                   FontSize="Large" />
             <StackLayout Orientation="Horizontal" Grid.Column="1">
                 <ImageButton WidthRequest="32" HeightRequest="32"
                              Source="ic_add.png"

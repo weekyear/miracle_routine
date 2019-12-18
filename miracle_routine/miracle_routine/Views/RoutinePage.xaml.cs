@@ -6,6 +6,7 @@ using Xamarin.Forms.Xaml;
 
 using miracle_routine.Models;
 using miracle_routine.ViewModels;
+using Plugin.SharedTransitions;
 
 namespace miracle_routine.Views
 {
@@ -38,7 +39,7 @@ namespace miracle_routine.Views
         private async void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var habit = e.Item as Habit;
-            await Navigation.PushModalAsync(new NavigationPage(new HabitSettingPage(new Habit(habit)))).ConfigureAwait(false);
+            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new HabitSettingPage(new Habit(habit)))).ConfigureAwait(false);
         }
 
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

@@ -5,6 +5,9 @@ using miracle_routine.Services;
 using miracle_routine.Views;
 using miracle_routine.Repositories;
 using miracle_routine.Helpers;
+using Plugin.SharedTransitions;
+using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 namespace miracle_routine
 {
@@ -22,7 +25,7 @@ namespace miracle_routine
             DependencyService.Register<MyMessagingCenter>();
             DependencyService.Register<MessageBoxService>();
 
-            MainPage = new NavigationPage(new RoutinesPage());
+            MainPage = new SharedTransitionNavigationPage(new RoutinesPage());
         }
 
         protected override void OnStart()
@@ -37,8 +40,9 @@ namespace miracle_routine
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            //Handle when your app resumes
         }
+
         public static IHabitRepo HabitRepo { get; } = new HabitRepo(ItemDatabase);
         public static IHabitService HabitService { get; } = new HabitService(HabitRepo);
         public static IRoutineRepo RoutineRepo { get; } = new RoutineRepo(ItemDatabase);

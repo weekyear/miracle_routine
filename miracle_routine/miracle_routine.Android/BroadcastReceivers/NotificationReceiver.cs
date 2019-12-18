@@ -9,6 +9,9 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using miracle_routine.Views;
+using Plugin.SharedTransitions;
+using Xamarin.Essentials;
 
 namespace miracle_routine.Droid.BroadcastReceivers
 {
@@ -33,6 +36,9 @@ namespace miracle_routine.Droid.BroadcastReceivers
             else if (intent.Action == "시작")
             {
                 OpenMainActivity(context, bundle);
+
+                var routine = App.RoutineService.GetRoutine(id);
+                App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, 0));
             }
             else if (intent.Action == "입력")
             {
@@ -43,8 +49,9 @@ namespace miracle_routine.Droid.BroadcastReceivers
         private void OpenMainActivity(Context context, Bundle bundle)
         {
             var disIntent = new Intent(context, typeof(MainActivity));
-
             disIntent.SetFlags(ActivityFlags.NewTask);
+            disIntent.PutExtra("id", id);
+
             context.StartActivity(disIntent);
         }
 
