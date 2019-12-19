@@ -25,7 +25,7 @@ namespace miracle_routine.Models
             get { return Name + Id; }
         }
         public string Name { get; set; }
-        public string Image { get; set; } = "ic_blank_app.png";
+        public string Image { get; set; } = "ic_blank_habit.png";
         public string Description { get; set; }
         public int RoutineId { get; set; }
         public int Index { get; set; } = -1;

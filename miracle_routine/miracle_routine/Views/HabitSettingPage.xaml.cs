@@ -21,5 +21,21 @@ namespace miracle_routine.Views
 
             BindingContext = viewModel = new HabitSettingViewModel(Navigation, habit);
         }
+        private void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var selectedHabit = e.Item as Habit;
+            viewModel.Image = selectedHabit.Image;
+            viewModel.Name = selectedHabit.Name;
+            viewModel.Minutes = selectedHabit.Minutes;
+            viewModel.Seconds = selectedHabit.Seconds;
+        }
+
+        private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (HabitListView.SelectedItem != null || e.SelectedItem != null)
+            {
+                ((ListView)sender).SelectedItem = null;
+            }
+        }
     }
 }

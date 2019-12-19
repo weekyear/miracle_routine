@@ -23,7 +23,15 @@ namespace miracle_routine.ViewModels
 
             ConstructCommand();
             SubscribeMessage();
-            SetHabitTimer();
+
+            if (index == 0)
+            {
+                AskIfYouWantStart();
+            }
+            else
+            {
+                SetTimer();
+            }
         }
         private void ConstructCommand()
         {
@@ -33,17 +41,22 @@ namespace miracle_routine.ViewModels
         {
             CloseCommand = new Command(async () => await ClosePopup());
             ShowNextHabitCommand = new Command(async () => await ShowNextHabit());
+            ClickPlayCommand = new Command(() => ClickPlay());
         }
 
-        private void SetHabitTimer()
+        private void SetTimer()
         {
             Device.StartTimer(new TimeSpan(0,0,1), () =>
             {
+                if (!IsCounting) return IsCounting;
+
                 var currentHabitTimeSeconds = CurrentHabitTime.TotalSeconds - 1;
                 var totalTimeSeconds = ElapsedTime.TotalSeconds + 1;
 
                 CurrentHabitTime = TimeSpan.FromSeconds(currentHabitTimeSeconds);
                 ElapsedTime = TimeSpan.FromSeconds(totalTimeSeconds);
+
+                DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime);
 
                 if (currentHabitTimeSeconds == 0)
                 {
@@ -62,6 +75,7 @@ namespace miracle_routine.ViewModels
         public Command CloseCommand { get; set; }
         public Command ShowNextHabitCommand { get; set; }
         public Command ShowHabitSettingCommand { get; set; }
+        public Command ClickPlayCommand { get; set; }
 
         public bool IsCounting { get; set; } = true;
 
@@ -197,26 +211,83 @@ namespace miracle_routine.ViewModels
 
         private async Task ClosePopup()
         {
+            IsCounting = false;
+
+            DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
+            DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
+            var existingPages = Navigation.NavigationStack.ToList();
+            for (int i = 1; i < existingPages.Count - 1; i++)
+            {
+                Navigation.RemovePage(existingPages[i]);
+            }
             await Navigation.PopAsync(true);
         }
         
         private async Task ShowNextHabit()
         {
-            IsCounting = false;
+            if (IsBusy) return;
 
-            if (IsNotLastHabit)
+            IsBusy = true;
+
+            try
             {
-                await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1), true);
-            }
-            else
-            {
-                var existingPages = Navigation.NavigationStack.ToList();
-                for (int i = 1; i < existingPages.Count - 1; i++)
+                if (IsNotLastHabit)
                 {
-                    Navigation.RemovePage(existingPages[i]);
+                    IsCounting = false;
+                    await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1), true);
+                    DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
                 }
-                await Navigation.PopAsync(true);
+                else
+                {
+                    await ClosePopup();
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        
+        private void ClickPlay()
+        {
+            if (IsBusy) return;
+
+            IsBusy = true;
+
+            try
+            {
+                IsCounting = !IsCounting;
+                if (IsCounting) SetTimer();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void AskIfYouWantStart()
+        {
+            DependencyService.Get<MessageBoxService>().ShowConfirm(
+                $"{Routine.Name} 루틴 시작",
+                $"예상 소요 시간 {CreateTimeToString.TimeToString(Routine.TotalTime)}",
+                async () => 
+                {
+                    await ClosePopup();
+                },
+                () =>
+                {
+                    SetTimer();
+                });
         }
 
         #endregion

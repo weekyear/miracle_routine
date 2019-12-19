@@ -79,10 +79,7 @@ namespace miracle_routine.ViewModels
 
         private async Task NavigateRoutinePage(Routine routine)
         {
-            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutinePage(routine))
-            {
-                BarBackgroundColor = (Color) App.Current.Resources["Accent"]
-            });
+            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutinePage(routine)));
         }
 
         private async Task NavigateRoutineActionPage(Routine routine)

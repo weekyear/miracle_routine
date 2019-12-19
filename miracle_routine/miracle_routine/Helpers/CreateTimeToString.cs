@@ -7,7 +7,7 @@ using System.Text;
 
 namespace miracle_routine.Helpers
 {
-    public class CreateDateString
+    public class CreateTimeToString
     {
         public static string CreateTimeRemainingString(DateTime dateTime)
         {
@@ -69,6 +69,24 @@ namespace miracle_routine.Helpers
             {
                 return "이미 지난 시간입니다.";
             }
+        }
+        public static string TimeToString(TimeSpan timeSpan)
+        {
+            string timeString = timeSpan.ToString(@"mm\:ss");
+
+            if (timeSpan == TimeSpan.MinValue)
+            {
+                return "";
+            }
+
+            if (timeSpan.Hours > 0) timeString = timeSpan.ToString(@"hh\:mm\:ss");
+
+            if (timeSpan.TotalSeconds < 0)
+            {
+                timeString = $"+ {timeString}";
+            }
+
+            return timeString;
         }
     }
 }

@@ -268,6 +268,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recommended habit.
+        /// </summary>
+        internal static string RecommendedHabit {
+            get {
+                return ResourceManager.GetString("RecommendedHabit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Routine setting.
         /// </summary>
         internal static string RoutineSetting {

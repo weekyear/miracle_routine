@@ -18,7 +18,7 @@
   <ContentView.Content>
         <Frame CornerRadius="15" BackgroundColor="White" Margin="10" Padding="0">
             <StackLayout Orientation="Vertical">
-                <StackLayout Orientation="Horizontal" Margin="10">
+                <StackLayout Orientation="Horizontal" Margin="15">
                     <Label Text="{Binding Name}"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"  
@@ -58,21 +58,22 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal" Margin="7, 7">
-                                    <Image Source="{Binding Image}" 
-                                               HorizontalOptions="Start" 
-                                               VerticalOptions="CenterAndExpand"
-                                               WidthRequest="32"
-                                               HeightRequest="32"/>
+                                    <Image Source="{Binding Image}"
+                                           Margin="5, 0"
+                                           HorizontalOptions="Start" 
+                                           VerticalOptions="CenterAndExpand"
+                                           WidthRequest="28"
+                                           HeightRequest="28"/>
                                     <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
                                            Text="{Binding Name}"
                                            TextColor="{StaticResource PrimaryTextColor}"
-                                           FontSize="18"/>
+                                           FontSize="Body"/>
                                     <Label Margin="10, 0" 
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="CenterAndExpand" 
                                            Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
                                            TextColor="{StaticResource PrimaryTextColor}"
-                                           FontSize="18"/>
+                                           FontSize="Body"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
@@ -86,7 +87,7 @@
                     <Button Text="{local:Translate Start}" Grid.Column="0"
                             FontSize="Medium"
                             FontAttributes="Bold"
-                            TextColor="{StaticResource PrimaryTextColor}"
+                            TextColor="{StaticResource Accent}"
                             Clicked="StartButton_Clicked"
                             HorizontalOptions="FillAndExpand"
                             CornerRadius="15"

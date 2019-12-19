@@ -24,7 +24,9 @@ namespace miracle_routine.Droid.Services
     public class NotificationSetterAndroid : INotifySetter
     {
         private static readonly string NOTIFICATION_CHANNEL_ID = "com.beside.miracle_routine";
+        private static readonly string COUNT_NOTIFICATION_CHANNEL_ID = "com.beside.miracle_routine.count";
         private static readonly string channelName = "miracle_routine";
+        private static readonly string countChannelName = "miracle_routine.count";
         private static readonly long[] vibrationPattern = new long[] { 500, 800, 1000, 1000 };
 
         public static NotificationManager SetNotificationManager()
@@ -37,6 +39,24 @@ namespace miracle_routine.Droid.Services
                 {
                     LockscreenVisibility = NotificationVisibility.Public,
                     Importance = NotificationImportance.High
+                };
+
+                manager?.CreateNotificationChannel(chan);
+            }
+
+            return manager;
+        }
+
+        public static NotificationManager SetCountNotificationManager()
+        {
+            var manager = Application.Context.GetSystemService("notification") as NotificationManager;
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                var chan = new NotificationChannel(COUNT_NOTIFICATION_CHANNEL_ID, countChannelName, NotificationImportance.Default)
+                {
+                    LockscreenVisibility = NotificationVisibility.Public,
+                    Importance = NotificationImportance.Low
                 };
 
                 manager?.CreateNotificationChannel(chan);
@@ -89,6 +109,11 @@ namespace miracle_routine.Droid.Services
             string title = $"{habit.Name} 완료";
             string message = $"다음 습관 {nextHabitName}을 시작해주세요~";
 
+            if (nextHabitName == "더 수행할 습관이 없습니다.")
+            {
+                message = nextHabitName;
+            }
+
             Android.Net.Uri alarmSound = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
 
             var fileName = habit.Image.Replace(".png", string.Empty);
@@ -114,12 +139,11 @@ namespace miracle_routine.Droid.Services
         {
         }
 
-        private static PendingIntent OpenAppIntent(int routineId)
+        private static PendingIntent OpenAppIntent()
         {
             Intent notificationIntent = new Intent(Application.Context, typeof(MainActivity));
 
             notificationIntent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            notificationIntent.PutExtra("id", routineId);
 
             PendingIntent pendingIntent = PendingIntent.GetActivity(Application.Context, 0, notificationIntent, 0);
 
@@ -149,6 +173,12 @@ namespace miracle_routine.Droid.Services
             manager.Cancel(98);
         }
 
+        public void CancelHabitCountNotify()
+        {
+            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+            manager.Cancel(99);
+        }
+
         public static void CancelRoutineNotification(Context context, int id)
         {
             NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
@@ -161,6 +191,32 @@ namespace miracle_routine.Droid.Services
         {
             var notificationManager = Application.Context.GetSystemService("notification") as NotificationManager;
             notificationManager.CancelAll();
+        }
+
+        public void NotifyHabitCount(Habit habit, TimeSpan countDown)
+        {
+            var manager = SetCountNotificationManager();
+
+            var context = Application.Context;
+            string title = $"{habit.Name}";
+            string message = $"{CreateTimeToString.TimeToString(countDown)}";
+
+            var fileName = habit.Image.Replace(".png", string.Empty);
+            var imageId = context.Resources.GetIdentifier(fileName, "drawable", context.PackageName);
+
+            var notificationBuilder = new NotificationCompat.Builder(context, COUNT_NOTIFICATION_CHANNEL_ID);
+            var notification = notificationBuilder.SetOngoing(true)
+                    .SetSmallIcon(imageId)
+                    .SetContentTitle(title)
+                    .SetContentText(message)
+                    .SetVibrate(new long[] { -1 })
+                    .SetPriority((int)NotificationImportance.Default)
+                    .SetVisibility(NotificationCompat.VisibilitySecret)
+                    .SetContentIntent(OpenAppIntent())
+                    .SetAutoCancel(true)
+                    .Build();
+
+            manager.Notify(99, notification);
         }
     }
 }

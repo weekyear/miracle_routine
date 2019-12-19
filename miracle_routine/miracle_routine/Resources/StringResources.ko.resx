@@ -186,6 +186,9 @@
   <data name="PleaseWriteHabitName" xml:space="preserve">
     <value>습관 이름을 적어주세요~</value>
   </data>
+  <data name="RecommendedHabit" xml:space="preserve">
+    <value>추천 습관</value>
+  </data>
   <data name="RoutineSetting" xml:space="preserve">
     <value>루틴 설정</value>
   </data>

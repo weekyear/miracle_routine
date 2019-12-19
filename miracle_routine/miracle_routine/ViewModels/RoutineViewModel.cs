@@ -145,7 +145,7 @@ namespace miracle_routine.ViewModels
 
                 await ClosePopup();
 
-                var diffString = CreateDateString.CreateTimeRemainingString(Routine.NextAlarmTime);
+                var diffString = CreateTimeToString.CreateTimeRemainingString(Routine.NextAlarmTime);
                 DependencyService.Get<IToastService>().Show(diffString);
             }
         }

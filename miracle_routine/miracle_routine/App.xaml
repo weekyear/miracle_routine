@@ -10,10 +10,11 @@
         <ResourceDictionary>
             <!--Global Styles-->
             <Color x:Key="BackgroundColor">#f3f3f3</Color>
-            <Color x:Key="PrimaryLight">#ffffb3</Color>
-            <Color x:Key="Primary">#ffe082</Color>
-            <Color x:Key="PrimaryDark">#caae53</Color>
-            <Color x:Key="Accent">#ffc107</Color>
+            <Color x:Key="PrimaryLight">#c3fdff</Color>
+            <Color x:Key="Primary">#90caf9</Color>
+            <Color x:Key="PrimaryDark">#5e92f3</Color>
+            <Color x:Key="Accent">#003c8f</Color>
+            <Color x:Key="Icon">#1565c0</Color>
             <Color x:Key="LightBackgroundColor">#FAFAFA</Color>
             <Color x:Key="DarkBackgroundColor">#C0C0C0</Color>
             <Color x:Key="MediumGrayTextColor">#4d4d4d</Color>
