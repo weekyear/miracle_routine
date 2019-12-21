@@ -32,6 +32,20 @@ namespace miracle_routine.Models
 
         public int Minutes { get; set; } = 1;
         public int Seconds { get; set; } = 3;
+        public bool IsNotEmptyDescription
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Description))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         [Ignore]
         public TimeSpan Time

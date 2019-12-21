@@ -13,7 +13,7 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
+            <conv:HabitTakenTimeStringConverter x:Key="HabitTakenTimeStringConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -48,10 +48,17 @@
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
                     <StackLayout Orientation="Horizontal">
                         <Label Text="{local:Translate HabitList}" FontSize="Medium" VerticalTextAlignment="Center" />
-                        <ImageButton Source="ic_add.png"
-                                     WidthRequest="32" HeightRequest="32"
+                        <ImageButton Source="ic_sun.png"
+                                     WidthRequest="28" HeightRequest="28"
                                      BackgroundColor="White"
                                      HorizontalOptions="EndAndExpand"
+                                     VerticalOptions="CenterAndExpand"
+                                     Command="{Binding AddMiracleMorningCommand}"/>
+                        <ImageButton Source="ic_add.png"
+                                     WidthRequest="32" HeightRequest="32"
+                                     Margin="5, 0"
+                                     BackgroundColor="White"
+                                     HorizontalOptions="End"
                                      VerticalOptions="CenterAndExpand"
                                      Command="{Binding ShowHabitSettingCommand}"/>
                     </StackLayout>
@@ -70,7 +77,8 @@
                               ItemSelected="HabitListView_ItemSelected"
                               IsVisible="{Binding HasHabit}"
                               HasUnevenRows="True"
-                              VerticalOptions="FillAndExpand">
+                              VerticalOptions="FillAndExpand"
+                              local:Sorting.IsSortable="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -80,16 +88,25 @@
                                                VerticalOptions="CenterAndExpand"
                                                WidthRequest="28"
                                                HeightRequest="28"/>
-                                        <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
-                                               Text="{Binding Name}"
-                                               TextColor="{StaticResource PrimaryTextColor}"
-                                               FontSize="Body"/>
-                                        <Label Margin="10, 0" 
-                                               HorizontalOptions="EndAndExpand"
-                                               VerticalOptions="CenterAndExpand" 
-                                               Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
-                                               TextColor="{StaticResource PrimaryTextColor}"
-                                               FontSize="Body"/>
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                                <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
+                                                       Text="{Binding Name}"
+                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                       FontSize="Body"/>
+                                                <Label Margin="10, 0" 
+                                                       HorizontalOptions="EndAndExpand"
+                                                       VerticalOptions="CenterAndExpand" 
+                                                       Text="{Binding Time, Converter={StaticResource HabitTakenTimeStringConverter}}"
+                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                       FontSize="Body"/>
+                                            </StackLayout>
+                                            <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
+                                                   Text="{Binding Description}"
+                                                   TextColor="{StaticResource MediumGrayTextColor}"
+                                                   IsVisible="{Binding IsNotEmptyDescription}"
+                                                   FontSize="Small"/>
+                                        </StackLayout>
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>

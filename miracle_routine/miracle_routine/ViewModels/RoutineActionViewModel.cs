@@ -231,15 +231,15 @@ namespace miracle_routine.ViewModels
 
             try
             {
+                IsCounting = false;
                 if (IsNotLastHabit)
                 {
-                    IsCounting = false;
                     await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1), true);
                     DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
                 }
                 else
                 {
-                    await ClosePopup();
+                    AlertFinishRoutine();
                 }
             }
             catch (Exception ex)
@@ -287,6 +287,17 @@ namespace miracle_routine.ViewModels
                 () =>
                 {
                     SetTimer();
+                });
+        }
+
+        private void AlertFinishRoutine()
+        {
+            DependencyService.Get<MessageBoxService>().ShowAlert(
+                $"{Routine.Name} 루틴 완료!",
+                $"총 소요 시간 : {CreateTimeToString.TimeToString(ElapsedTime)}",
+                async () =>
+                {
+                    await ClosePopup();
                 });
         }
 

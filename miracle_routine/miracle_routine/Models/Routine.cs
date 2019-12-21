@@ -38,7 +38,7 @@ namespace miracle_routine.Models
 
         public List<Habit> HabitList
         {
-            get { return App.HabitService.Habits.Where((habit) => habit.RoutineId == Id).ToList(); }
+            get { return App.HabitService.Habits.Where(habit => habit.RoutineId == Id).OrderBy(h => h.Index).ToList(); }
         }
         public DateTime NextAlarmTime
         {

@@ -39,7 +39,7 @@ namespace miracle_routine.ViewModels
             
             MessagingCenter.Subscribe<MyMessagingCenter, Routine>(this, "showRoutineAction",  async (sender, routine) =>
             {
-                NavigateRoutineActionPage(routine);
+                await NavigateRoutineActionPage(routine);
             });
         }
 

@@ -8,9 +8,9 @@ namespace miracle_routine.Helpers
 {
     public class Helper
     {
-        public static ObservableCollection<T> ConvertIEnuemrableToObservableCollection<T>(IEnumerable<T> list)
+        public static OrderableCollection<T> ConvertIEnuemrableToObservableCollection<T>(IEnumerable<T> list)
         {
-            var collection = new ObservableCollection<T>();
+            var collection = new OrderableCollection<T>();
 
             list.ForEach((item) => collection.Add(item));
 

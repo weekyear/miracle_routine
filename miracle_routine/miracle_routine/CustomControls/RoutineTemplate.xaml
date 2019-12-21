@@ -11,7 +11,7 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <conv:StartTimeStringConverter x:Key="StartTimeStringConverter"/>
-            <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
+            <conv:HabitTakenTimeStringConverter x:Key="HabitTakenTimeStringConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
     
@@ -71,7 +71,7 @@
                                     <Label Margin="10, 0" 
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="CenterAndExpand" 
-                                           Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
+                                           Text="{Binding Time, Converter={StaticResource HabitTakenTimeStringConverter}}"
                                            TextColor="{StaticResource PrimaryTextColor}"
                                            FontSize="Body"/>
                                 </StackLayout>
@@ -95,7 +95,7 @@
                     <Label Margin="10, 0" Grid.Column="1"
                            HorizontalOptions="End"
                            VerticalOptions="CenterAndExpand" 
-                           Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
+                           Text="{Binding TotalTime, Converter={StaticResource HabitTakenTimeStringConverter}}"
                            TextColor="{StaticResource PrimaryTextColor}"
                            FontSize="Body"/>
                 </Grid>

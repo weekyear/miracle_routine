@@ -8,9 +8,14 @@ namespace miracle_routine.Helpers
 {
     public class MyMessagingCenter
     {
-        public void SendChangeHabitMessage(Habit habit)
+        public void SendAddHabitMessage(Habit habit)
         {
-            MessagingCenter.Send(this, "changeHabit", habit);
+            MessagingCenter.Send(this, "addHabit", habit);
+        }
+        
+        public void SendRemoveHabitMessage(Habit habit)
+        {
+            MessagingCenter.Send(this, "removeHabit", habit);
         }
 
         public void SendChangeRoutineMessage()
