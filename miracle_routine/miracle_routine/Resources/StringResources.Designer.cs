@@ -178,6 +178,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h.
+        /// </summary>
+        internal static string Hours {
+            get {
+                return ResourceManager.GetString("Hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu.
         /// </summary>
         internal static string Menu {
@@ -187,7 +196,7 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to min.
+        ///   Looks up a localized string similar to m.
         /// </summary>
         internal static string Minute {
             get {
@@ -304,7 +313,7 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sec.
+        ///   Looks up a localized string similar to s.
         /// </summary>
         internal static string Second {
             get {

@@ -70,7 +70,7 @@ namespace miracle_routine.Helpers
                 return "이미 지난 시간입니다.";
             }
         }
-        public static string TimeToString(TimeSpan timeSpan)
+        public static string TimeCountToString(TimeSpan timeSpan)
         {
             string timeString = timeSpan.ToString(@"mm\:ss");
 
@@ -87,6 +87,25 @@ namespace miracle_routine.Helpers
             }
 
             return timeString;
+        }
+
+
+        public static string TakenTimeToString(TimeSpan timeSpan)
+        {
+            if (timeSpan == TimeSpan.MinValue)
+            {
+                return "None";
+            }
+
+            var stringBuilder = new StringBuilder();
+
+            if (timeSpan.Hours != 0) stringBuilder.Append($"{timeSpan.Hours}{StringResources.Hours}");
+
+            if (timeSpan.Minutes != 0) stringBuilder.Append($" {timeSpan.Minutes}{StringResources.Minute}");
+
+            if (timeSpan.Seconds != 0) stringBuilder.Append($" {timeSpan.Seconds}{StringResources.Second}");
+
+            return stringBuilder.ToString();
         }
     }
 }

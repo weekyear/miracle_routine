@@ -10,6 +10,7 @@ using miracle_routine.Views;
 using miracle_routine.Helpers;
 using System.Linq;
 using Plugin.SharedTransitions;
+using miracle_routine.CustomControls;
 
 namespace miracle_routine.ViewModels
 {
@@ -90,6 +91,10 @@ namespace miracle_routine.ViewModels
 
         public void RefreshRoutines()
         {
+            if (IsBusy) return;
+
+            IsBusy = true;
+
             try
             {
                 var _routines = App.RoutineService.Routines;

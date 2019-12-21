@@ -156,6 +156,9 @@
   <data name="HabitSetting" xml:space="preserve">
     <value>습관 설정</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>시간</value>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>메뉴</value>
   </data>

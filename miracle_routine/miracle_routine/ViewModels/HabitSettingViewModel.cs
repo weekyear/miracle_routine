@@ -90,7 +90,7 @@ namespace miracle_routine.ViewModels
                     new Habit(){ Name = "기지개 펴기", Description="혈액 순환을 도와주고 체형 균형에 도움이 됩니다.", Image = "ic_stretching.png", Minutes = 0, Seconds = 30 },
                     new Habit(){ Name = "명상", Description="침묵의 시간 동안 마음을 조용히 가라앉히고 내 문제들에 대한 걱정을 멈춥니다.", Image = "ic_meditation.png", Minutes = 10, Seconds = 0 },
                     new Habit(){ Name = "일정 세우기", Description="일정을 미리 세운다면 훨씬 탁월한 성과를 이뤄내실거에요.", Image = "ic_todo.png", Minutes = 10, Seconds = 0 },
-                    new Habit(){ Name = "일기 쓰기", Description="생각은 손으로 적어보면서 명확하게 정리됩니다.", Image = "ic_diary.png", Minutes = 10, Seconds = 0 },
+                    new Habit(){ Name = "일기 쓰기", Description="직접 적어보면서 생각을 명확히 정리하고 새로운 영감을 얻게 해줍니다.", Image = "ic_diary.png", Minutes = 10, Seconds = 0 },
                     new Habit(){ Name = "아침 독서", Description="독서는 삶을 변화시키는 가장 빠른 길입니다.", Image = "ic_reading.png", Minutes = 30, Seconds = 0 },
                     new Habit(){ Name = "무산소 운동", Description="기초대사량을 증가시켜 살이 찌지 않는 체질로 만들어 줍니다.", Image = "ic_exercise.png", Minutes = 2, Seconds = 0 },
                     new Habit(){ Name = "조깅하기", Description="신진대사를 크게 증진시키고 노화를 늦춰줍니다. 또 심장 질환도 예방해줍니다.", Image = "ic_jogging.png", Minutes = 40, Seconds = 0 },
@@ -111,31 +111,76 @@ namespace miracle_routine.ViewModels
         #region METHOD
         private async Task Save()
         {
-            if (Seconds < 10)
-            {
-                Habit.Seconds = Habit.Seconds * 10;
-            }
-            DependencyService.Get<MyMessagingCenter>().SendAddHabitMessage(Habit);
+            if (IsBusy) return;
 
-            await ClosePopup();
+            IsBusy = true;
+
+            try
+            {
+                if (Seconds < 10)
+                {
+                    Habit.Seconds = Habit.Seconds * 10;
+                }
+                App.MessagingCenter.SendAddHabitMessage(Habit);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Source);
+                Console.WriteLine(ex.InnerException);
+            }
+            finally
+            {
+                await ClosePopup();
+                IsBusy = false;
+            }
         }
         
         private async Task Delete()
         {
-            DependencyService.Get<MessageBoxService>().ShowConfirm(
-                $"습관 삭제",
-                $"습관을 삭제하시겠습니까?", null,
-                async() =>
-                {
-                    DependencyService.Get<MyMessagingCenter>().SendRemoveHabitMessage(Habit);
+            if (IsBusy) return;
 
-                    await ClosePopup();
-                });
+            IsBusy = true;
+
+            try
+            {
+                DependencyService.Get<MessageBoxService>().ShowConfirm(
+                    $"습관 삭제",
+                    $"습관을 삭제하시겠습니까?", null,
+                    async () =>
+                    {
+                        App.MessagingCenter.SendRemoveHabitMessage(Habit);
+
+                        await ClosePopup();
+                    });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Source);
+                Console.WriteLine(ex.InnerException);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task ClosePopup()
         {
             await Navigation.PopModalAsync(true);
+        }
+
+        public void SendAddHabitMessage(Habit habit)
+        {
+            MessagingCenter.Send(typeof(Habit), "addHabit", habit);
+        }
+
+        public void SendRemoveHabitMessage(Habit habit)
+        {
+            MessagingCenter.Send(typeof(Habit), "removeHabit", habit);
         }
         #endregion
     }

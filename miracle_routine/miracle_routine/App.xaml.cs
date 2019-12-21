@@ -22,7 +22,6 @@ namespace miracle_routine
             DependencyService.Register<INavigation>();
             DependencyService.Register<INotifySetter>();
             DependencyService.Register<IAlarmSetter>();
-            DependencyService.Register<MyMessagingCenter>();
             DependencyService.Register<MessageBoxService>();
 
             MainPage = new SharedTransitionNavigationPage(new RoutinesPage());
@@ -47,5 +46,6 @@ namespace miracle_routine
         public static IHabitService HabitService { get; } = new HabitService(HabitRepo);
         public static IRoutineRepo RoutineRepo { get; } = new RoutineRepo(ItemDatabase);
         public static IRoutineService RoutineService { get; } = new RoutineService(RoutineRepo);
+        public static MyMessagingCenter MessagingCenter { get; } = new MyMessagingCenter();
     }
 }

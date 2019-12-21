@@ -11,7 +11,7 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <conv:StartTimeStringConverter x:Key="StartTimeStringConverter"/>
-            <conv:HabitTakenTimeStringConverter x:Key="HabitTakenTimeStringConverter"/>
+            <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
     
@@ -43,8 +43,7 @@
                                  BackgroundColor="White"
                                  HorizontalOptions="End"
                                  VerticalOptions="CenterAndExpand"
-                                 Clicked="MenuButton_Clicked"
-                                 Command="{Binding ShowHabitSettingCommand}"/>
+                                 Clicked="MenuButton_Clicked"/>
                 </StackLayout>
                 <ListView x:Name="HabitListView"
                           ItemsSource="{Binding HabitList}"
@@ -71,7 +70,7 @@
                                     <Label Margin="10, 0" 
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="CenterAndExpand" 
-                                           Text="{Binding Time, Converter={StaticResource HabitTakenTimeStringConverter}}"
+                                           Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
                                            TextColor="{StaticResource PrimaryTextColor}"
                                            FontSize="Body"/>
                                 </StackLayout>
@@ -81,8 +80,8 @@
                 </ListView>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="7*"/>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Button Text="{local:Translate Start}" Grid.Column="0"
                             FontSize="Medium"
@@ -95,7 +94,7 @@
                     <Label Margin="10, 0" Grid.Column="1"
                            HorizontalOptions="End"
                            VerticalOptions="CenterAndExpand" 
-                           Text="{Binding TotalTime, Converter={StaticResource HabitTakenTimeStringConverter}}"
+                           Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
                            TextColor="{StaticResource PrimaryTextColor}"
                            FontSize="Body"/>
                 </Grid>

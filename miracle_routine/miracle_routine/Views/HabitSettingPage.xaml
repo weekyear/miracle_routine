@@ -12,7 +12,7 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <conv:HabitTakenTimeStringConverter x:Key="HabitTakenTimeStringConverter"/>
+            <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -31,15 +31,14 @@
                                WidthRequest="32"
                                HeightRequest="32"/>
                         <Label Text="{local:Translate Name}" FontSize="Body"
-                           TextColor="{StaticResource PrimaryTextColor}"
-                           VerticalOptions="CenterAndExpand"/>
+                               TextColor="{StaticResource PrimaryTextColor}"
+                               VerticalOptions="CenterAndExpand"/>
                         <Entry Text="{Binding Name}" 
-                           HorizontalOptions="FillAndExpand"
-                           Margin="5, 0"
-                           Style="{DynamicResource ListItemTextStyle}"
-                           Placeholder="{local:Translate PleaseWriteHabitName}"
-                           FontSize="Body"
-                           VerticalTextAlignment="Center" />
+                               HorizontalOptions="FillAndExpand"
+                               Margin="5, 0"
+                               Placeholder="{local:Translate PleaseWriteHabitName}"
+                               FontSize="Body"
+                               VerticalTextAlignment="Center" />
                     </StackLayout>
                     <Label Text="소요 시간" FontSize="Body" Margin="15, 0"
                            TextColor="{StaticResource PrimaryTextColor}"
@@ -87,7 +86,6 @@
                           ItemTapped="HabitListView_ItemTapped"
                           ItemSelected="HabitListView_ItemSelected"
                           VerticalOptions="FillAndExpand"
-                          HeightRequest="{Binding Height}"
                           VerticalScrollBarVisibility="Never"
                               HasUnevenRows="True">
                         <ListView.ItemTemplate>
@@ -108,7 +106,7 @@
                                                 <Label Margin="10, 0" 
                                                        HorizontalOptions="EndAndExpand"
                                                        VerticalOptions="CenterAndExpand" 
-                                                       Text="{Binding Time, Converter={StaticResource HabitTakenTimeStringConverter}}"
+                                                       Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
                                                        TextColor="{StaticResource PrimaryTextColor}"
                                                        FontSize="Body"/>
                                             </StackLayout>

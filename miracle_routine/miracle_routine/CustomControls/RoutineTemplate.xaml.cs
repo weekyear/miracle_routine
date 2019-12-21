@@ -49,15 +49,15 @@ namespace miracle_routine.CustomControls
 
             if (action != StringResources.Cancel && !string.IsNullOrEmpty(action))
             {
-                await ClickMenuAction(action);
+                ClickMenuAction(action);
             }
         }
 
-        private async Task ClickMenuAction(string action)
+        private void ClickMenuAction(string action)
         {
             if (action == StringResources.Modify)
             {
-                DependencyService.Get<MyMessagingCenter>().SendShowRoutineMessage(routine);
+                App.MessagingCenter.SendShowRoutineMessage(routine);
             }
             else if (action == StringResources.Delete)
             {
@@ -73,14 +73,27 @@ namespace miracle_routine.CustomControls
                 App.HabitService.DeleteHabit(habit.Id);
             }
             App.RoutineService.DeleteRoutine(routine);
-            DependencyService.Get<MyMessagingCenter>().SendChangeRoutineMessage();
+            App.MessagingCenter.SendChangeRoutineMessage();
         }
 
         private void StartButton_Clicked(object sender, EventArgs e)
         {
             var menuBtn = sender as Button;
             routine = menuBtn.BindingContext as Routine;
-            DependencyService.Get<MyMessagingCenter>().SendShowRoutineActionMessage(routine);
+            App.MessagingCenter.SendShowRoutineActionMessage(routine);
+        }
+
+        public void SendChangeRoutineMessage()
+        {
+            MessagingCenter.Send(typeof(Routine), "changeRoutine");
+        }
+        public void SendShowRoutineActionMessage(Routine routine)
+        {
+            MessagingCenter.Send(typeof(Routine), "showRoutineAction", routine);
+        }
+        public void SendShowRoutineMessage(Routine routine)
+        {
+            MessagingCenter.Send(typeof(Routine), "showRoutine", routine);
         }
     }
 }

@@ -13,7 +13,7 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <conv:HabitTakenTimeStringConverter x:Key="HabitTakenTimeStringConverter"/>
+            <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -97,7 +97,7 @@
                                                 <Label Margin="10, 0" 
                                                        HorizontalOptions="EndAndExpand"
                                                        VerticalOptions="CenterAndExpand" 
-                                                       Text="{Binding Time, Converter={StaticResource HabitTakenTimeStringConverter}}"
+                                                       Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
                                                        TextColor="{StaticResource PrimaryTextColor}"
                                                        FontSize="Body"/>
                                             </StackLayout>

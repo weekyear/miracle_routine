@@ -199,7 +199,7 @@ namespace miracle_routine.Droid.Services
 
             var context = Application.Context;
             string title = $"{habit.Name}";
-            string message = $"{CreateTimeToString.TimeToString(countDown)}";
+            string message = $"{CreateTimeToString.TimeCountToString(countDown)}";
 
             var fileName = habit.Image.Replace(".png", string.Empty);
             var imageId = context.Resources.GetIdentifier(fileName, "drawable", context.PackageName);

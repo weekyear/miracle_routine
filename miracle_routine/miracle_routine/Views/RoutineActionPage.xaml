@@ -15,7 +15,7 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
+            <conv:TimeCountStringConverter x:Key="TimeCountStringConverter"/>
             <conv:IsMinusTextColorConverter x:Key="IsMinusTextColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -36,7 +36,7 @@
                        LineBreakMode="TailTruncation"
                        HorizontalOptions="Start"
                        VerticalOptions="CenterAndExpand"/>
-                <Label Text="{Binding ElapsedTime, Converter={StaticResource TakenTimeStringConverter}}"
+                <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeCountStringConverter}}"
                        FontSize="Medium"
                        TextColor="{StaticResource PrimaryTextColor}"
                        HorizontalOptions="CenterAndExpand"
@@ -60,7 +60,7 @@
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
 
-                <Label Text="{Binding CurrentHabitTime, Converter={StaticResource TakenTimeStringConverter}}"
+                <Label Text="{Binding CurrentHabitTime, Converter={StaticResource TimeCountStringConverter}}"
                        FontSize="45"
                        FontAttributes="Bold"
                        TextColor="{Binding IsMinusHabitTime, Converter={StaticResource IsMinusTextColorConverter}}"
@@ -137,7 +137,7 @@
                        TextColor="{StaticResource PrimaryTextColor}"
                        FontSize="Body"
                        VerticalTextAlignment="Center" />
-                <Label Text="{Binding NextHabitTime, Converter={StaticResource TakenTimeStringConverter}}"
+                <Label Text="{Binding NextHabitTime, Converter={StaticResource TimeCountStringConverter}}"
                        HorizontalOptions="End"
                        VerticalOptions="Center"  
                        TextColor="{StaticResource PrimaryTextColor}"

@@ -279,7 +279,7 @@ namespace miracle_routine.ViewModels
         {
             DependencyService.Get<MessageBoxService>().ShowConfirm(
                 $"{Routine.Name} 루틴 시작",
-                $"예상 소요 시간 {CreateTimeToString.TimeToString(Routine.TotalTime)}",
+                $"예상 소요 시간 {CreateTimeToString.TakenTimeToString(Routine.TotalTime)}",
                 async () => 
                 {
                     await ClosePopup();
@@ -294,7 +294,7 @@ namespace miracle_routine.ViewModels
         {
             DependencyService.Get<MessageBoxService>().ShowAlert(
                 $"{Routine.Name} 루틴 완료!",
-                $"총 소요 시간 : {CreateTimeToString.TimeToString(ElapsedTime)}",
+                $"총 소요 시간 : {CreateTimeToString.TakenTimeToString(ElapsedTime)}",
                 async () =>
                 {
                     await ClosePopup();

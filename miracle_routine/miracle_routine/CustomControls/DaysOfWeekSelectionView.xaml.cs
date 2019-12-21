@@ -40,14 +40,6 @@ namespace miracle_routine.CustomControls
             var button = sender as DayOfWeekButton;
 
             button.IsSelected = !button.IsSelected;
-
-            SendMessage("dayOfWeek_Clicked");
-        }
-
-        private void SendMessage(string type)
-        {
-            var messageType = type;
-            MessagingCenter.Send(this, messageType);
         }
 
         void IsSelectedChanged(object sender, EventArgs e)

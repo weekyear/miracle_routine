@@ -10,26 +10,26 @@ namespace miracle_routine.Helpers
     {
         public void SendAddHabitMessage(Habit habit)
         {
-            MessagingCenter.Send(this, "addHabit", habit);
+            MessagingCenter.Send(new MyMessagingCenter(), "addHabit", habit);
         }
         
         public void SendRemoveHabitMessage(Habit habit)
         {
-            MessagingCenter.Send(this, "removeHabit", habit);
+            MessagingCenter.Send(new MyMessagingCenter(), "removeHabit", habit);
         }
 
         public void SendChangeRoutineMessage()
         {
-            MessagingCenter.Send(this, "changeRoutine");
+            MessagingCenter.Send(new MyMessagingCenter(), "changeRoutine");
         }
         public void SendShowRoutineMessage(Routine routine)
         {
-            MessagingCenter.Send(this, "showRoutine", routine);
+            MessagingCenter.Send(new MyMessagingCenter(), "showRoutine", routine);
         }
 
         public void SendShowRoutineActionMessage(Routine routine)
         {
-            MessagingCenter.Send(this, "showRoutineAction", routine);
+            MessagingCenter.Send(new MyMessagingCenter(), "showRoutineAction", routine);
         }
     }
 }

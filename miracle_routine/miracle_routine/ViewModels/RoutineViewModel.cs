@@ -5,6 +5,7 @@ using miracle_routine.Views;
 using Plugin.SharedTransitions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -92,7 +93,7 @@ namespace miracle_routine.ViewModels
             {
                 if (habits == null)
                 {
-                    var orderedHabits = AssignIndexToToDos(Routine.HabitList.OrderBy(t => t.Index));
+                    var orderedHabits = AssignIndexToHabits(Routine.HabitList.OrderBy(t => t.Index));
                     habits = Helper.ConvertIEnuemrableToObservableCollection(orderedHabits);
                 }
                 return habits;
@@ -132,7 +133,7 @@ namespace miracle_routine.ViewModels
                     new Habit(){ Name = "명상", Description="침묵의 시간 동안 마음을 조용히 가라앉히고 내 문제들에 대한 걱정을 멈춥니다.", Image = "ic_meditation.png", Minutes = 10, Seconds = 0 },
                     new Habit(){ Name = "'확신의 말' 말하기", Description="나의 '확신의 말'을 되새기면서 내 잠재의식에 변화를 줍니다.", Image = "ic_speak.png", Minutes = 10, Seconds = 0 },
                     new Habit(){ Name = "'최고의 나' 상상하기", Description="내가 이뤄낼 성과를 그려보는 것은 현실에서도 좋은 결과를 만들어 냅니다.", Image = "ic_think.png", Minutes = 10, Seconds = 0 },
-                    new Habit(){ Name = "일기 쓰기", Description="생각은 손으로 적어보면서 명확하게 정리되고 때로는 새로운 영감을 얻게 해줍니다.", Image = "ic_diary.png", Minutes = 10, Seconds = 0 },
+                    new Habit(){ Name = "일기 쓰기", Description="직접 적어보면서 생각을 명확히 정리하고 새로운 영감을 얻게 해줍니다.", Image = "ic_diary.png", Minutes = 10, Seconds = 0 },
                     new Habit(){ Name = "아침 독서", Description="독서는 삶을 변화시키는 가장 빠른 길입니다.", Image = "ic_reading.png", Minutes = 10, Seconds = 0 },
                     new Habit(){ Name = "무산소 운동", Description="기초대사량을 증가시켜 살이 찌지 않는 체질로 만들어줍니다.", Image = "ic_exercise.png", Minutes = 10, Seconds = 0 },
                 };
@@ -176,7 +177,7 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        private IOrderedEnumerable<Habit> AssignIndexToToDos(IEnumerable<Habit> habits)
+        private IOrderedEnumerable<Habit> AssignIndexToHabits(IEnumerable<Habit> habits)
         {
             int i = 0;
             foreach (var habit in habits)
@@ -205,6 +206,7 @@ namespace miracle_routine.ViewModels
                 {
                     foreach (var miracleHabit in MiracleMorningList)
                     {
+                        miracleHabit.Index = Habits.Count;
                         Habits.Add(miracleHabit);
                     }
                     OnPropertyChanged(nameof(HasNoHabit));
@@ -227,9 +229,7 @@ namespace miracle_routine.ViewModels
                 Habits.Remove(oldHabit);
                 Habits.Insert(i, habit);
             }
-            OnPropertyChanged(nameof(HasNoHabit));
-            OnPropertyChanged(nameof(HasHabit));
-            OnPropertyChanged(nameof(Habits));
+            RefreshHabits();
         }
         
         private void RemoveHabitList(Habit habit)
@@ -248,10 +248,28 @@ namespace miracle_routine.ViewModels
                 {
                     App.HabitService.DeleteHabit(oldHabit.Id);
                 }
+                RefreshHabits();
+            }
+        }
 
+        public void RefreshHabits()
+        {
+
+            try
+            {
+                var orderedHabits = AssignIndexToHabits(Habits.OrderBy(t => t.Index));
+                habits = Helper.ConvertIEnuemrableToObservableCollection(orderedHabits);
                 OnPropertyChanged(nameof(HasNoHabit));
                 OnPropertyChanged(nameof(HasHabit));
                 OnPropertyChanged(nameof(Habits));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
