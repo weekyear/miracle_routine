@@ -11,7 +11,8 @@
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="White"
              mc:Ignorable="d"
-             x:Class="miracle_routine.Views.RoutineActionPage">
+             x:Class="miracle_routine.Views.RoutineActionPage"
+             IsEnabled="{Binding IsNotBusy}">
 
     <ContentPage.Resources>
         <ResourceDictionary>

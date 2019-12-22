@@ -38,7 +38,7 @@ namespace miracle_routine.Droid.BroadcastReceivers
                 OpenMainActivity(context, bundle);
 
                 var routine = App.RoutineService.GetRoutine(id);
-                App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, 0));
+                App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, null));
             }
             else if (intent.Action == "입력")
             {

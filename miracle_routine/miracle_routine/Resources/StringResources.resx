@@ -135,6 +135,9 @@
   <data name="DeleteRoutine" xml:space="preserve">
     <value>Delete routine</value>
   </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>Elapsed time</value>
+  </data>
   <data name="ForgotHabit" xml:space="preserve">
     <value>You must set up at least one habit.</value>
   </data>
@@ -219,8 +222,14 @@
   <data name="ThereIsNoHabit" xml:space="preserve">
     <value>There is no habit.</value>
   </data>
+  <data name="ThereIsNoRecord" xml:space="preserve">
+    <value>There is no record.</value>
+  </data>
   <data name="Thursday" xml:space="preserve">
     <value>T</value>
+  </data>
+  <data name="TimeRemaining" xml:space="preserve">
+    <value>Time remaining</value>
   </data>
   <data name="Tuesday" xml:space="preserve">
     <value>T</value>

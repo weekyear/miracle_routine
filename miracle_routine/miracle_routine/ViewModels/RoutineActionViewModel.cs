@@ -16,15 +16,25 @@ namespace miracle_routine.ViewModels
 {
     public class RoutineActionViewModel : BaseViewModel
     {
-        public RoutineActionViewModel(INavigation navigation, Routine routine, int index) : base(navigation)
+        public RoutineActionViewModel(INavigation navigation, Routine routine, List<HabitRecord> _habitRecords) : base(navigation)
         {
             Routine = new Routine(routine);
-            CurrentIndex = index;
+
+            if (_habitRecords != null)
+            {
+                HabitRecords = _habitRecords;
+                CurrentIndex = _habitRecords.Count;
+            }
+            else
+            {
+                CurrentIndex = 0;
+            }
+
 
             ConstructCommand();
             SubscribeMessage();
 
-            if (index == 0)
+            if (CurrentIndex == 0)
             {
                 AskIfYouWantStart();
             }
@@ -151,7 +161,7 @@ namespace miracle_routine.ViewModels
             {
                 if (IsNotLastHabit)
                 {
-                    return NextHabit.Time;
+                    return NextHabit.TotalTime;
                 }
                 else
                 {
@@ -165,7 +175,7 @@ namespace miracle_routine.ViewModels
         {
             get
             {
-                if (currentHabittime == TimeSpan.MinValue) currentHabittime = CurrentHabit.Time;
+                if (currentHabittime == TimeSpan.MinValue) currentHabittime = CurrentHabit.TotalTime;
                 return currentHabittime;
             }
             set
@@ -205,6 +215,18 @@ namespace miracle_routine.ViewModels
             }
         }
 
+        private List<HabitRecord> habitRecords = new List<HabitRecord>();
+        public List<HabitRecord> HabitRecords
+        {
+            get { return habitRecords; }
+            set
+            {
+                if (habitRecords == value) return;
+                habitRecords = value;
+                OnPropertyChanged(nameof(HabitRecords));
+            }
+        }
+
         #endregion
 
         #region METHOD
@@ -232,13 +254,22 @@ namespace miracle_routine.ViewModels
             try
             {
                 IsCounting = false;
+
+                HabitRecords.Add(new HabitRecord(CurrentHabit, CurrentHabitTime));
+
                 if (IsNotLastHabit)
                 {
-                    await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1), true);
+                    await Navigation.PushAsync(new RoutineActionPage(Routine, HabitRecords), true);
                     DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
                 }
                 else
                 {
+                    foreach(var habitRec in HabitRecords)
+                    {
+                        App.RecordRepo.SaveHabitRecord(habitRec);
+                    }
+
+                    App.RecordRepo.SaveRoutineRecord(new RoutineRecord(Routine, ElapsedTime));
                     AlertFinishRoutine();
                 }
             }

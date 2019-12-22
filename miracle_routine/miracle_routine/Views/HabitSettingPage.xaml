@@ -8,7 +8,8 @@
              xmlns:conv="clr-namespace:miracle_routine.Converters"
              Title="{local:Translate HabitSetting}"
              mc:Ignorable="d"
-             x:Class="miracle_routine.Views.HabitSettingPage">
+             x:Class="miracle_routine.Views.HabitSettingPage"
+             IsEnabled="{Binding IsNotBusy}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -106,7 +107,7 @@
                                                 <Label Margin="10, 0" 
                                                        HorizontalOptions="EndAndExpand"
                                                        VerticalOptions="CenterAndExpand" 
-                                                       Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
+                                                       Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
                                                        TextColor="{StaticResource PrimaryTextColor}"
                                                        FontSize="Body"/>
                                             </StackLayout>

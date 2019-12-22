@@ -2,15 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
-
 using miracle_routine.Models;
 using miracle_routine.Views;
 using miracle_routine.Helpers;
-using System.Linq;
 using Plugin.SharedTransitions;
-using miracle_routine.CustomControls;
 
 namespace miracle_routine.ViewModels
 {
@@ -47,6 +43,11 @@ namespace miracle_routine.ViewModels
             {
                 await NavigateRoutineRecordPage(routine);
             });
+            
+            MessagingCenter.Subscribe<MyMessagingCenter, Habit>(this, "showHabitRecord",  async (sender, habit) =>
+            {
+                await NavigateHabitRecordPage(habit);
+            });
         }
 
         private ObservableCollection<Routine> routines;
@@ -80,7 +81,22 @@ namespace miracle_routine.ViewModels
         public Command ShowRoutineCommand { get; set; }
         private async Task ShowRoutine()
         {
-            await NavigateRoutinePage(new Routine());
+            if (IsBusy) return;
+
+            IsBusy = true;
+
+            try
+            {
+                await NavigateRoutinePage(new Routine());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task NavigateRoutinePage(Routine routine)
@@ -90,12 +106,17 @@ namespace miracle_routine.ViewModels
 
         private async Task NavigateRoutineActionPage(Routine routine)
         {
-            await Navigation.PushAsync(new RoutineActionPage(routine, 0), true);
+            await Navigation.PushAsync(new RoutineActionPage(routine, null), true);
         }
         
         private async Task NavigateRoutineRecordPage(Routine routine)
         {
             await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutineRecordPage(routine)));
+        }
+
+        private async Task NavigateHabitRecordPage(Habit habit)
+        {
+            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new HabitRecordPage(habit)));
         }
 
         public void RefreshRoutines()

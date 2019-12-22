@@ -9,7 +9,8 @@
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RoutinePage"
              Title="{local:Translate RoutineSetting}"
-             BackgroundColor="{StaticResource BackgroundColor}">
+             BackgroundColor="{StaticResource BackgroundColor}"
+             IsEnabled="{Binding IsNotBusy}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -97,7 +98,7 @@
                                                 <Label Margin="10, 0" 
                                                        HorizontalOptions="EndAndExpand"
                                                        VerticalOptions="CenterAndExpand" 
-                                                       Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
+                                                       Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
                                                        TextColor="{StaticResource PrimaryTextColor}"
                                                        FontSize="Body"/>
                                             </StackLayout>

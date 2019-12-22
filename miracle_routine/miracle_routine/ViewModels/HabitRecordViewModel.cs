@@ -6,24 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Entry = Microcharts.Entry;
 
 namespace miracle_routine.ViewModels
 {
-    public class RoutineRecordViewModel : BaseViewModel
+    public class HabitRecordViewModel : BaseViewModel
     {
         private readonly int NumOfChartData = 5;
         private readonly int LabelFontSize = 10;
         private readonly int AnimationSec = 1;
-        public RoutineRecordViewModel(INavigation navigation, Routine routine) : base(navigation)
+        public HabitRecordViewModel(INavigation navigation, Habit habit) : base(navigation)
         {
-            SelectedRoutine = new Routine(routine);
+            SelectedHabit = new Habit(habit);
             ConstructCommand();
             SubscribeMessage();
 
-            Title = $"<{routine.Name}> 루틴 기록";
+            Title = $"<{habit.Name}> 습관 기록";
 
             InitChart();
         }
@@ -41,37 +40,37 @@ namespace miracle_routine.ViewModels
         {
             //if (RecordTotalCount == 0)
             //{
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 15, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 01), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 13, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 02), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 11, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 03), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 16, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 04), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 22, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 05), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 18, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 06), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 12, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 07), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 19, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 08), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 20, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 09), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 11, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 10), RoutineId = SelectedRoutine.Id });
+            //    App.RecordRepo.SaveHabitRecord(new HabitRecord() { ElapsedTime = new TimeSpan(0, 15, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 01), HabitId = 1, RoutineRecordId = 1 });
+            //    App.RecordRepo.SaveHabitRecord(new HabitRecord() { ElapsedTime = new TimeSpan(0, 13, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 02), HabitId = 1, RoutineRecordId = 1 });
+            //    App.RecordRepo.SaveHabitRecord(new HabitRecord() { ElapsedTime = new TimeSpan(0, 11, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 03), HabitId = 2, RoutineRecordId = 2 });
+            //    App.RecordRepo.SaveHabitRecord(new HabitRecord() { ElapsedTime = new TimeSpan(0, 16, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 04), HabitId = 2, RoutineRecordId = 2 });
+            //    App.RecordRepo.SaveHabitRecord(new HabitRecord() { ElapsedTime = new TimeSpan(0, 22, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 05), HabitId = 1, RoutineRecordId = 1 });
+            //    App.RecordRepo.SaveHabitRecord(new HabitRecord() { ElapsedTime = new TimeSpan(0, 18, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 06), HabitId = 1, RoutineRecordId = 1 });
+            //    App.RecordRepo.SaveHabitRecord(new HabitRecord() { ElapsedTime = new TimeSpan(0, 12, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 07), HabitId = 1, RoutineRecordId = 1 });
             //}
+
+            RecordEndPosition = RecordTotalCount;
+            RecordStartPosition = RecordEndPosition - 6;
 
             RefreshRecordChart();
         }
 
         #region Property
 
-        public Routine SelectedRoutine { get; set; }
+        public Habit SelectedHabit { get; set; }
 
-        private List<RoutineRecord> routines;
-        public List<RoutineRecord> RoutineRecords
+        private List<HabitRecord> habitRecords;
+        public List<HabitRecord> HabitRecords
         {
             get
             {
-                return App.RecordRepo.RoutineRecordFromDB.Where(r => r.RoutineId == SelectedRoutine.Id).OrderBy(r => r.RecordTime).ToList();
+                return App.RecordRepo.HabitRecordFromDB.Where(r => r.HabitId == SelectedHabit.Id).OrderBy(r => r.RecordTime).ToList();
             }
             set
             {
-                if (routines == value) return;
-                routines = value;
-                OnPropertyChanged(nameof(RoutineRecords));
+                if (habitRecords == value) return;
+                habitRecords = value;
+                OnPropertyChanged(nameof(HabitRecords));
             }
         }
 
@@ -80,8 +79,9 @@ namespace miracle_routine.ViewModels
 
         public int RecordTotalCount
         {
-            get { return RoutineRecords.Count; }
+            get { return HabitRecords.Count; }
         }
+
 
         private int recordStartPosition = -1;
         public int RecordStartPosition
@@ -89,12 +89,11 @@ namespace miracle_routine.ViewModels
             get
             {
                 if (recordStartPosition == -1) recordStartPosition = RecordEndPosition - (NumOfChartData - 1);
-                if (recordStartPosition < 1) recordStartPosition = 1;
                 return recordStartPosition;
             }
             set
             {
-                if (recordStartPosition == value) return;
+                if (value < 1) value = 1;
                 recordStartPosition = value;
                 OnPropertyChanged(nameof(RecordStartPosition));
             }
@@ -105,12 +104,11 @@ namespace miracle_routine.ViewModels
             get
             {
                 if (recordEndPosition == -1) recordEndPosition = RecordTotalCount;
-                if (recordEndPosition > RecordTotalCount) recordEndPosition = RecordTotalCount;
                 return recordEndPosition;
             }
             set
             {
-                if (recordEndPosition == value) return;
+                if (value > RecordTotalCount) value = RecordTotalCount;
                 recordEndPosition = value;
                 OnPropertyChanged(nameof(RecordEndPosition));
             }
@@ -118,9 +116,9 @@ namespace miracle_routine.ViewModels
 
         public bool HasRecord
         {
-            get 
+            get
             {
-                if (RoutineRecords.Count == 0) return false;
+                if (HabitRecords.Count == 0) return false;
                 return true;
             }
         }
@@ -133,7 +131,6 @@ namespace miracle_routine.ViewModels
 
         public Command NextRecordCommand { get; set; }
         public Command PreviousRecordCommand { get; set; }
-
         #endregion
 
         #region Method
@@ -147,7 +144,7 @@ namespace miracle_routine.ViewModels
 
             RefreshRecordChart();
         }
-        
+
         private void NextRecord()
         {
             if (RecordEndPosition >= RecordTotalCount) return;
@@ -165,21 +162,21 @@ namespace miracle_routine.ViewModels
 
             for (int i = RecordStartPosition; i <= RecordEndPosition; i++)
             {
-                var routine = RoutineRecords[i - 1];
+                var habitRecord = HabitRecords[i - 1];
 
-                var entry = new Entry((float)routine.ElapsedTime.TotalSeconds)
+                var entry = new Entry((float)habitRecord.ElapsedTime.TotalSeconds)
                 {
-                    Label = $"{routine.RecordTime.Month}/{routine.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(routine.RecordTime)})",
+                    Label = $"{habitRecord.RecordTime.Month}/{habitRecord.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(habitRecord.RecordTime)})",
                     Color = SKColor.Parse("#90caf9"),
-                    ValueLabel = CreateTimeToString.TakenTimeToString_en(routine.ElapsedTime)
+                    ValueLabel = CreateTimeToString.TakenTimeToString_en(habitRecord.ElapsedTime)
                 };
                 elapsedEntries.Add(entry);
 
-                entry = new Entry((float)routine.TimeRemaining.TotalSeconds)
+                entry = new Entry((float)habitRecord.TimeRemaining.TotalSeconds)
                 {
-                    Label = $"{routine.RecordTime.Month}/{routine.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(routine.RecordTime)})",
+                    Label = $"{habitRecord.RecordTime.Month}/{habitRecord.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(habitRecord.RecordTime)})",
                     Color = SKColor.Parse("#1565c0"),
-                    ValueLabel = CreateTimeToString.TakenTimeToString_en(routine.TimeRemaining)
+                    ValueLabel = CreateTimeToString.TakenTimeToString_en(habitRecord.TimeRemaining)
                 };
                 overEntries.Add(entry);
             }
@@ -202,7 +199,6 @@ namespace miracle_routine.ViewModels
                 AnimationDuration = TimeSpan.FromSeconds(AnimationSec)
             };
         }
-
         #endregion
     }
 }

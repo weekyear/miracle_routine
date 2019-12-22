@@ -9,9 +9,8 @@
              x:Class="miracle_routine.Views.RoutinesPage"
              Title="{Binding Title}"
              NavigationPage.HasNavigationBar="False"
-             BackgroundColor="{StaticResource BackgroundColor}">
-
-
+             BackgroundColor="{StaticResource BackgroundColor}"
+             IsEnabled="{Binding IsNotBusy}">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -42,13 +41,6 @@
             <StackLayout Orientation="Horizontal" Grid.Column="1">
                 <ImageButton WidthRequest="32" HeightRequest="32"
                              Source="ic_add.png"
-                             Margin="5, 0"
-                             BackgroundColor="{StaticResource BackgroundColor}"
-                             HorizontalOptions="CenterAndExpand"
-                             VerticalOptions="CenterAndExpand"
-                             Command="{Binding ShowRoutineCommand}"/>
-                <ImageButton WidthRequest="32" HeightRequest="32"
-                             Source="ic_menu.png"
                              Margin="5, 0"
                              BackgroundColor="{StaticResource BackgroundColor}"
                              HorizontalOptions="CenterAndExpand"

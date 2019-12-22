@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RoutineDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             IsEnabled="{Binding IsNotBusy}">
 
     <StackLayout Spacing="20" Padding="15">
         <Label Text="Text:" FontSize="Medium" />

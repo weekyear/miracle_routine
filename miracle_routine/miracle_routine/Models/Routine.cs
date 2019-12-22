@@ -52,7 +52,7 @@ namespace miracle_routine.Models
                 var totalTime = new TimeSpan(0);
                 foreach (var habit in HabitList)
                 {
-                    totalTime = totalTime.Add(habit.Time);
+                    totalTime = totalTime.Add(habit.TotalTime);
                 }
                 return totalTime;
             }

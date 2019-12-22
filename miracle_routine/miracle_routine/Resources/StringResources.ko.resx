@@ -135,6 +135,9 @@
   <data name="DeleteRoutine" xml:space="preserve">
     <value>루틴 삭제</value>
   </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>소요 시간</value>
+  </data>
   <data name="ForgotHabit" xml:space="preserve">
     <value>적어도 하나의 습관을 설정하셔야 합니다.</value>
   </data>
@@ -219,8 +222,14 @@
   <data name="ThereIsNoHabit" xml:space="preserve">
     <value>등록된 습관이 없습니다</value>
   </data>
+  <data name="ThereIsNoRecord" xml:space="preserve">
+    <value>기록이 없습니다.</value>
+  </data>
   <data name="Thursday" xml:space="preserve">
     <value>목</value>
+  </data>
+  <data name="TimeRemaining" xml:space="preserve">
+    <value>남은 시간</value>
   </data>
   <data name="Tuesday" xml:space="preserve">
     <value>화</value>

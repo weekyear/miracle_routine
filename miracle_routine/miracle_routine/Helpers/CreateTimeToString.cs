@@ -107,5 +107,44 @@ namespace miracle_routine.Helpers
 
             return stringBuilder.ToString();
         }
+        public static string TakenTimeToString_en(TimeSpan timeSpan)
+        {
+            if (timeSpan == TimeSpan.MinValue)
+            {
+                return "None";
+            }
+
+            var stringBuilder = new StringBuilder();
+
+            if (timeSpan.Hours != 0) stringBuilder.Append($"{timeSpan.Hours}h");
+
+            if (timeSpan.Minutes != 0) stringBuilder.Append($" {timeSpan.Minutes}m");
+
+            if (timeSpan.Seconds != 0) stringBuilder.Append($" {timeSpan.Seconds}s");
+
+            return stringBuilder.ToString();
+        }
+        public static string ConvertDayOfWeekToKorDayOfWeek(DateTime dateTime)
+        {
+            switch (dateTime.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    return "Mon";
+                case DayOfWeek.Tuesday:
+                    return "Tue";
+                case DayOfWeek.Wednesday:
+                    return "Wed";
+                case DayOfWeek.Thursday:
+                    return "Thu";
+                case DayOfWeek.Friday:
+                    return "Fri";
+                case DayOfWeek.Saturday:
+                    return "Sat";
+                case DayOfWeek.Sunday:
+                    return "Sun";
+                default:
+                    return "Mon";
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@
              xmlns:charts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              xmlns:local="clr-namespace:miracle_routine.Helpers"
              mc:Ignorable="d"
-             x:Class="miracle_routine.Views.RoutineRecordPage"
+             x:Class="miracle_routine.Views.HabitRecordPage"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{Binding Title}"
              IsEnabled="{Binding IsNotBusy}">

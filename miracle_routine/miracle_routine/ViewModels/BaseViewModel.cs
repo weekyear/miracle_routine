@@ -22,7 +22,16 @@ namespace miracle_routine.ViewModels
         public bool IsBusy
         {
             get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            set 
+            { 
+                SetProperty(ref isBusy, value);
+                OnPropertyChanged(nameof(IsNotBusy));
+            }
+        }
+
+        public bool IsNotBusy
+        {
+            get { return !isBusy; }
         }
 
         string title = string.Empty;

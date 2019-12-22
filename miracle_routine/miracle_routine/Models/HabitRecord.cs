@@ -20,22 +20,23 @@ namespace miracle_routine.Models
         public TimeSpan ElapsedTime { get; set; }
         public TimeSpan TotalTime { get; set; }
 
-        public TimeSpan OverTime
+        public TimeSpan TimeRemaining
         {
             get { return TotalTime.Subtract(ElapsedTime); }
         }
-        public DateTime Date { get; set; }
+
+        public DateTime RecordTime { get; set; }
 
 
         public HabitRecord() { }
 
-        public HabitRecord(Routine routine, TimeSpan recordTime)
+        public HabitRecord(Habit habit, TimeSpan elapsedTime)
         {
-            HabitId = routine.Id;
-            HabitName = routine.Name;
-            ElapsedTime = recordTime;
-            TotalTime = routine.TotalTime;
-            Date = DateTime.Now.Date;
+            HabitId = habit.Id;
+            HabitName = habit.Name;
+            TotalTime = habit.TotalTime;
+            ElapsedTime = elapsedTime;
+            RecordTime = DateTime.Now;
         }
     }
 }

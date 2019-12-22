@@ -38,7 +38,7 @@ namespace miracle_routine.Models
         }
 
         [Ignore]
-        public TimeSpan Time
+        public TimeSpan TotalTime
         {
             get { return new TimeSpan(0, Minutes, Seconds); }
         }

@@ -70,7 +70,7 @@
                                     <Label Margin="10, 0" 
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="CenterAndExpand" 
-                                           Text="{Binding Time, Converter={StaticResource TakenTimeStringConverter}}"
+                                           Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
                                            TextColor="{StaticResource PrimaryTextColor}"
                                            FontSize="Body"/>
                                 </StackLayout>

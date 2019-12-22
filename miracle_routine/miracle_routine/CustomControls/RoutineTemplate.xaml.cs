@@ -16,14 +16,16 @@ namespace miracle_routine.CustomControls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RoutineTemplate : ContentView
     {
-        Routine routine;
+        Routine habit;
         public RoutineTemplate()
         {
             InitializeComponent();
         }
         private void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
+            var habit = e.Item as Habit;
 
+            App.MessagingCenter.SendShowHabitRecordMessage(habit);
         }
 
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -37,7 +39,7 @@ namespace miracle_routine.CustomControls
         private async void MenuButton_Clicked(object sender, EventArgs e)
         {
             var menuBtn = sender as ImageButton;
-            routine = menuBtn.BindingContext as Routine;
+            habit = menuBtn.BindingContext as Routine;
 
             await ShowMenu();
         }
@@ -45,7 +47,7 @@ namespace miracle_routine.CustomControls
         {
             string[] actionSheetBtns = { StringResources.Modify, StringResources.Delete, StringResources.RoutineRecord };
 
-            string action = await DependencyService.Get<MessageBoxService>().ShowActionSheet($"{routine.Name} {StringResources.Menu}", StringResources.Cancel, null, actionSheetBtns);
+            string action = await DependencyService.Get<MessageBoxService>().ShowActionSheet($"{habit.Name} {StringResources.Menu}", StringResources.Cancel, null, actionSheetBtns);
 
             if (action != StringResources.Cancel && !string.IsNullOrEmpty(action))
             {
@@ -57,7 +59,7 @@ namespace miracle_routine.CustomControls
         {
             if (action == StringResources.Modify)
             {
-                App.MessagingCenter.SendShowRoutineMessage(routine);
+                App.MessagingCenter.SendShowRoutineMessage(habit);
             }
             else if (action == StringResources.Delete)
             {
@@ -66,25 +68,25 @@ namespace miracle_routine.CustomControls
             }
             else if (action == StringResources.RoutineRecord)
             {
-                App.MessagingCenter.SendShowRoutineRecordMessage(routine);
+                App.MessagingCenter.SendShowRoutineRecordMessage(habit);
             }
         }
 
         private void DeleteRoutineAndHabitList()
         {
-            foreach (var habit in routine.HabitList)
+            foreach (var habit in habit.HabitList)
             {
                 App.HabitService.DeleteHabit(habit.Id);
             }
-            App.RoutineService.DeleteRoutine(routine);
+            App.RoutineService.DeleteRoutine(habit);
             App.MessagingCenter.SendChangeRoutineMessage();
         }
 
         private void StartButton_Clicked(object sender, EventArgs e)
         {
             var menuBtn = sender as Button;
-            routine = menuBtn.BindingContext as Routine;
-            App.MessagingCenter.SendShowRoutineActionMessage(routine);
+            habit = menuBtn.BindingContext as Routine;
+            App.MessagingCenter.SendShowRoutineActionMessage(habit);
         }
 
         public void SendChangeRoutineMessage()

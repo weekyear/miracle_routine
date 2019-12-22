@@ -22,7 +22,7 @@ namespace miracle_routine.Models
         public string RoutineName { get; set; }
         public TimeSpan ElapsedTime { get; set; }
         public TimeSpan TotalTime { get; set; }
-        public TimeSpan OverTime
+        public TimeSpan TimeRemaining
         {
             get { return TotalTime.Subtract(ElapsedTime); }
         }

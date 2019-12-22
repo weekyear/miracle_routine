@@ -12,13 +12,14 @@ using Xamarin.Forms.Xaml;
 namespace miracle_routine.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoutineActionPage : ContentPage
+    public partial class HabitRecordPage : ContentPage
     {
-        RoutineActionViewModel viewModel;
-        public RoutineActionPage(Routine routine, List<HabitRecord> habitRecords)
+        private HabitRecordViewModel viewModel;
+        public HabitRecordPage(Habit habit)
         {
             InitializeComponent();
-            BindingContext = viewModel = new RoutineActionViewModel(Navigation, routine, habitRecords);
+
+            BindingContext = viewModel = new HabitRecordViewModel(Navigation, habit);
         }
     }
 }
