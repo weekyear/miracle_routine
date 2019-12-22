@@ -43,7 +43,7 @@ namespace miracle_routine.CustomControls
         }
         private async Task ShowMenu()
         {
-            string[] actionSheetBtns = { StringResources.Modify, StringResources.Delete };
+            string[] actionSheetBtns = { StringResources.Modify, StringResources.Delete, StringResources.RoutineRecord };
 
             string action = await DependencyService.Get<MessageBoxService>().ShowActionSheet($"{routine.Name} {StringResources.Menu}", StringResources.Cancel, null, actionSheetBtns);
 
@@ -63,6 +63,10 @@ namespace miracle_routine.CustomControls
             {
                 void deleteAction() => DeleteRoutineAndHabitList();
                 DependencyService.Get<MessageBoxService>().ShowConfirm(StringResources.DeleteRoutine, StringResources.AskDeleteRoutine, null, deleteAction);
+            }
+            else if (action == StringResources.RoutineRecord)
+            {
+                App.MessagingCenter.SendShowRoutineRecordMessage(routine);
             }
         }
 

@@ -46,6 +46,16 @@ namespace miracle_routine
         public static IHabitService HabitService { get; } = new HabitService(HabitRepo);
         public static IRoutineRepo RoutineRepo { get; } = new RoutineRepo(ItemDatabase);
         public static IRoutineService RoutineService { get; } = new RoutineService(RoutineRepo);
+
+        private static IRecordRepo recordRepo;
+        public static IRecordRepo RecordRepo
+        {
+            get
+            {
+                if (recordRepo == null) recordRepo = new RecordRepo(ItemDatabase);
+                return recordRepo;
+            }
+        }
         public static MyMessagingCenter MessagingCenter { get; } = new MyMessagingCenter();
     }
 }

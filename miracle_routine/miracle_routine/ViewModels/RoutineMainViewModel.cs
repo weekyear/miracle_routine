@@ -42,6 +42,11 @@ namespace miracle_routine.ViewModels
             {
                 await NavigateRoutineActionPage(routine);
             });
+            
+            MessagingCenter.Subscribe<MyMessagingCenter, Routine>(this, "showRoutineRecord",  async (sender, routine) =>
+            {
+                await NavigateRoutineRecordPage(routine);
+            });
         }
 
         private ObservableCollection<Routine> routines;
@@ -86,7 +91,11 @@ namespace miracle_routine.ViewModels
         private async Task NavigateRoutineActionPage(Routine routine)
         {
             await Navigation.PushAsync(new RoutineActionPage(routine, 0), true);
-            //App.Current.MainPage = new SharedTransitionNavigationPage(new RoutineActionPage(routine, 0));
+        }
+        
+        private async Task NavigateRoutineRecordPage(Routine routine)
+        {
+            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutineRecordPage(routine)));
         }
 
         public void RefreshRoutines()

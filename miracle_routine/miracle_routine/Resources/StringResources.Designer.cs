@@ -286,6 +286,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Routine record.
+        /// </summary>
+        internal static string RoutineRecord {
+            get {
+                return ResourceManager.GetString("RoutineRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Routine setting.
         /// </summary>
         internal static string RoutineSetting {

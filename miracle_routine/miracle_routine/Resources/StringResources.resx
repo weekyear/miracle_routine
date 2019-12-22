@@ -192,6 +192,9 @@
   <data name="RecommendedHabit" xml:space="preserve">
     <value>Recommended habit</value>
   </data>
+  <data name="RoutineRecord" xml:space="preserve">
+    <value>Routine record</value>
+  </data>
   <data name="RoutineSetting" xml:space="preserve">
     <value>Routine setting</value>
   </data>

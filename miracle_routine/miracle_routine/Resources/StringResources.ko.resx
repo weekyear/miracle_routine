@@ -192,6 +192,9 @@
   <data name="RecommendedHabit" xml:space="preserve">
     <value>추천 습관</value>
   </data>
+  <data name="RoutineRecord" xml:space="preserve">
+    <value>루틴 기록</value>
+  </data>
   <data name="RoutineSetting" xml:space="preserve">
     <value>루틴 설정</value>
   </data>
