@@ -30,12 +30,12 @@ namespace miracle_routine.Models
 
         public HabitRecord() { }
 
-        public HabitRecord(Habit habit, TimeSpan elapsedTime)
+        public HabitRecord(Habit habit, TimeSpan timeRemaining)
         {
             HabitId = habit.Id;
             HabitName = habit.Name;
             TotalTime = habit.TotalTime;
-            ElapsedTime = elapsedTime;
+            ElapsedTime = TotalTime.Subtract(timeRemaining);
             RecordTime = DateTime.Now;
         }
     }

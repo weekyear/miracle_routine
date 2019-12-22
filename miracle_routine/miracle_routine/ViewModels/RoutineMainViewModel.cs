@@ -101,7 +101,7 @@ namespace miracle_routine.ViewModels
 
         private async Task NavigateRoutinePage(Routine routine)
         {
-            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutinePage(routine)));
+            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutineSettingPage(routine)));
         }
 
         private async Task NavigateRoutineActionPage(Routine routine)

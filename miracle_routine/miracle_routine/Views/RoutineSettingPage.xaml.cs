@@ -13,16 +13,16 @@ namespace miracle_routine.Views
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class RoutinePage : ContentPage
+    public partial class RoutineSettingPage : ContentPage
     {
         public Routine Item { get; set; }
-        private RoutineViewModel viewModel;
+        private RoutineSettingViewModel viewModel;
 
-        public RoutinePage(Routine routine)
+        public RoutineSettingPage(Routine routine)
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new RoutineViewModel(Navigation, routine);
+            BindingContext = viewModel = new RoutineSettingViewModel(Navigation, routine);
         }
 
         async void Cancel_Clicked(object sender, EventArgs e)

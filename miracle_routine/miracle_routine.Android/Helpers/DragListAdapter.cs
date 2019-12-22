@@ -123,7 +123,7 @@ namespace miracle_routine.Droid.Helpers
         {
             object selectedItem = null;
 
-            if (_element.BindingContext is RoutineViewModel)
+            if (_element.BindingContext is RoutineSettingViewModel)
             {
                 selectedItem = ((IList)_element.ItemsSource)[id];
             }

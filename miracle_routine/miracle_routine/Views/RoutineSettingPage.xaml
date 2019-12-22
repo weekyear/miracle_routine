@@ -7,7 +7,7 @@
              xmlns:custom="clr-namespace:miracle_routine.CustomControls"
              xmlns:conv ="clr-namespace:miracle_routine.Converters"
              mc:Ignorable="d"
-             x:Class="miracle_routine.Views.RoutinePage"
+             x:Class="miracle_routine.Views.RoutineSettingPage"
              Title="{local:Translate RoutineSetting}"
              BackgroundColor="{StaticResource BackgroundColor}"
              IsEnabled="{Binding IsNotBusy}">

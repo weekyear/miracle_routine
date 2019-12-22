@@ -29,8 +29,8 @@
     <Compile Update="Views\RoutineDetailPage.xaml.cs">
       <DependentUpon>RoutineDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\RoutinePage.xaml.cs">
-      <DependentUpon>RoutinePage.xaml</DependentUpon>
+    <Compile Update="Views\RoutineSettingPage.xaml.cs">
+      <DependentUpon>RoutineSettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\RoutineMainPage.xaml.cs">
       <DependentUpon>RoutineMainPage.xaml</DependentUpon>

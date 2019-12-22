@@ -158,7 +158,7 @@ namespace miracle_routine.ViewModels
         private void RefreshRecordChart()
         {
             var elapsedEntries = new List<Entry>();
-            var overEntries = new List<Entry>();
+            var remainingEntries = new List<Entry>();
 
             for (int i = RecordStartPosition; i <= RecordEndPosition; i++)
             {
@@ -167,7 +167,7 @@ namespace miracle_routine.ViewModels
                 var entry = new Entry((float)habitRecord.ElapsedTime.TotalSeconds)
                 {
                     Label = $"{habitRecord.RecordTime.Month}/{habitRecord.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(habitRecord.RecordTime)})",
-                    Color = SKColor.Parse("#90caf9"),
+                    Color = SKColor.Parse("#1565c0"),
                     ValueLabel = CreateTimeToString.TakenTimeToString_en(habitRecord.ElapsedTime)
                 };
                 elapsedEntries.Add(entry);
@@ -175,10 +175,10 @@ namespace miracle_routine.ViewModels
                 entry = new Entry((float)habitRecord.TimeRemaining.TotalSeconds)
                 {
                     Label = $"{habitRecord.RecordTime.Month}/{habitRecord.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(habitRecord.RecordTime)})",
-                    Color = SKColor.Parse("#1565c0"),
+                    Color = SKColor.Parse("#90caf9"),
                     ValueLabel = CreateTimeToString.TakenTimeToString_en(habitRecord.TimeRemaining)
                 };
-                overEntries.Add(entry);
+                remainingEntries.Add(entry);
             }
 
             ElapsedTimeChart = new BarChart()
@@ -192,7 +192,7 @@ namespace miracle_routine.ViewModels
 
             TimeRemainingChart = new BarChart()
             {
-                Entries = overEntries,
+                Entries = remainingEntries,
                 LabelTextSize = DependencyService.Get<INativeFont>().GetNativeSize(LabelFontSize),
                 LabelOrientation = Orientation.Horizontal,
                 ValueLabelOrientation = Orientation.Horizontal,

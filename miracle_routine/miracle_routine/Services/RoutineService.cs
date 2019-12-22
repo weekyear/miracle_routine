@@ -81,6 +81,13 @@ namespace miracle_routine.Services
             Repository.DeleteDaysOfWeek(routine.DaysId);
             RefreshRoutines();
 
+            var routineRecords = App.RecordRepo.RoutineRecordFromDB.Where(r => r.RoutineId == id);
+
+            foreach(var record in routineRecords)
+            {
+                App.RecordRepo.DeleteRoutineRecord(record.Id);
+            }
+
             return id;
         }
 

@@ -170,7 +170,7 @@ namespace miracle_routine.ViewModels
                 var entry = new Entry((float)routine.ElapsedTime.TotalSeconds)
                 {
                     Label = $"{routine.RecordTime.Month}/{routine.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(routine.RecordTime)})",
-                    Color = SKColor.Parse("#90caf9"),
+                    Color = SKColor.Parse("#1565c0"),
                     ValueLabel = CreateTimeToString.TakenTimeToString_en(routine.ElapsedTime)
                 };
                 elapsedEntries.Add(entry);
@@ -178,7 +178,7 @@ namespace miracle_routine.ViewModels
                 entry = new Entry((float)routine.TimeRemaining.TotalSeconds)
                 {
                     Label = $"{routine.RecordTime.Month}/{routine.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(routine.RecordTime)})",
-                    Color = SKColor.Parse("#1565c0"),
+                    Color = SKColor.Parse("#90caf9"),
                     ValueLabel = CreateTimeToString.TakenTimeToString_en(routine.TimeRemaining)
                 };
                 overEntries.Add(entry);

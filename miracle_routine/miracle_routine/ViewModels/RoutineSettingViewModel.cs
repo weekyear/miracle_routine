@@ -12,9 +12,9 @@ using Xamarin.Forms;
 
 namespace miracle_routine.ViewModels
 {
-    public class RoutineViewModel : BaseViewModel
+    public class RoutineSettingViewModel : BaseViewModel
     {
-        public RoutineViewModel(INavigation navigation, Routine routine) : base(navigation)
+        public RoutineSettingViewModel(INavigation navigation, Routine routine) : base(navigation)
         {
             Routine = new Routine(routine);
 
@@ -100,6 +100,12 @@ namespace miracle_routine.ViewModels
             }
         }
 
+        private List<Habit> habitsForDelete = new List<Habit>();
+        public List<Habit> HabitsForDelete
+        {
+            get { return habitsForDelete; }
+        }
+
         public bool HasNoHabit
         {
             get
@@ -169,6 +175,14 @@ namespace miracle_routine.ViewModels
                     habit.RoutineId = id;
                 }
                 App.HabitService.SaveHabits(Habits);
+
+                foreach(var habit in HabitsForDelete)
+                {
+                    if (habit.Id != 0)
+                    {
+                        App.HabitService.DeleteHabit(habit.Id);
+                    }
+                }
 
                 await ClosePopup();
 
@@ -244,10 +258,7 @@ namespace miracle_routine.ViewModels
                 int i = Habits.IndexOf(oldHabit);
                 Habits.Remove(oldHabit);
 
-                if (oldHabit.Id != 0)
-                {
-                    App.HabitService.DeleteHabit(oldHabit.Id);
-                }
+                HabitsForDelete.Add(oldHabit);
                 RefreshHabits();
             }
         }
