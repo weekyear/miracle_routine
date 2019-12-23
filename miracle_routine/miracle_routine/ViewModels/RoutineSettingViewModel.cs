@@ -223,9 +223,7 @@ namespace miracle_routine.ViewModels
                         miracleHabit.Index = Habits.Count;
                         Habits.Add(miracleHabit);
                     }
-                    OnPropertyChanged(nameof(HasNoHabit));
-                    OnPropertyChanged(nameof(HasHabit));
-                    OnPropertyChanged(nameof(Habits));
+                    RefreshHabits();
                 });
         }
 

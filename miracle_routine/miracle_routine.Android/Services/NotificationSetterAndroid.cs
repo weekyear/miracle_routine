@@ -84,7 +84,7 @@ namespace miracle_routine.Droid.Services
 
             var notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
             var notification = notificationBuilder.SetOngoing(true)
-                    .SetSmallIcon(Resource.Mipmap.icon)
+                    .SetSmallIcon(Resource.Drawable.ic_miracle_routine_mini)
                     .SetContentTitle(title)
                     .SetContentText(message)
                     .SetPriority((int)NotificationImportance.High)

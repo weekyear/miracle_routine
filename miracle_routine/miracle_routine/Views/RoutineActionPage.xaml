@@ -42,11 +42,18 @@
                        TextColor="{StaticResource PrimaryTextColor}"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"/>
-                <ImageButton Source="ic_cancel.png"
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                    <ImageButton Source="ic_undo.png"
                              WidthRequest="24" HeightRequest="24"
                              BackgroundColor="White"
-                             HorizontalOptions="End"
-                             Command="{Binding CloseCommand}"/>
+                                 Margin="5, 0"
+                             Command="{Binding UndoCommand}"/>
+                    <ImageButton Source="ic_cancel.png"
+                             WidthRequest="24" HeightRequest="24"
+                             BackgroundColor="White"
+                                 Margin="5, 0"
+                             Command="{Binding CloseAllCommand}"/>
+                </StackLayout>
             </Grid>
             <StackLayout Orientation="Vertical"
                          HorizontalOptions="FillAndExpand"
@@ -68,26 +75,28 @@
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
                 <custom:PlayButton HorizontalOptions="Center"
-                                   BackgroundColor="White"
+                                   BackgroundColor="{StaticResource Icon}"
                                    IsPlaying="{Binding IsCounting}"
                                    ImageSource="ic_play"
                                    ImageSourcePlay="ic_play"
                                    ImageSourcePause="ic_pause"
-                                   Padding="0, 10, 0, 0"
-                                   Command="{Binding ClickPlayCommand}"/>
-                <Button Text="{Binding DoneBtnName}"
-                        Margin="30"
+                                   Margin="0, 10, 0, 0"
+                                   CornerRadius="20"
+                                   Command="{Binding ClickPlayCommand}"
+                                   IsEnabled="{Binding IsNotBusy}"/>
+                <StackLayout Orientation="Vertical" Margin="30" VerticalOptions="End">
+                    <BoxView Color="{StaticResource Icon}" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="2"/>
+                    <Button Text="{Binding DoneBtnName}"
                         FontSize="25"
                         FontAttributes="Bold"
                         TextColor="{StaticResource Accent}"
-                        BorderColor="Accent"
-                        BorderWidth="3"
-                        CornerRadius="10"
                         WidthRequest="100"
                         BackgroundColor="White"
                         HorizontalOptions="CenterAndExpand"
                         VerticalOptions="StartAndExpand"
                         Command="{Binding ShowNextHabitCommand}"/>
+                    <BoxView Color="{StaticResource Icon}" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="2"/>
+                </StackLayout>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal"

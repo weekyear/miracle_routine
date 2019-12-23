@@ -35,10 +35,19 @@ namespace miracle_routine.Droid.BroadcastReceivers
             }
             else if (intent.Action == "시작")
             {
-                OpenMainActivity(context, bundle);
+                try
+                {
+                    Preferences.Set("StartRoutineId", id);
 
-                var routine = App.RoutineService.GetRoutine(id);
-                App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, null));
+                    OpenMainActivity(context, bundle);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine(ex.Source);
+                    Console.WriteLine(ex.InnerException);
+                }
             }
             else if (intent.Action == "입력")
             {

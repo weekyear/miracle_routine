@@ -20,5 +20,11 @@ namespace miracle_routine.Views
             InitializeComponent();
             BindingContext = viewModel = new RoutineActionViewModel(Navigation, routine, habitRecords);
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            viewModel.ClosePopup();
+            return true;
+        }
     }
 }

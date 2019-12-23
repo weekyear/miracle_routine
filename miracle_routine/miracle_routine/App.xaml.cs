@@ -25,6 +25,13 @@ namespace miracle_routine
             DependencyService.Register<MessageBoxService>();
 
             MainPage = new SharedTransitionNavigationPage(new RoutinesPage());
+
+            if (Preferences.Get("StartRoutineId", 0) != 0)
+            {
+                var routine = RoutineService.GetRoutine(Preferences.Get("StartRoutineId", 0));
+                Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, null));
+                Preferences.Set("StartRoutineId", 0);
+            }
         }
 
         protected override void OnStart()

@@ -16,6 +16,7 @@ namespace miracle_routine.ViewModels
 {
     public class RoutineActionViewModel : BaseViewModel
     {
+        private DeviceTimer deviceTimer;
         public RoutineActionViewModel(INavigation navigation, Routine routine, List<HabitRecord> _habitRecords) : base(navigation)
         {
             Routine = new Routine(routine);
@@ -43,51 +44,74 @@ namespace miracle_routine.ViewModels
                 SetTimer();
             }
         }
+
         private void ConstructCommand()
         {
         }
 
         private void SubscribeMessage()
         {
-            CloseCommand = new Command(async () => await ClosePopup());
+            UndoCommand = new Command(async () => await ClosePopup());
+            CloseAllCommand = new Command(async () => await CloseAll());
             ShowNextHabitCommand = new Command(async () => await ShowNextHabit());
             ClickPlayCommand = new Command(() => ClickPlay());
         }
 
         private void SetTimer()
         {
-            Device.StartTimer(new TimeSpan(0,0,1), () =>
+            Action action = () =>
             {
-                if (!IsCounting) return IsCounting;
-
-                var currentHabitTimeSeconds = CurrentHabitTime.TotalSeconds - 1;
-                var totalTimeSeconds = ElapsedTime.TotalSeconds + 1;
-
-                CurrentHabitTime = TimeSpan.FromSeconds(currentHabitTimeSeconds);
-                ElapsedTime = TimeSpan.FromSeconds(totalTimeSeconds);
-
-                DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime);
-
-                if (currentHabitTimeSeconds == 0)
+                if (IsCounting)
                 {
-                    DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
-                }
+                    var currentHabitTimeSeconds = CurrentHabitTime.TotalSeconds - 1;
+                    var totalTimeSeconds = ElapsedTime.TotalSeconds + 1;
 
-                if (currentHabitTimeSeconds < 0 && !IsMinusHabitTime)
-                {
-                    IsMinusHabitTime = true;
+                    CurrentHabitTime = TimeSpan.FromSeconds(currentHabitTimeSeconds);
+                    ElapsedTime = TimeSpan.FromSeconds(totalTimeSeconds);
+
+                    DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime);
+
+                    if (currentHabitTimeSeconds == 0)
+                    {
+                        DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
+                    }
+
+                    if (currentHabitTimeSeconds < 0 && !IsMinusHabitTime)
+                    {
+                        IsMinusHabitTime = true;
+                    };
                 }
-                return IsCounting;
-            });
+            };
+            deviceTimer = new DeviceTimer(action, TimeSpan.FromSeconds(1), true, true);
         }
 
         #region PROPERTY
-        public Command CloseCommand { get; set; }
+        public Command UndoCommand { get; set; }
+        public Command CloseAllCommand { get; set; }
         public Command ShowNextHabitCommand { get; set; }
         public Command ShowHabitSettingCommand { get; set; }
         public Command ClickPlayCommand { get; set; }
 
-        public bool IsCounting { get; set; } = true;
+        private bool isCounting = true;
+        public bool IsCounting 
+        {
+            get { return isCounting; }
+            set
+            {
+                if (isCounting == value) return;
+
+                SetProperty(ref isCounting, value, nameof(IsCounting));
+
+                if (isCounting)
+                {
+                    deviceTimer.Start();
+                }
+                else
+                {
+                    deviceTimer.Stop();
+                }
+            }
+        }
 
         public Routine Routine
         {
@@ -227,22 +251,35 @@ namespace miracle_routine.ViewModels
             }
         }
 
+        private bool IsFinished { get; set; } = false;
+
         #endregion
 
         #region METHOD
 
-        private async Task ClosePopup()
+        public async Task ClosePopup()
         {
             IsCounting = false;
 
-            DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
-            DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
-            var existingPages = Navigation.NavigationStack.ToList();
-            for (int i = 1; i < existingPages.Count - 1; i++)
+            if (CurrentIndex == 0 || IsFinished)
             {
-                Navigation.RemovePage(existingPages[i]);
+                DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
+                DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
+                var existingPages = Navigation.NavigationStack.ToList();
+                for (int i = 1; i < existingPages.Count - 1; i++)
+                {
+                    Navigation.RemovePage(existingPages[i]);
+                }
             }
+
             await Navigation.PopAsync(true);
+        }
+
+        private async Task CloseAll()
+        {
+            IsFinished = true;
+
+            await ClosePopup();
         }
         
         private async Task ShowNextHabit()
@@ -293,7 +330,6 @@ namespace miracle_routine.ViewModels
             try
             {
                 IsCounting = !IsCounting;
-                if (IsCounting) SetTimer();
             }
             catch (Exception ex)
             {
@@ -313,7 +349,7 @@ namespace miracle_routine.ViewModels
                 $"예상 소요 시간 {CreateTimeToString.TakenTimeToString(Routine.TotalTime)}",
                 async () => 
                 {
-                    await ClosePopup();
+                    await CloseAll();
                 },
                 () =>
                 {
@@ -328,7 +364,7 @@ namespace miracle_routine.ViewModels
                 $"총 소요 시간 : {CreateTimeToString.TakenTimeToString(ElapsedTime)}",
                 async () =>
                 {
-                    await ClosePopup();
+                    await CloseAll();
                 });
         }
 

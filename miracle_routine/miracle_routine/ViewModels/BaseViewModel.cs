@@ -31,7 +31,7 @@ namespace miracle_routine.ViewModels
 
         public bool IsNotBusy
         {
-            get { return !isBusy; }
+            get { return !IsBusy; }
         }
 
         string title = string.Empty;
