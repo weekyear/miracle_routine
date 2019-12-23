@@ -292,6 +292,15 @@ namespace miracle_routine.ViewModels
             {
                 IsCounting = false;
 
+                if (CurrentIndex < HabitRecords.Count)
+                {
+                    var recordsCount = HabitRecords.Count;
+                    for (int i = CurrentIndex; i < recordsCount; i++)
+                    {
+                        HabitRecords.RemoveAt(CurrentIndex);
+                    }
+                }
+
                 HabitRecords.Add(new HabitRecord(CurrentHabit, CurrentHabitTime));
 
                 if (IsNotLastHabit)
