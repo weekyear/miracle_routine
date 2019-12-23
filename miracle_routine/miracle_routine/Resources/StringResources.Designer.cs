@@ -61,6 +61,24 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ca-app-pub-8413101784746060/4830795674.
+        /// </summary>
+        internal static string AdMobBannerId {
+            get {
+                return ResourceManager.GetString("AdMobBannerId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ca-app-pub-8413101784746060/9891550667.
+        /// </summary>
+        internal static string AdMobInterstitialId {
+            get {
+                return ResourceManager.GetString("AdMobInterstitialId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete this routine?.
         /// </summary>
         internal static string AskDeleteRoutine {

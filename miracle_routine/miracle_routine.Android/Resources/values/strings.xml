@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+  <string name="admob_app_id">ca-app-pub-8413101784746060~7648530706</string>
+  <string name="admob_banner_id">ca-app-pub-8413101784746060/4830795674</string>
+  <string name="admob_interstitial_id">ca-app-pub-8413101784746060/9891550667</string>
+  <string name="com.crashlytics.android.build_id">crashlytics_8413101784746060_7648530706</string>
+</resources>

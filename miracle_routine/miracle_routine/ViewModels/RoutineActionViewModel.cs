@@ -374,6 +374,7 @@ namespace miracle_routine.ViewModels
                 async () =>
                 {
                     await CloseAll();
+                    DependencyService.Get<IAdMobInterstitial>().Show(StringResources.AdMobInterstitialId);
                 });
         }
 

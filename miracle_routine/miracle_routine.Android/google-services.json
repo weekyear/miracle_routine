@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "674538877329",
+    "firebase_url": "https://miracleroutine.firebaseio.com",
+    "project_id": "miracleroutine",
+    "storage_bucket": "miracleroutine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674538877329:android:97e7303f0ad356efe2ea30",
+        "android_client_info": {
+          "package_name": "com.beside.miracle_routine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674538877329-556sbbnlcgv4imub5fqn2d71g5nof7hr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkqAx6Fn047Yl8YbBaXew2M56MZFxacnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674538877329-556sbbnlcgv4imub5fqn2d71g5nof7hr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

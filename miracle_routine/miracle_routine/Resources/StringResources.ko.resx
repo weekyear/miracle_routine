@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdMobBannerId" xml:space="preserve">
+    <value>ca-app-pub-8413101784746060/4830795674</value>
+  </data>
+  <data name="AdMobInterstitialId" xml:space="preserve">
+    <value>ca-app-pub-8413101784746060/9891550667</value>
+  </data>
   <data name="AskDeleteRoutine" xml:space="preserve">
     <value>이 루틴을 삭제하시겠습니까?</value>
   </data>

@@ -1,11 +1,8 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Android.Gms.Ads;
 
 namespace miracle_routine.Droid
 {
@@ -16,6 +13,11 @@ namespace miracle_routine.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            SetMobileAds();
+
+            Fabric.Fabric.With(this, new Crashlytics.Crashlytics());
+            //Crashlytics.Crashlytics.HandleManagedExceptions();
 
             base.OnCreate(savedInstanceState);
 
@@ -28,6 +30,11 @@ namespace miracle_routine.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        private void SetMobileAds()
+        {
+            MobileAds.Initialize(ApplicationContext, GetString(Resource.String.admob_app_id));
         }
     }
 }

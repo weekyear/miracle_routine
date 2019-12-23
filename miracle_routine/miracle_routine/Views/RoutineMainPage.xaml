@@ -13,56 +13,63 @@
              IsEnabled="{Binding IsNotBusy}">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="10">
+        <Grid RowSpacing="0" Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <StackLayout Orientation="Horizontal" Margin="10, 0" Grid.Column="0">
-                <Image Source="ic_blank_habit.png" 
+                <StackLayout Orientation="Horizontal" Margin="10, 0" Grid.Column="0">
+                    <Image Source="ic_blank_habit.png" 
                    HorizontalOptions="Start" 
                    VerticalOptions="CenterAndExpand"
                    WidthRequest="32"
                    HeightRequest="32"/>
-                <Label Text="{local:Translate MiracleRoutine}"
+                    <Label Text="{local:Translate MiracleRoutine}"
                        TextColor="Black"
                        HorizontalTextAlignment="Start"
                        HorizontalOptions="StartAndExpand"
                        VerticalOptions="CenterAndExpand"
                        FontSize="Large" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" Grid.Column="1">
-                <ImageButton WidthRequest="32" HeightRequest="32"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Column="1">
+                    <ImageButton WidthRequest="32" HeightRequest="32"
                              Source="ic_add.png"
                              Margin="5, 0"
                              BackgroundColor="{StaticResource BackgroundColor}"
                              HorizontalOptions="CenterAndExpand"
                              VerticalOptions="CenterAndExpand"
                              Command="{Binding ShowRoutineCommand}"/>
-            </StackLayout>
-        </Grid>
+                </StackLayout>
+            </Grid>
 
-        <custom:NoRippleListView x:Name="RoutineListView" Grid.Row="1"
+            <custom:NoRippleListView x:Name="RoutineListView" Grid.Row="1"
                                  ItemsSource="{Binding Routines}"
                                  VerticalOptions="FillAndExpand"
                                  HasUnevenRows="True"
                                  ItemSelected="OnItemSelected"
                                  SeparatorVisibility="None">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <custom:RoutineTemplate/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </custom:NoRippleListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <custom:RoutineTemplate/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </custom:NoRippleListView>
+        </Grid>
+        <custom:AdMobView Grid.Row="1" AdUnitId="{local:Translate AdMobBannerId}"/>
     </Grid>
 
 </ContentPage>

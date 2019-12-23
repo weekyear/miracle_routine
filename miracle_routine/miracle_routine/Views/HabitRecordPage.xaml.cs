@@ -1,4 +1,6 @@
-﻿using miracle_routine.Models;
+﻿using miracle_routine.Helpers;
+using miracle_routine.Models;
+using miracle_routine.Resources;
 using miracle_routine.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,12 @@ namespace miracle_routine.Views
             InitializeComponent();
 
             BindingContext = viewModel = new HabitRecordViewModel(Navigation, habit);
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            DependencyService.Get<IAdMobInterstitial>().Show(StringResources.AdMobInterstitialId);
+
+            return base.OnBackButtonPressed();
         }
     }
 }
