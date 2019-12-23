@@ -25,6 +25,12 @@ namespace miracle_routine.Views
             BindingContext = viewModel = new RoutineSettingViewModel(Navigation, routine);
         }
 
+        protected override void OnAppearing()
+        {
+            viewModel.RefreshHabits();
+            base.OnAppearing();
+        }
+
         async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();

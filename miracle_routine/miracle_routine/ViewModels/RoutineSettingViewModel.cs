@@ -18,8 +18,9 @@ namespace miracle_routine.ViewModels
         {
             Routine = new Routine(routine);
 
+            habits = null;
+
             ConstructCommand();
-            SubscribeMessage();
         }
         private void ConstructCommand()
         {
@@ -27,19 +28,6 @@ namespace miracle_routine.ViewModels
             SaveCommand = new Command(async () => await Save());
             AddMiracleMorningCommand = new Command(() => AddMiracleMorning());
             ShowHabitSettingCommand = new Command(async () => await ShowHabitSetting());
-        }
-
-        private void SubscribeMessage()
-        {
-            MessagingCenter.Subscribe<MyMessagingCenter, Habit>(this, "addHabit", (sender, habit) =>
-            {
-                AddHabitList(habit);
-            });
-            
-            MessagingCenter.Subscribe<MyMessagingCenter, Habit>(this, "removeHabit", (sender, habit) =>
-            {
-                RemoveHabitList(habit);
-            });
         }
 
         #region PROPERTY
@@ -86,7 +74,7 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        private OrderableCollection<Habit> habits;
+        public static OrderableCollection<Habit> habits;
         public OrderableCollection<Habit> Habits
         {
             get
@@ -100,11 +88,7 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        private List<Habit> habitsForDelete = new List<Habit>();
-        public List<Habit> HabitsForDelete
-        {
-            get { return habitsForDelete; }
-        }
+        public static List<Habit> HabitsForDelete { get; } = new List<Habit>();
 
         public bool HasNoHabit
         {
@@ -227,43 +211,8 @@ namespace miracle_routine.ViewModels
                 });
         }
 
-        private void AddHabitList(Habit habit)
-        {
-            if (habit.Index == -1)
-            {
-                habit.Index = Habits.Count;
-                Habits.Add(habit);
-            }
-            else
-            {
-                var oldHabit = Habits.FirstOrDefault(h => h.Index == habit.Index);
-                int i = Habits.IndexOf(oldHabit);
-                Habits.Remove(oldHabit);
-                Habits.Insert(i, habit);
-            }
-            RefreshHabits();
-        }
-        
-        private void RemoveHabitList(Habit habit)
-        {
-            if (habit.Index == -1)
-            {
-                return;
-            }
-            else
-            {
-                var oldHabit = Habits.FirstOrDefault(h => h.Index == habit.Index);
-                int i = Habits.IndexOf(oldHabit);
-                Habits.Remove(oldHabit);
-
-                HabitsForDelete.Add(oldHabit);
-                RefreshHabits();
-            }
-        }
-
         public void RefreshHabits()
         {
-
             try
             {
                 var orderedHabits = AssignIndexToHabits(Habits.OrderBy(t => t.Index));

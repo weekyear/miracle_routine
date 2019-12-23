@@ -17,7 +17,7 @@ namespace miracle_routine.Droid
             SetMobileAds();
 
             Fabric.Fabric.With(this, new Crashlytics.Crashlytics());
-            //Crashlytics.Crashlytics.HandleManagedExceptions();
+            Crashlytics.Crashlytics.HandleManagedExceptions();
 
             base.OnCreate(savedInstanceState);
 

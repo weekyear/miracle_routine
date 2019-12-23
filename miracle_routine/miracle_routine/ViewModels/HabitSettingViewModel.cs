@@ -2,6 +2,7 @@
 using miracle_routine.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -121,7 +122,8 @@ namespace miracle_routine.ViewModels
                 {
                     Habit.Seconds = Habit.Seconds * 10;
                 }
-                App.MessagingCenter.SendAddHabitMessage(Habit);
+                AddHabitList(Habit);
+                //App.MessagingCenter.SendAddHabitMessage(Habit);
             }
             catch (Exception ex)
             {
@@ -150,7 +152,8 @@ namespace miracle_routine.ViewModels
                     $"습관을 삭제하시겠습니까?", null,
                     async () =>
                     {
-                        App.MessagingCenter.SendRemoveHabitMessage(Habit);
+                        RemoveHabitList(Habit);
+                        //App.MessagingCenter.SendRemoveHabitMessage(Habit);
 
                         await ClosePopup();
                     });
@@ -173,14 +176,38 @@ namespace miracle_routine.ViewModels
             await Navigation.PopModalAsync(true);
         }
 
-        public void SendAddHabitMessage(Habit habit)
+        private void AddHabitList(Habit habit)
         {
-            MessagingCenter.Send(typeof(Habit), "addHabit", habit);
+            var Habits = RoutineSettingViewModel.habits;
+            if (habit.Index == -1)
+            {
+                habit.Index = Habits.Count;
+                Habits.Add(habit);
+            }
+            else
+            {
+                var oldHabit = Habits.FirstOrDefault(h => h.Index == habit.Index);
+                int i = Habits.IndexOf(oldHabit);
+                Habits.Remove(oldHabit);
+                Habits.Insert(i, habit);
+            }
         }
 
-        public void SendRemoveHabitMessage(Habit habit)
+        private void RemoveHabitList(Habit habit)
         {
-            MessagingCenter.Send(typeof(Habit), "removeHabit", habit);
+            var Habits = RoutineSettingViewModel.habits;
+            if (habit.Index == -1)
+            {
+                return;
+            }
+            else
+            {
+                var oldHabit = Habits.FirstOrDefault(h => h.Index == habit.Index);
+                int i = Habits.IndexOf(oldHabit);
+                Habits.Remove(oldHabit);
+
+                RoutineSettingViewModel.HabitsForDelete.Add(oldHabit);
+            }
         }
         #endregion
     }
