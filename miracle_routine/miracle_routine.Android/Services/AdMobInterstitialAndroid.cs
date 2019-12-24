@@ -37,7 +37,7 @@ namespace miracle_routine.Droid.Services
 
             requestBuilder = new AdRequest.Builder().Build();
 
-            CreateRequestBuilderWhenTest();
+            //CreateRequestBuilderWhenTest();
 
             _ad.LoadAd(requestBuilder);
         }

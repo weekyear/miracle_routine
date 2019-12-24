@@ -62,7 +62,7 @@ namespace miracle_routine.Droid.CustomRenderers
 
             requestBuilder = new AdRequest.Builder().Build();
 
-            CreateRequestBuilderWhenTest();
+            //CreateRequestBuilderWhenTest();
 
             adView.LoadAd(requestBuilder);
 
