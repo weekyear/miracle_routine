@@ -72,6 +72,9 @@
     <PackageReference Include="Xamarin.Android.Crashlytics.Beta">
       <Version>1.2.9.2</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Android.Crashlytics.Core">
+      <Version>2.6.3.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.4.11</Version>
     </PackageReference>

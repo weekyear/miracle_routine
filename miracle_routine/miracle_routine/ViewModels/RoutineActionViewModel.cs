@@ -52,7 +52,7 @@ namespace miracle_routine.ViewModels
         private void SubscribeMessage()
         {
             UndoCommand = new Command(async () => await ClosePopup());
-            CloseAllCommand = new Command(async () => await CloseAll());
+            CloseAllCommand = new Command(() => CloseAll());
             ShowNextHabitCommand = new Command(async () => await ShowNextHabit());
             ClickPlayCommand = new Command(() => ClickPlay());
         }
@@ -104,11 +104,11 @@ namespace miracle_routine.ViewModels
 
                 if (isCounting)
                 {
-                    deviceTimer.Start();
+                    deviceTimer?.Start();
                 }
                 else
                 {
-                    deviceTimer.Stop();
+                    deviceTimer?.Stop();
                 }
             }
         }
@@ -275,11 +275,22 @@ namespace miracle_routine.ViewModels
             await Navigation.PopAsync(true);
         }
 
-        private async Task CloseAll()
+        private void CloseAll()
         {
-            IsFinished = true;
+            IsCounting = false;
 
-            await ClosePopup();
+            DependencyService.Get<MessageBoxService>().ShowConfirm(
+                $"루틴 종료",
+                $"루틴을 종료하시겠습니까?", 
+                () =>
+                {
+                    IsCounting = true;
+                },
+                async () =>
+                {
+                    IsFinished = true;
+                    await ClosePopup();
+                });
         }
         
         private async Task ShowNextHabit()
@@ -356,9 +367,10 @@ namespace miracle_routine.ViewModels
             DependencyService.Get<MessageBoxService>().ShowConfirm(
                 $"{Routine.Name} 루틴 시작",
                 $"예상 소요 시간 {CreateTimeToString.TakenTimeToString(Routine.TotalTime)}",
-                async () => 
+                async () =>
                 {
-                    await CloseAll();
+                    IsFinished = true;
+                    await ClosePopup();
                 },
                 () =>
                 {
@@ -373,7 +385,8 @@ namespace miracle_routine.ViewModels
                 $"총 소요 시간 : {CreateTimeToString.TakenTimeToString(ElapsedTime)}",
                 async () =>
                 {
-                    await CloseAll();
+                    IsFinished = true;
+                    await ClosePopup();
                     DependencyService.Get<IAdMobInterstitial>().Show(StringResources.AdMobInterstitialId);
                 });
         }

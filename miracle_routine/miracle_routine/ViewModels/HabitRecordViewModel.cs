@@ -49,8 +49,8 @@ namespace miracle_routine.ViewModels
             //    App.RecordRepo.SaveHabitRecord(new HabitRecord() { ElapsedTime = new TimeSpan(0, 12, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 07), HabitId = 1, RoutineRecordId = 1 });
             //}
 
-            RecordEndPosition = RecordTotalCount;
-            RecordStartPosition = RecordEndPosition - 6;
+            //RecordEndPosition = RecordTotalCount;
+            //RecordStartPosition = RecordEndPosition - NumOfChartData;
 
             RefreshRecordChart();
         }
