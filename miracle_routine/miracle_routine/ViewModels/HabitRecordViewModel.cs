@@ -89,6 +89,7 @@ namespace miracle_routine.ViewModels
             get
             {
                 if (recordStartPosition == -1) recordStartPosition = RecordEndPosition - (NumOfChartData - 1);
+                if (recordStartPosition < 1) recordStartPosition = 1;
                 return recordStartPosition;
             }
             set
@@ -104,6 +105,7 @@ namespace miracle_routine.ViewModels
             get
             {
                 if (recordEndPosition == -1) recordEndPosition = RecordTotalCount;
+                if (recordEndPosition > RecordTotalCount) recordEndPosition = RecordTotalCount;
                 return recordEndPosition;
             }
             set

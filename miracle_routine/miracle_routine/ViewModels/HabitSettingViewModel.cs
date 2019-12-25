@@ -120,10 +120,9 @@ namespace miracle_routine.ViewModels
             {
                 if (Seconds < 10)
                 {
-                    Habit.Seconds = Habit.Seconds * 10;
+                    Seconds = Seconds * 10;
                 }
                 AddHabitList(Habit);
-                //App.MessagingCenter.SendAddHabitMessage(Habit);
             }
             catch (Exception ex)
             {
@@ -153,7 +152,6 @@ namespace miracle_routine.ViewModels
                     async () =>
                     {
                         RemoveHabitList(Habit);
-                        //App.MessagingCenter.SendRemoveHabitMessage(Habit);
 
                         await ClosePopup();
                     });

@@ -28,26 +28,6 @@ namespace miracle_routine.ViewModels
             {
                 RefreshRoutines();
             });
-            
-            MessagingCenter.Subscribe<MyMessagingCenter, Routine>(this, "showRoutine",  async (sender, routine) =>
-            {
-                await NavigateRoutinePage(routine);
-            });
-            
-            MessagingCenter.Subscribe<MyMessagingCenter, Routine>(this, "showRoutineAction",  async (sender, routine) =>
-            {
-                await NavigateRoutineActionPage(routine);
-            });
-            
-            MessagingCenter.Subscribe<MyMessagingCenter, Routine>(this, "showRoutineRecord",  async (sender, routine) =>
-            {
-                await NavigateRoutineRecordPage(routine);
-            });
-            
-            MessagingCenter.Subscribe<MyMessagingCenter, Habit>(this, "showHabitRecord",  async (sender, habit) =>
-            {
-                await NavigateHabitRecordPage(habit);
-            });
         }
 
         private ObservableCollection<Routine> routines;
