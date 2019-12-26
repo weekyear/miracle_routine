@@ -71,6 +71,11 @@ namespace miracle_routine.ViewModels
 
                     DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime);
 
+                    if (CurrentHabit.TotalTime.TotalSeconds > 20 && currentHabitTimeSeconds == 10)
+                    {
+                        DependencyService.Get<INotifySetter>().NotifySoonFinishHabit(CurrentHabit, NextHabitName);
+                    }
+
                     if (currentHabitTimeSeconds == 0)
                     {
                         DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
@@ -142,7 +147,12 @@ namespace miracle_routine.ViewModels
         {
             get { return CurrentHabit.Name; }
         }
-        
+
+        public string HabitDescription
+        {
+            get { return CurrentHabit.Description; }
+        }
+
         public Habit NextHabit
         {
             get 
@@ -194,17 +204,17 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        private TimeSpan currentHabittime = TimeSpan.MinValue;
+        private TimeSpan currentHabitTime = TimeSpan.MinValue;
         public TimeSpan CurrentHabitTime
         {
             get
             {
-                if (currentHabittime == TimeSpan.MinValue) currentHabittime = CurrentHabit.TotalTime;
-                return currentHabittime;
+                if (currentHabitTime == TimeSpan.MinValue) currentHabitTime = CurrentHabit.TotalTime;
+                return currentHabitTime;
             }
             set
             {
-                SetProperty(ref currentHabittime, value, nameof(CurrentHabitTime));
+                SetProperty(ref currentHabitTime, value, nameof(CurrentHabitTime));
             }
         }
 

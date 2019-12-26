@@ -9,6 +9,7 @@
              Title="{local:Translate HabitSetting}"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.HabitSettingPage"
+             NavigationPage.HasBackButton="True"
              IsEnabled="{Binding IsNotBusy}">
 
     <ContentPage.Resources>
@@ -19,13 +20,14 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{local:Translate Delete}" Command="{Binding DeleteCommand}"/>
+        <ToolbarItem Text="{local:Translate Save}" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10" Padding="0">
+            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10, 5" Padding="0">
                 <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" Padding="0" Margin="10, 0">
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 10">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 10, 15, 0">
                         <Image Source="{Binding Image}" 
                                HorizontalOptions="Start" 
                                VerticalOptions="CenterAndExpand"
@@ -41,10 +43,11 @@
                                FontSize="Body"
                                VerticalTextAlignment="Center" />
                     </StackLayout>
+                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.8"/>
                     <Label Text="소요 시간" FontSize="Body" Margin="15, 0"
                            TextColor="{StaticResource PrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="15, 10" HeightRequest="80">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="15, 0" HeightRequest="80">
                         <custom:NumberPicker Value="{Binding Minutes}" PickerType="Minutes" Margin="0"/>
                         <Label Text="분" FontSize="Body"
                            TextColor="{StaticResource PrimaryTextColor}"
@@ -54,29 +57,26 @@
                            TextColor="{StaticResource PrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
-                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="0">
-                        <Button Text="{local:Translate Cancel}"
-                            FontSize="Medium"
-                            FontAttributes="Bold"
-                            TextColor="{StaticResource SecondaryTextColor}"
-                            HorizontalOptions="FillAndExpand"
-                            CornerRadius="15"
-                            Command="{Binding CloseCommand}" 
-                            BackgroundColor="White"/>
-                        <Button Text="{local:Translate Save}"
-                            FontSize="Medium"
-                            FontAttributes="Bold"
-                            TextColor="{StaticResource Accent}"
-                            HorizontalOptions="FillAndExpand"
-                            CornerRadius="15"
-                            Command="{Binding SaveCommand}"
-                            BackgroundColor="White"/>
-                    </StackLayout>
+                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.8"/>
+                    <Grid Margin="10, 0" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="{local:Translate Description}" FontSize="Body" Margin="15, 0" Padding="0"
+                               TextColor="{StaticResource PrimaryTextColor}"
+                               VerticalOptions="CenterAndExpand"/>
+                        <Editor Grid.Row="1" Text="{Binding Description}"
+                                HorizontalOptions="FillAndExpand"
+                                Margin="5, 0"
+                                AutoSize="TextChanges"
+                                Placeholder="{local:Translate PleaseWriteDescription}"
+                                FontSize="Body"/>
+                    </Grid>
                 </StackLayout>
             </Frame>
 
-            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10" Padding="0">
+            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
                     <Label Text="{local:Translate RecommendedHabit}" Margin="10, 10, 10, 0" FontSize="Medium" VerticalTextAlignment="Center" />
                     
@@ -98,9 +98,10 @@
                                                VerticalOptions="CenterAndExpand"
                                                WidthRequest="28"
                                                HeightRequest="28"/>
-                                        <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                                                <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
+                                                <Label Margin="10, 0" 
+                                                       VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding Name}"
                                                        TextColor="{StaticResource PrimaryTextColor}"
                                                        FontSize="Body"/>

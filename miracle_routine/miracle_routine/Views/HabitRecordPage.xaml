@@ -8,17 +8,29 @@
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.HabitRecordPage"
              BackgroundColor="{StaticResource BackgroundColor}"
-             Title="{Binding Title}"
+             NavigationPage.HasNavigationBar="False"
              IsEnabled="{Binding IsNotBusy}">
     <ContentPage.Content>
         <ScrollView>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <StackLayout Orientation="Horizontal" Margin="10, 5" Grid.Row="0" HorizontalOptions="CenterAndExpand" IsVisible="{Binding HasRecord}">
+                <StackLayout Grid.Row="0" Orientation="Horizontal" Margin="10, 5" HorizontalOptions="CenterAndExpand">
+                    <Image Source="{Binding Image}"
+                           Margin="5, 0"
+                           HorizontalOptions="Start" 
+                           VerticalOptions="CenterAndExpand"
+                           WidthRequest="28"
+                           HeightRequest="28"/>
+                    <Label Text="{Binding Title}"
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           FontSize="Large"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="10, 5" HorizontalOptions="CenterAndExpand" IsVisible="{Binding HasRecord}">
                     <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_left.png"
                          BackgroundColor="{StaticResource BackgroundColor}"
                          HorizontalOptions="Start"
@@ -45,7 +57,7 @@
                          VerticalOptions="CenterAndExpand"
                          Command="{Binding NextRecordCommand}"/>
                 </StackLayout>
-                <Frame CornerRadius="15" BackgroundColor="White" Margin="5" Padding="0" Grid.Row="1" IsVisible="{Binding HasRecord}">
+                <Frame CornerRadius="15" BackgroundColor="White" Margin="5" Padding="0" Grid.Row="2" IsVisible="{Binding HasRecord}">
                     <StackLayout Padding="5">
                         <Label Text="{local:Translate ElapsedTime}"
                                FontSize="Large"
@@ -57,7 +69,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Frame CornerRadius="15" BackgroundColor="White" Margin="5" Padding="0" Grid.Row="2" IsVisible="{Binding HasRecord}">
+                <Frame CornerRadius="15" BackgroundColor="White" Margin="5" Padding="0" Grid.Row="3" IsVisible="{Binding HasRecord}">
                     <StackLayout Padding="5">
                         <Label Text="{local:Translate TimeRemaining}"
                                FontSize="Large"

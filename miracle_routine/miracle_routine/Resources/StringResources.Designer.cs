@@ -133,6 +133,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Elapsed time.
         /// </summary>
         internal static string ElapsedTime {
@@ -214,6 +223,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Icon Copyright.
+        /// </summary>
+        internal static string IconCopyright {
+            get {
+                return ResourceManager.GetString("IconCopyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu.
         /// </summary>
         internal static string Menu {
@@ -291,6 +309,15 @@ namespace miracle_routine.Resources {
         internal static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is a space where you describe your habits. (Optional).
+        /// </summary>
+        internal static string PleaseWriteDescription {
+            get {
+                return ResourceManager.GetString("PleaseWriteDescription", resourceCulture);
             }
         }
         

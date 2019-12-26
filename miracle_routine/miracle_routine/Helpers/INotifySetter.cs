@@ -7,6 +7,7 @@ namespace miracle_routine.Helpers
 {
     public interface INotifySetter
     {
+        void NotifySoonFinishHabit(Habit habit, string nextHabitName);
         void NotifyFinishHabit(Habit habit, string nextHabitName);
         void NotifyHabitCount(Habit habit, TimeSpan countDown);
         void CancelFinishHabitNotify();

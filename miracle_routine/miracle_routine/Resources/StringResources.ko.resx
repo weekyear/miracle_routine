@@ -141,6 +141,9 @@
   <data name="DeleteRoutine" xml:space="preserve">
     <value>루틴 삭제</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>부가 설명</value>
+  </data>
   <data name="ElapsedTime" xml:space="preserve">
     <value>소요 시간</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="Hours" xml:space="preserve">
     <value>시간</value>
   </data>
+  <data name="IconCopyright" xml:space="preserve">
+    <value>앱 아이콘 출처</value>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>메뉴</value>
   </data>
@@ -194,6 +200,9 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>확인</value>
+  </data>
+  <data name="PleaseWriteDescription" xml:space="preserve">
+    <value>습관을 설명하는 말을 적는 공간입니다.(선택)</value>
   </data>
   <data name="PleaseWriteHabitName" xml:space="preserve">
     <value>습관 이름을 적어주세요~</value>

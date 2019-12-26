@@ -59,6 +59,18 @@ namespace miracle_routine.ViewModels
 
         public Habit SelectedHabit { get; set; }
 
+
+        public string Image
+        {
+            get { return SelectedHabit.Image; }
+            set
+            {
+                if (SelectedHabit.Image == value) return;
+                SelectedHabit.Image = value;
+                OnPropertyChanged(nameof(Image));
+            }
+        }
+
         private List<HabitRecord> habitRecords;
         public List<HabitRecord> HabitRecords
         {

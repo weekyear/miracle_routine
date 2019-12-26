@@ -141,6 +141,9 @@
   <data name="DeleteRoutine" xml:space="preserve">
     <value>Delete routine</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="ElapsedTime" xml:space="preserve">
     <value>Elapsed time</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="Hours" xml:space="preserve">
     <value>h</value>
   </data>
+  <data name="IconCopyright" xml:space="preserve">
+    <value>Icon Copyright</value>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
@@ -194,6 +200,9 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="PleaseWriteDescription" xml:space="preserve">
+    <value>It is a space where you describe your habits. (Optional)</value>
   </data>
   <data name="PleaseWriteHabitName" xml:space="preserve">
     <value>Please write habit name</value>

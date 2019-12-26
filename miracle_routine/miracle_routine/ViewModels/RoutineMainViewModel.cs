@@ -7,6 +7,7 @@ using miracle_routine.Models;
 using miracle_routine.Views;
 using miracle_routine.Helpers;
 using Plugin.SharedTransitions;
+using miracle_routine.Resources;
 
 namespace miracle_routine.ViewModels
 {
@@ -20,6 +21,7 @@ namespace miracle_routine.ViewModels
         private void ConstructCommand()
         {
             ShowRoutineCommand = new Command(async () => await ShowRoutine());
+            ShowMenuCommand = new Command(async () => await ShowMenu());
         }
 
         private void SubscribeMessage()
@@ -59,6 +61,9 @@ namespace miracle_routine.ViewModels
         }
 
         public Command ShowRoutineCommand { get; set; }
+        public Command ShowMenuCommand { get; set; }
+
+
         private async Task ShowRoutine()
         {
             if (IsBusy) return;
@@ -84,19 +89,25 @@ namespace miracle_routine.ViewModels
             await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutineSettingPage(routine)));
         }
 
-        private async Task NavigateRoutineActionPage(Routine routine)
+
+        private async Task ShowMenu()
         {
-            await Navigation.PushAsync(new RoutineActionPage(routine, null), true);
-        }
-        
-        private async Task NavigateRoutineRecordPage(Routine routine)
-        {
-            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutineRecordPage(routine)));
+            string[] actionSheetBtns = { StringResources.IconCopyright };
+
+            string action = await DependencyService.Get<MessageBoxService>().ShowActionSheet(StringResources.Menu, StringResources.Cancel, null, actionSheetBtns);
+
+            if (action != StringResources.Cancel && !string.IsNullOrEmpty(action))
+            {
+                await ClickMenuAction(action);
+            }
         }
 
-        private async Task NavigateHabitRecordPage(Habit habit)
+        private async Task ClickMenuAction(string action)
         {
-            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new HabitRecordPage(habit)));
+            if (action == StringResources.IconCopyright)
+            {
+                await Application.Current.MainPage.DisplayAlert(StringResources.IconCopyright, "https://icons8.com", StringResources.OK);
+            }
         }
 
         public void RefreshRoutines()

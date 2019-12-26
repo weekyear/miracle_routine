@@ -52,6 +52,12 @@
                              HorizontalOptions="CenterAndExpand"
                              VerticalOptions="CenterAndExpand"
                              Command="{Binding ShowRoutineCommand}"/>
+                    <ImageButton Source="ic_menu.png"
+                                 WidthRequest="32" HeightRequest="32"
+                                 BackgroundColor="{StaticResource BackgroundColor}"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="CenterAndExpand"
+                                 Command="{Binding ShowMenuCommand}"/>
                 </StackLayout>
             </Grid>
 

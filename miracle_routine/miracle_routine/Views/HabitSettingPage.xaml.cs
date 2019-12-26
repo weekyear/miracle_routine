@@ -28,7 +28,7 @@ namespace miracle_routine.Views
             viewModel.Name = selectedHabit.Name;
             viewModel.Minutes = selectedHabit.Minutes;
             viewModel.Seconds = selectedHabit.Seconds;
-            viewModel.Habit.Description = selectedHabit.Description;
+            viewModel.Description = selectedHabit.Description;
         }
 
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

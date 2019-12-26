@@ -3,7 +3,6 @@ using miracle_routine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -76,6 +75,20 @@ namespace miracle_routine.ViewModels
                 if (Habit.Seconds == value) return;
                 Habit.Seconds = value;
                 OnPropertyChanged(nameof(Seconds));
+            }
+        }
+        
+        public string Description
+        {
+            get 
+            {
+                return Habit.Description; 
+            }
+            set
+            {
+                if (Habit.Description == value) return;
+                Habit.Description = value;
+                OnPropertyChanged(nameof(Description));
             }
         }
 

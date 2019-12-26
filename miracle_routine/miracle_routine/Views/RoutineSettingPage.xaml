@@ -10,6 +10,7 @@
              x:Class="miracle_routine.Views.RoutineSettingPage"
              Title="{local:Translate RoutineSetting}"
              BackgroundColor="{StaticResource BackgroundColor}"
+             NavigationPage.HasBackButton="True"
              IsEnabled="{Binding IsNotBusy}">
 
     <ContentPage.Resources>
@@ -38,6 +39,8 @@
                 <StackLayout Orientation="Horizontal" Margin="15, 5">
                     <Label Text="{local:Translate StartTime}" FontSize="Medium" VerticalTextAlignment="Center" />
                     <TimePicker Time="{Binding StartTime}"
+                                FontSize="28"
+                                Format="HH:mm"
                                 HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
 
