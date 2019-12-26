@@ -68,11 +68,10 @@ namespace miracle_routine.Droid.Services
             return manager;
         }
 
-        private static void StartService(string notificationType, int id)
+        private static void StartService(bool isFinished)
         {
             Intent serviceIntent = new Intent(Application.Context, typeof(RoutineForegroundService));
-            serviceIntent.PutExtra("notificationType", notificationType);
-            serviceIntent.PutExtra("id", id);
+            serviceIntent.PutExtra("isFinished", isFinished);
 
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
@@ -110,7 +109,7 @@ namespace miracle_routine.Droid.Services
 
             HabitCountNotification = CreateForNotifyHabitCount(habit, countDown);
 
-            StartService("HabitCountNotification", 99);
+            StartService(false);
         }
 
         private static PendingIntent OpenAppIntent()
@@ -139,32 +138,6 @@ namespace miracle_routine.Droid.Services
         {
             var vibrator = (Vibrator)Application.Context.GetSystemService(Context.VibratorService);
             vibrator.Vibrate(VibrationEffect.CreateWaveform(vibrationPattern, -1));
-        }
-
-        public void CancelFinishHabitNotify()
-        {
-            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
-            manager.Cancel(98);
-        }
-
-        public void CancelHabitCountNotify()
-        {
-            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
-            manager.Cancel(99);
-        }
-
-        public static void CancelRoutineNotification(Context context, int id)
-        {
-            NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
-            if (id != -100000)
-            {
-                manager.Cancel(id);
-            }
-        }
-        public void DeleteAllNotifications()
-        {
-            var notificationManager = Application.Context.GetSystemService("notification") as NotificationManager;
-            notificationManager.CancelAll();
         }
 
 
@@ -281,6 +254,33 @@ namespace miracle_routine.Droid.Services
                     .Build();
 
             return notification;
+        }
+
+        public void CancelFinishHabitNotify()
+        {
+            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+            manager.Cancel(98);
+        }
+
+        public void CancelHabitCountNotify()
+        {
+            StartService(true);
+            //NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+            //manager.Cancel(99);
+        }
+
+        public static void CancelRoutineNotification(Context context, int id)
+        {
+            NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
+            if (id != -100000)
+            {
+                manager.Cancel(id);
+            }
+        }
+        public void DeleteAllNotifications()
+        {
+            var notificationManager = Application.Context.GetSystemService("notification") as NotificationManager;
+            notificationManager.CancelAll();
         }
     }
 }

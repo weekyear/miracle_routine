@@ -16,8 +16,6 @@ namespace miracle_routine.Droid.Services
     [Service]
     public class RoutineForegroundService : Service
     {
-        private int id;
-        private string notificationType;
         public override void OnCreate()
         {
             base.OnCreate();
@@ -25,7 +23,18 @@ namespace miracle_routine.Droid.Services
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
-            StartForeground(99, NotificationSetterAndroid.HabitCountNotification);
+
+            var bundle = intent.Extras;
+            var isFinished = bundle.GetBoolean("isFinished", false);
+
+            if (isFinished)
+            {
+                StopSelf();
+            }
+            else
+            {
+                StartForeground(99, NotificationSetterAndroid.HabitCountNotification);
+            }
 
             return StartCommandResult.Sticky;
         }

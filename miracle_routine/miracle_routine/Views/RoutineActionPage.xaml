@@ -68,6 +68,7 @@
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
                 <Label Text="{Binding HabitDescription}"
+                       Margin="20, 0"
                        FontSize="Medium"
                        TextColor="{StaticResource PrimaryTextColor}"
                        HorizontalOptions="FillAndExpand"
