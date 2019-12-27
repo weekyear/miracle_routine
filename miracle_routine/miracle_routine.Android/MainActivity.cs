@@ -3,6 +3,8 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Android.Gms.Ads;
+using miracle_routine.Droid.Services;
+using miracle_routine.ViewModels;
 
 namespace miracle_routine.Droid
 {
@@ -30,6 +32,18 @@ namespace miracle_routine.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+        }
+
+        protected override void OnDestroy()
+        {
+            RoutineActionViewModel.deviceTimer?.Stop();
+            base.OnDestroy();
         }
 
         private void SetMobileAds()

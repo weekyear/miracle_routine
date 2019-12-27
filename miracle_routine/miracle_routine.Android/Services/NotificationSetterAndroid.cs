@@ -68,11 +68,10 @@ namespace miracle_routine.Droid.Services
             return manager;
         }
 
-        private static void StartService(bool isFinished)
+        public static void StartCountService(bool isFinished)
         {
             Intent serviceIntent = new Intent(Application.Context, typeof(RoutineForegroundService));
             serviceIntent.PutExtra("isFinished", isFinished);
-
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
@@ -109,7 +108,7 @@ namespace miracle_routine.Droid.Services
 
             HabitCountNotification = CreateForNotifyHabitCount(habit, countDown);
 
-            StartService(false);
+            StartCountService(false);
         }
 
         private static PendingIntent OpenAppIntent()
@@ -141,7 +140,7 @@ namespace miracle_routine.Droid.Services
         }
 
 
-        public static Notification CreateForNotifyRoutineStart(Routine routine)
+        private static Notification CreateForNotifyRoutineStart(Routine routine)
         {
             var context = Application.Context;
 
@@ -173,7 +172,7 @@ namespace miracle_routine.Droid.Services
             return notification;
         }
 
-        public static Notification CreateForNotifySoonFinishHabit(Habit habit, string nextHabitName)
+        private Notification CreateForNotifySoonFinishHabit(Habit habit, string nextHabitName)
         {
             var context = Application.Context;
             string title = $"{habit.Name}가 곧 완료됩니다.";
@@ -203,7 +202,7 @@ namespace miracle_routine.Droid.Services
             return notification;
         }
 
-        public static Notification CreateForNotifyFinishHabit(Habit habit, string nextHabitName)
+        private Notification CreateForNotifyFinishHabit(Habit habit, string nextHabitName)
         {
             var context = Application.Context;
             string title = $"{habit.Name} 완료";
@@ -232,7 +231,7 @@ namespace miracle_routine.Droid.Services
 
             return notification;
         }
-        public static Notification CreateForNotifyHabitCount(Habit habit, TimeSpan countDown)
+        private Notification CreateForNotifyHabitCount(Habit habit, TimeSpan countDown)
         {
             var context = Application.Context;
             string title = $"{habit.Name}";
@@ -248,7 +247,7 @@ namespace miracle_routine.Droid.Services
                     .SetContentText(message)
                     .SetVibrate(new long[] { -1 })
                     .SetPriority((int)NotificationImportance.Default)
-                    .SetVisibility(NotificationCompat.VisibilitySecret)
+                    .SetVisibility(NotificationCompat.VisibilityPublic)
                     .SetContentIntent(OpenAppIntent())
                     .SetAutoCancel(true)
                     .Build();
@@ -264,7 +263,7 @@ namespace miracle_routine.Droid.Services
 
         public void CancelHabitCountNotify()
         {
-            StartService(true);
+            StartCountService(true);
             //NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
             //manager.Cancel(99);
         }
@@ -277,6 +276,7 @@ namespace miracle_routine.Droid.Services
                 manager.Cancel(id);
             }
         }
+
         public void DeleteAllNotifications()
         {
             var notificationManager = Application.Context.GetSystemService("notification") as NotificationManager;

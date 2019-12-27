@@ -30,13 +30,13 @@ namespace miracle_routine.Droid.Services
             if (isFinished)
             {
                 StopSelf();
+                return StartCommandResult.NotSticky;
             }
             else
             {
                 StartForeground(99, NotificationSetterAndroid.HabitCountNotification);
+                return StartCommandResult.Sticky;
             }
-
-            return StartCommandResult.Sticky;
         }
 
         public override IBinder OnBind(Intent intent)

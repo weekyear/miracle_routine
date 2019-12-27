@@ -16,7 +16,7 @@ namespace miracle_routine.ViewModels
 {
     public class RoutineActionViewModel : BaseViewModel
     {
-        private DeviceTimer deviceTimer;
+        public static DeviceTimer deviceTimer;
         public RoutineActionViewModel(INavigation navigation, Routine routine, List<HabitRecord> _habitRecords) : base(navigation)
         {
             Routine = new Routine(routine);
@@ -59,7 +59,7 @@ namespace miracle_routine.ViewModels
 
         private void SetTimer()
         {
-            Action action = () =>
+            void action()
             {
                 if (IsCounting)
                 {
@@ -86,7 +86,7 @@ namespace miracle_routine.ViewModels
                         IsMinusHabitTime = true;
                     };
                 }
-            };
+            }
             deviceTimer = new DeviceTimer(action, TimeSpan.FromSeconds(1), true, true);
         }
 
