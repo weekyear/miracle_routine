@@ -5,6 +5,8 @@ using Android.OS;
 using Android.Gms.Ads;
 using miracle_routine.Droid.Services;
 using miracle_routine.ViewModels;
+using Plugin.CurrentActivity;
+using miracle_routine.Droid.Helpers;
 
 namespace miracle_routine.Droid
 {
@@ -13,6 +15,9 @@ namespace miracle_routine.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            base.OnCreate(savedInstanceState);
+            InitForOpenApp(savedInstanceState);
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -21,12 +26,18 @@ namespace miracle_routine.Droid
             Fabric.Fabric.With(this, new Crashlytics.Crashlytics());
             Crashlytics.Crashlytics.HandleManagedExceptions();
 
-            base.OnCreate(savedInstanceState);
-
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
+
+        private void InitForOpenApp(Bundle savedInstanceState)
+        {
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);

@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
+  <string name="Close">닫기</string>
+  <string name="Settings">설정</string>
+  <string name="ActivatePermission">[설정] > [권한]에서 해당 권한을 활성화해주세요.</string>
+  <string name="RequestIgonrePermission">앱을 사용하시려면 절전모드 예외 권한이 필요합니다.</string>
   <string name="admob_app_id">ca-app-pub-8413101784746060~7648530706</string>
   <string name="admob_banner_id">ca-app-pub-8413101784746060/4830795674</string>
   <string name="admob_interstitial_id">ca-app-pub-8413101784746060/9891550667</string>
