@@ -24,6 +24,8 @@ namespace miracle_routine
             DependencyService.Register<IAlarmSetter>();
             DependencyService.Register<MessageBoxService>();
 
+            DependencyService.Get<IAdMobInterstitial>().Start();
+
             MainPage = new SharedTransitionNavigationPage(new RoutinesPage());
 
             if (Preferences.Get("StartRoutineId", 0) != 0)

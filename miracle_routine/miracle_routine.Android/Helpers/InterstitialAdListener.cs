@@ -1,33 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.Gms.Ads;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+﻿using Android.Gms.Ads;
+using miracle_routine.Droid.Services;
 
 namespace miracle_routine.Droid.Helpers
 {
-    public class InterstitialAdListener : Android.Gms.Ads.AdListener
+    public class InterstitialAdListener : AdListener
     {
-        readonly InterstitialAd _ad;
+        readonly AdMobInterstitialAndroid _interstitialAd;
 
-        public InterstitialAdListener(InterstitialAd ad)
+        public InterstitialAdListener(AdMobInterstitialAndroid interstitialAd)
         {
-            _ad = ad;
+            _interstitialAd = interstitialAd;
         }
 
-        public override void OnAdLoaded()
+        public override void OnAdClosed()
         {
-            base.OnAdLoaded();
-
-            if (_ad.IsLoaded)
-                _ad.Show();
+            _interstitialAd.LoadAd();
         }
     }
 }

@@ -23,7 +23,6 @@ namespace miracle_routine.Droid.Services
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
-
             var bundle = intent.Extras;
             var isFinished = bundle.GetBoolean("isFinished", false);
 

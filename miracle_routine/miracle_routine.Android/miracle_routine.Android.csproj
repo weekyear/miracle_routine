@@ -101,7 +101,7 @@
     <Compile Include="CustomRenderers\NoRippleListViewRenderer.cs" />
     <Compile Include="CustomRenderers\NumberPickerRenderer.cs" />
     <Compile Include="Effects\ListViewSortableEffect.cs" />
-    <Compile Include="Helpers\AdListener.cs" />
+    <Compile Include="Helpers\AdBannerListener.cs" />
     <Compile Include="Helpers\DragListAdapter.cs" />
     <Compile Include="Helpers\IAdListener.cs" />
     <Compile Include="Helpers\InterstitialAdListener.cs" />

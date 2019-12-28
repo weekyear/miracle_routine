@@ -196,6 +196,7 @@ namespace miracle_routine.Droid.Services
                     .SetPriority((int)NotificationImportance.High)
                     .SetVisibility(NotificationCompat.VisibilityPublic)
                     .SetSound(alarmSound)
+                    .SetContentIntent(OpenAppIntent())
                     .SetAutoCancel(true)
                     .Build();
 
@@ -226,6 +227,7 @@ namespace miracle_routine.Droid.Services
                     .SetPriority((int)NotificationImportance.High)
                     .SetVisibility(NotificationCompat.VisibilityPublic)
                     .SetSound(alarmSound)
+                    .SetContentIntent(OpenAppIntent())
                     .SetAutoCancel(true)
                     .Build();
 
@@ -264,8 +266,6 @@ namespace miracle_routine.Droid.Services
         public void CancelHabitCountNotify()
         {
             StartCountService(true);
-            //NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
-            //manager.Cancel(99);
         }
 
         public static void CancelRoutineNotification(Context context, int id)

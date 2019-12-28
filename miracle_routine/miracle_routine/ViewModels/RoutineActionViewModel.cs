@@ -379,8 +379,7 @@ namespace miracle_routine.ViewModels
                 $"예상 소요 시간 {CreateTimeToString.TakenTimeToString(Routine.TotalTime)}",
                 async () =>
                 {
-                    IsFinished = true;
-                    await ClosePopup();
+                    await Navigation.PopAsync(true);
                 },
                 () =>
                 {
@@ -397,7 +396,7 @@ namespace miracle_routine.ViewModels
                 {
                     IsFinished = true;
                     await ClosePopup();
-                    DependencyService.Get<IAdMobInterstitial>().Show(StringResources.AdMobInterstitialId);
+                    DependencyService.Get<IAdMobInterstitial>().Show();
                 });
         }
 

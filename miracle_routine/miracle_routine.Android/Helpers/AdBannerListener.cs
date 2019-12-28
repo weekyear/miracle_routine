@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Gms.Ads;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -12,13 +13,13 @@ using Android.Widget;
 
 namespace miracle_routine.Droid.Helpers
 {
-    public class AdListener : Android.Gms.Ads.AdListener
+    public class AdBannerListener : Android.Gms.Ads.AdListener
     {
-        private readonly IAdListener that;
+        readonly AdView _bannerAd;
 
-        public AdListener(IAdListener t)
+        public AdBannerListener(AdView bannerAd)
         {
-            that = t;
+            _bannerAd = bannerAd;
         }
 
         public override void OnAdLoaded()
