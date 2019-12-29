@@ -2,14 +2,10 @@
 using miracle_routine.Models;
 using miracle_routine.Resources;
 using miracle_routine.Views;
-using Plugin.SharedTransitions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
 using Xamarin.Forms;
 
 namespace miracle_routine.ViewModels
@@ -17,6 +13,7 @@ namespace miracle_routine.ViewModels
     public class RoutineActionViewModel : BaseViewModel
     {
         public static DeviceTimer deviceTimer;
+        private DateTime previousTime = DateTime.MinValue;
         public RoutineActionViewModel(INavigation navigation, Routine routine, List<HabitRecord> _habitRecords) : base(navigation)
         {
             Routine = new Routine(routine);
@@ -63,28 +60,28 @@ namespace miracle_routine.ViewModels
             {
                 if (IsCounting)
                 {
-                    var currentHabitTimeSeconds = CurrentHabitTime.TotalSeconds - 1;
-                    var totalTimeSeconds = ElapsedTime.TotalSeconds + 1;
+                    var currentTime = DateTime.Now;
+                    if (previousTime == DateTime.MinValue) previousTime = currentTime.AddSeconds(-1);
 
-                    CurrentHabitTime = TimeSpan.FromSeconds(currentHabitTimeSeconds);
-                    ElapsedTime = TimeSpan.FromSeconds(totalTimeSeconds);
+                    var diffTimeSpan = currentTime.Subtract(previousTime);
+
+                    CurrentHabitTime = CurrentHabitTime.Add(-diffTimeSpan);
+                    ElapsedTime = ElapsedTime.Add(diffTimeSpan);
 
                     DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime);
 
-                    if (CurrentHabit.TotalTime.TotalSeconds > 20 && currentHabitTimeSeconds == 10)
+                    if (CurrentHabit.TotalTime.TotalSeconds > 20 && CurrentHabitTime.TotalSeconds < 11)
                     {
                         DependencyService.Get<INotifySetter>().NotifySoonFinishHabit(CurrentHabit, NextHabitName);
                     }
 
-                    if (currentHabitTimeSeconds == 0)
+                    if (CurrentHabitTime.TotalSeconds < 1 && !IsMinusHabitTime)
                     {
                         DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
-                    }
-
-                    if (currentHabitTimeSeconds < 0 && !IsMinusHabitTime)
-                    {
                         IsMinusHabitTime = true;
                     };
+
+                    previousTime = currentTime;
                 }
             }
             deviceTimer = new DeviceTimer(action, TimeSpan.FromSeconds(1), true, true);
