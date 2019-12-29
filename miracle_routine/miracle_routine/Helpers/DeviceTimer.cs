@@ -19,8 +19,7 @@ namespace miracle_routine.Helpers
             _Task = task;
             _interval = interval;
             IsRecurring = isRecurring;
-            if (start)
-                Start();
+            if (start) Start();
         }
 
         public void Restart()
