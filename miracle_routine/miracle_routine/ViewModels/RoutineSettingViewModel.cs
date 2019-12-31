@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace miracle_routine.ViewModels
@@ -26,6 +27,7 @@ namespace miracle_routine.ViewModels
         {
             CloseCommand = new Command(async () => await ClosePopup());
             SaveCommand = new Command(async () => await Save());
+            DeleteCommand = new Command(() => Delete());
             AddMiracleMorningCommand = new Command(() => AddMiracleMorning());
             ShowHabitSettingCommand = new Command(async () => await ShowHabitSetting());
         }
@@ -33,6 +35,7 @@ namespace miracle_routine.ViewModels
         #region PROPERTY
         public Command CloseCommand { get; set; }
         public Command SaveCommand { get; set; }
+        public Command DeleteCommand { get; set; }
         public Command AddMiracleMorningCommand { get; set; }
         public Command ShowHabitSettingCommand { get; set; }
 
@@ -74,6 +77,8 @@ namespace miracle_routine.ViewModels
             }
         }
 
+        public IEnumerable<Habit> OldHabits { get; set; }
+
         public static OrderableCollection<Habit> habits;
         public OrderableCollection<Habit> Habits
         {
@@ -83,6 +88,7 @@ namespace miracle_routine.ViewModels
                 {
                     var orderedHabits = AssignIndexToHabits(Routine.HabitList.OrderBy(t => t.Index));
                     habits = Helper.ConvertIEnuemrableToObservableCollection(orderedHabits);
+                    OldHabits = new List<Habit>(habits);
                 }
                 return habits;
             }
@@ -138,6 +144,13 @@ namespace miracle_routine.ViewModels
         {
             Name = Name.TrimStart().TrimEnd();
 
+            if (Name == "소리야나와라얍얍얍!!")
+            {
+                Preferences.Set("MyAppWillBeSounded", true);
+                await Application.Current.MainPage.DisplayAlert("", "이제 무음모드여도 소리가 날 것이야", StringResources.OK);
+                return;
+            }
+
             if (string.IsNullOrEmpty(Name))
             {
                 await Application.Current.MainPage.DisplayAlert("", StringResources.ForgotRoutineName, StringResources.OK);
@@ -173,6 +186,25 @@ namespace miracle_routine.ViewModels
                 var diffString = CreateTimeToString.CreateTimeRemainingString(Routine.NextAlarmTime);
                 DependencyService.Get<IToastService>().Show(diffString);
             }
+        }
+
+        private void Delete()
+        {
+            async void deleteAction() => await DeleteRoutineAndHabitList();
+            DependencyService.Get<MessageBoxService>().ShowConfirm(StringResources.DeleteRoutine, StringResources.AskDeleteRoutine, null, deleteAction);
+        }
+        private async Task DeleteRoutineAndHabitList()
+        {
+            if (Routine.Id != 0)
+            {
+                foreach (var habit in Routine.HabitList)
+                {
+                    App.HabitService.DeleteHabit(habit.Id);
+                }
+                App.RoutineService.DeleteRoutine(Routine);
+                App.MessagingCenter.SendChangeRoutineMessage();
+            }
+            await ClosePopup();
         }
 
         private IOrderedEnumerable<Habit> AssignIndexToHabits(IEnumerable<Habit> habits)

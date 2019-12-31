@@ -27,13 +27,6 @@ namespace miracle_routine
             DependencyService.Get<IAdMobInterstitial>().Start();
 
             MainPage = new SharedTransitionNavigationPage(new RoutinesPage());
-
-            if (Preferences.Get("StartRoutineId", 0) != 0)
-            {
-                var routine = RoutineService.GetRoutine(Preferences.Get("StartRoutineId", 0));
-                Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, null));
-                Preferences.Set("StartRoutineId", 0);
-            }
         }
 
         protected override void OnStart()

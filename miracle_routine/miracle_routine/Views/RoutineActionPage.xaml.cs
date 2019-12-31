@@ -23,7 +23,7 @@ namespace miracle_routine.Views
 
         protected override bool OnBackButtonPressed()
         {
-            viewModel.ClosePopup();
+            viewModel.Close();
             return true;
         }
     }

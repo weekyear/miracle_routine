@@ -7,6 +7,8 @@ using miracle_routine.Droid.Services;
 using miracle_routine.ViewModels;
 using Plugin.CurrentActivity;
 using miracle_routine.Droid.Helpers;
+using System;
+using Android.Content;
 
 namespace miracle_routine.Droid
 {
@@ -43,12 +45,6 @@ namespace miracle_routine.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-
-
-        protected override void OnStop()
-        {
-            base.OnStop();
         }
 
         protected override void OnDestroy()

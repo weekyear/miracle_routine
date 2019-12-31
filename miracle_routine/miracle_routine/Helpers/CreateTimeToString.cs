@@ -146,5 +146,39 @@ namespace miracle_routine.Helpers
                     return "Mon";
             }
         }
+        public static string ConvertDaysOfWeekToString(Routine routine)
+        {
+            var stringBuilder = new StringBuilder();
+
+            var allDays = routine.Days.AllDays;
+            var allDaysString = DaysOfWeek.AllDaysString;
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (allDays[i])
+                {
+                    stringBuilder.Append($", {allDaysString[i]}");
+                }
+            }
+
+            stringBuilder.Remove(0, 2);
+
+            if (stringBuilder.ToString() == $"{StringResources.Sunday}, {StringResources.Monday}, {StringResources.Tuesday}, {StringResources.Wednesday}, {StringResources.Thursday}, {StringResources.Friday}, {StringResources.Saturday}")
+            {
+                return StringResources.Everyday;
+            }
+            else if (stringBuilder.ToString() == $"{StringResources.Sunday}, {StringResources.Saturday}")
+            {
+                return StringResources.Weekend;
+            }
+            else if (stringBuilder.ToString() == $"{StringResources.Monday}, {StringResources.Tuesday}, {StringResources.Wednesday}, {StringResources.Thursday}, {StringResources.Friday}")
+            {
+                return StringResources.Weekday;
+            }
+            else
+            {
+                return stringBuilder.ToString();
+            }
+        }
     }
 }

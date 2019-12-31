@@ -5,6 +5,7 @@ using miracle_routine.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -48,7 +49,7 @@ namespace miracle_routine.ViewModels
 
         private void SubscribeMessage()
         {
-            UndoCommand = new Command(async () => await ClosePopup());
+            UndoCommand = new Command(() => Close());
             CloseAllCommand = new Command(() => CloseAll());
             ShowNextHabitCommand = new Command(async () => await ShowNextHabit());
             ClickPlayCommand = new Command(() => ClickPlay());
@@ -58,21 +59,30 @@ namespace miracle_routine.ViewModels
         {
             void action()
             {
-                if (IsCounting)
+                if (previousTime == DateTime.MinValue) previousTime = DateTime.Now;
+
+                var currentTime = DateTime.Now;
+
+                var diffTimeSpan = currentTime.Subtract(previousTime);
+
+                var oldHabitTime = CurrentHabitTime;
+                ElapsedTime = ElapsedTime.Add(diffTimeSpan);
+                CurrentHabitTime = CurrentHabitTime.Add(-diffTimeSpan);
+
+                if (oldHabitTime.Seconds != CurrentHabitTime.Seconds)
                 {
-                    var currentTime = DateTime.Now;
-                    if (previousTime == DateTime.MinValue) previousTime = currentTime.AddSeconds(-1);
-
-                    var diffTimeSpan = currentTime.Subtract(previousTime);
-
-                    CurrentHabitTime = CurrentHabitTime.Add(-diffTimeSpan);
-                    ElapsedTime = ElapsedTime.Add(diffTimeSpan);
+                    if (!IsSoonFinishTime)
+                    {
+                        DependencyService.Get<IAlarmSetter>().SetCountAlarm(CurrentHabitTime.Add(TimeSpan.FromSeconds(-10)));
+                    }
 
                     DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime);
+                    Console.WriteLine($"Notify {CurrentHabitTime.ToString(@"mm\:ss")}");
 
-                    if (CurrentHabit.TotalTime.TotalSeconds > 20 && CurrentHabitTime.TotalSeconds < 11)
+                    if (CurrentHabit.TotalTime.TotalSeconds > 20 && CurrentHabitTime.TotalSeconds < 11 && !IsSoonFinishTime)
                     {
                         DependencyService.Get<INotifySetter>().NotifySoonFinishHabit(CurrentHabit, NextHabitName);
+                        IsSoonFinishTime = true;
                     }
 
                     if (CurrentHabitTime.TotalSeconds < 1 && !IsMinusHabitTime)
@@ -80,11 +90,18 @@ namespace miracle_routine.ViewModels
                         DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
                         IsMinusHabitTime = true;
                     };
-
-                    previousTime = currentTime;
                 }
+
+                previousTime = currentTime;
             }
-            deviceTimer = new DeviceTimer(action, TimeSpan.FromSeconds(1), true, true);
+
+            void stoppingaAction()
+            {
+                DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
+                DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
+            }
+
+            deviceTimer = new DeviceTimer(action, TimeSpan.FromSeconds(0.1), true, true, stoppingaAction);
         }
 
         #region PROPERTY
@@ -106,11 +123,14 @@ namespace miracle_routine.ViewModels
 
                 if (isCounting)
                 {
+                    SetTimer();
                     deviceTimer?.Start();
                 }
                 else
                 {
-                    deviceTimer?.Stop();
+                    DependencyService.Get<IAlarmSetter>().DeleteCountAlarm();
+                    previousTime = DateTime.MinValue;
+                    deviceTimer?.Pause();
                 }
             }
         }
@@ -206,7 +226,7 @@ namespace miracle_routine.ViewModels
         {
             get
             {
-                if (currentHabitTime == TimeSpan.MinValue) currentHabitTime = CurrentHabit.TotalTime;
+                if (currentHabitTime == TimeSpan.MinValue) currentHabitTime = CurrentHabit.TotalTime.Add(TimeSpan.FromSeconds(0.9));
                 return currentHabitTime;
             }
             set
@@ -215,6 +235,7 @@ namespace miracle_routine.ViewModels
             }
         }
 
+        public bool IsSoonFinishTime { get; set; } = false;
         public bool IsMinusHabitTime { get; set; } = false;
 
         public TimeSpan ElapsedTime
@@ -264,22 +285,33 @@ namespace miracle_routine.ViewModels
 
         #region METHOD
 
-        public async Task ClosePopup()
+
+        public void Close()
+        {
+            if (CurrentIndex == 0 || IsFinished)
+            {
+                CloseAll();
+            }
+            else
+            {
+                Undo();
+            }
+        }
+        private void Undo()
         {
             IsCounting = false;
 
-            if (CurrentIndex == 0 || IsFinished)
-            {
-                DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
-                DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
-                var existingPages = Navigation.NavigationStack.ToList();
-                for (int i = 1; i < existingPages.Count - 1; i++)
+            DependencyService.Get<MessageBoxService>().ShowConfirm(
+                $"이전 습관",
+                $"이전 습관으로 이동하시겠습니까?",
+                () =>
                 {
-                    Navigation.RemovePage(existingPages[i]);
-                }
-            }
-
-            await Navigation.PopAsync(true);
+                    IsCounting = true;
+                },
+                async () =>
+                {
+                    await Navigation.PopAsync(true);
+                });
         }
 
         private void CloseAll()
@@ -295,9 +327,22 @@ namespace miracle_routine.ViewModels
                 },
                 async () =>
                 {
-                    IsFinished = true;
-                    await ClosePopup();
+                    await CloseAllNavigationPage();
                 });
+        }
+
+        private async Task CloseAllNavigationPage()
+        {
+            IsCounting = false;
+
+            DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
+            DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
+            var existingPages = Navigation.NavigationStack.ToList();
+            for (int i = 1; i < existingPages.Count - 1; i++)
+            {
+                Navigation.RemovePage(existingPages[i]);
+            }
+            await Navigation.PopAsync(true);
         }
         
         private async Task ShowNextHabit()
@@ -391,8 +436,8 @@ namespace miracle_routine.ViewModels
                 $"총 소요 시간 : {CreateTimeToString.TakenTimeToString(ElapsedTime)}",
                 async () =>
                 {
-                    IsFinished = true;
-                    await ClosePopup();
+                    IsFinished = true; 
+                    await CloseAllNavigationPage();
                     DependencyService.Get<IAdMobInterstitial>().Show();
                 });
         }

@@ -9,29 +9,20 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using miracle_routine.Droid.Services;
+using Plugin.CurrentActivity;
 
 namespace miracle_routine.Droid.BroadcastReceivers
 {
     [BroadcastReceiver]
-    public class AlarmReceiver : BroadcastReceiver
+    public class CountAlarmReceiver : BroadcastReceiver
     {
-        private int id;
         public override void OnReceive(Context context, Intent intent)
         {
+            //CrossCurrentActivity.Current.Activity?.SetTurnScreenOn(true);
             var pm = context.GetSystemService(Context.PowerService) as PowerManager;
             var wl = pm.NewWakeLock(WakeLockFlags.ScreenBright | WakeLockFlags.AcquireCausesWakeup, "CountOver");
             wl.Acquire();
             wl.Release();
-
-            var bundle = intent.Extras;
-
-            id = bundle.GetInt("id", -100000);
-
-            var routine = App.RoutineService.GetRoutine(id);
-
-            AlarmSetterAndroid.SetRepeatAlarm(routine);
-            NotificationSetterAndroid.NotifyRoutineStart(routine);
         }
     }
 }

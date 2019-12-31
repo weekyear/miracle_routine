@@ -98,10 +98,10 @@ namespace miracle_routine.ViewModels
             {
                 return new List<Habit>
                 {
-                    new Habit(){ Name = "물 마시기", Description="자는 동안 몸에 쌓인 독소를 제거하고 신진대사 향상, 소화불량 완화에 도움됩니다.", Image = "ic_water.png", Minutes = 0, Seconds = 30 },
+                    new Habit(){ Name = "물 마시기", Description="자는 동안 몸에 쌓인 독소를 제거하고 신진대사 향상, 소화불량 완화에 도움됩니다.", Image = "ic_water.png", Minutes = 1, Seconds = 0 },
                     new Habit(){ Name = "차 마시기", Description="당뇨병이나 심혈관질환, 알츠하이머병 예방에도 도움이 됩니다.", Image = "ic_tea.png", Minutes = 3, Seconds = 0 },
                     new Habit(){ Name = "이불 개기", Description="이불 정리를 하는지 여부와 자아 성취는 상관관계가 매우 높다고 합니다.", Image = "ic_bed.png", Minutes = 1, Seconds = 0 },
-                    new Habit(){ Name = "기지개 펴기", Description="혈액 순환을 도와주고 체형 균형에 도움이 됩니다.", Image = "ic_stretching.png", Minutes = 0, Seconds = 30 },
+                    new Habit(){ Name = "기지개 펴기", Description="혈액 순환을 도와주고 체형 균형에 도움이 됩니다.", Image = "ic_stretching.png", Minutes = 1, Seconds = 0 },
                     new Habit(){ Name = "명상", Description="침묵의 시간 동안 마음을 조용히 가라앉히고 내 문제들에 대한 걱정을 멈춥니다.", Image = "ic_meditation.png", Minutes = 10, Seconds = 0 },
                     new Habit(){ Name = "일정 세우기", Description="일정을 미리 세운다면 훨씬 탁월한 성과를 이뤄내실거에요.", Image = "ic_todo.png", Minutes = 10, Seconds = 0 },
                     new Habit(){ Name = "일기 쓰기", Description="직접 적어보면서 생각을 명확히 정리하고 새로운 영감을 얻게 해줍니다.", Image = "ic_diary.png", Minutes = 10, Seconds = 0 },

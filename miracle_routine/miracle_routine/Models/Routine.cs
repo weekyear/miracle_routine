@@ -15,7 +15,7 @@ namespace miracle_routine.Models
 
         [PrimaryKey, NotNull, AutoIncrement]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public int DaysId { get; set; }
         public bool IsLocation { get; set; }
         
@@ -34,6 +34,11 @@ namespace miracle_routine.Models
         public TimeSpan ElapsedTime
         {
             get; set;
+        }
+        [Ignore]
+        public string DaysOfWeekString
+        {
+            get { return CreateTimeToString.ConvertDaysOfWeekToString(this); }
         }
 
         public List<Habit> HabitList

@@ -28,18 +28,13 @@ namespace miracle_routine.Droid.BroadcastReceivers
 
             CancelNotification(context);
 
-            //context.GetString(Resource.String.GoOffNow);
-
-            if (intent.Action == "취소")
-            {
-            }
-            else if (intent.Action == "시작")
+            if (intent.Action == "시작")
             {
                 try
                 {
-                    Preferences.Set("StartRoutineId", id);
+                    OpenMainActivity(context);
 
-                    OpenMainActivity(context, bundle);
+                    App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(App.RoutineService.GetRoutine(id), null));
                 }
                 catch(Exception ex)
                 {
@@ -49,17 +44,12 @@ namespace miracle_routine.Droid.BroadcastReceivers
                     Console.WriteLine(ex.InnerException);
                 }
             }
-            else if (intent.Action == "입력")
-            {
-                OpenMainActivity(context, bundle);
-            }
         }
 
-        private void OpenMainActivity(Context context, Bundle bundle)
+        private void OpenMainActivity(Context context)
         {
             var disIntent = new Intent(context, typeof(MainActivity));
             disIntent.SetFlags(ActivityFlags.NewTask);
-            disIntent.PutExtra("id", id);
 
             context.StartActivity(disIntent);
         }

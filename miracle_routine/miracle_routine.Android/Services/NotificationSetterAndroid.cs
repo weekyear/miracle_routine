@@ -18,6 +18,7 @@ using miracle_routine.Droid.Services;
 using miracle_routine.Helpers;
 using miracle_routine.Models;
 using miracle_routine.Services;
+using Xamarin.Essentials;
 
 [assembly: Xamarin.Forms.Dependency(typeof(NotificationSetterAndroid))]
 namespace miracle_routine.Droid.Services
@@ -68,25 +69,11 @@ namespace miracle_routine.Droid.Services
             return manager;
         }
 
-        public static void StartCountService(bool isFinished)
-        {
-            Intent serviceIntent = new Intent(Application.Context, typeof(RoutineForegroundService));
-            serviceIntent.PutExtra("isFinished", isFinished);
-
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-            {
-                Application.Context.StartForegroundService(serviceIntent);
-            }
-            else
-            {
-                Application.Context.StartService(serviceIntent);
-            }
-        }
-
 
         public static void NotifyRoutineStart(Routine routine)
         {
             VibrateWhenNotified();
+            PlayAudio();
             SetNotificationManager().Notify(routine.Id, CreateForNotifyRoutineStart(routine));
         }
 
@@ -99,16 +86,13 @@ namespace miracle_routine.Droid.Services
         public void NotifyFinishHabit(Habit habit, string nextHabitName)
         {
             VibrateWhenNotified();
+            PlayAudio();
             SetNotificationManager().Notify(98, CreateForNotifyFinishHabit(habit, nextHabitName));
         }
 
         public void NotifyHabitCount(Habit habit, TimeSpan countDown)
         {
-            SetCountNotificationManager();
-
-            HabitCountNotification = CreateForNotifyHabitCount(habit, countDown);
-
-            StartCountService(false);
+            SetCountNotificationManager().Notify(99, CreateForNotifyHabitCount(habit, countDown));
         }
 
         private static PendingIntent OpenAppIntent()
@@ -183,8 +167,6 @@ namespace miracle_routine.Droid.Services
                 message = nextHabitName;
             }
 
-            Android.Net.Uri alarmSound = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
-
             var fileName = habit.Image.Replace(".png", string.Empty);
             var imageId = context.Resources.GetIdentifier(fileName, "drawable", context.PackageName);
 
@@ -195,7 +177,6 @@ namespace miracle_routine.Droid.Services
                     .SetContentText(message)
                     .SetPriority((int)NotificationImportance.High)
                     .SetVisibility(NotificationCompat.VisibilityPublic)
-                    .SetSound(alarmSound)
                     .SetContentIntent(OpenAppIntent())
                     .SetAutoCancel(true)
                     .Build();
@@ -265,7 +246,8 @@ namespace miracle_routine.Droid.Services
 
         public void CancelHabitCountNotify()
         {
-            StartCountService(true);
+            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+            manager.Cancel(99);
         }
 
         public static void CancelRoutineNotification(Context context, int id)
@@ -281,6 +263,39 @@ namespace miracle_routine.Droid.Services
         {
             var notificationManager = Application.Context.GetSystemService("notification") as NotificationManager;
             notificationManager.CancelAll();
+        }
+
+
+        private static void PlayAudio()
+        {
+            if (Preferences.Get("MyAppWillBeSounded", false))
+            {
+                var _mediaPlayer = new MediaPlayer();
+
+                if (_mediaPlayer.IsPlaying)
+                    _mediaPlayer.Stop();
+
+                _mediaPlayer.Reset();
+
+                _mediaPlayer.SetDataSource(Application.Context, RingtoneManager.GetDefaultUri(RingtoneType.Notification));
+
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+                {
+                    _mediaPlayer.SetAudioAttributes(new AudioAttributes.Builder()
+                        .SetUsage(AudioUsageKind.Alarm)
+                        .SetContentType(AudioContentType.Sonification)
+                        .Build());
+                }
+                else
+                {
+                    _mediaPlayer.SetAudioStreamType(Stream.Alarm);
+                }
+
+                _mediaPlayer.SetVolume(0.5f, 0.5f);
+                _mediaPlayer.Looping = false;
+                _mediaPlayer.Prepare();
+                _mediaPlayer.Start();
+            }
         }
     }
 }

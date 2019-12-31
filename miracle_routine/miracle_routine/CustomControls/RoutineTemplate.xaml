@@ -18,33 +18,51 @@
   <ContentView.Content>
         <Frame CornerRadius="15" BackgroundColor="White" Margin="10" Padding="0">
             <StackLayout Orientation="Vertical">
-                <StackLayout Orientation="Horizontal" Margin="15">
+                <StackLayout Orientation="Horizontal" Margin="15, 15, 15, 0">
                     <Label Text="{Binding Name}"
-                           HorizontalOptions="Start"
+                           HorizontalOptions="StartAndExpand"
                            VerticalOptions="Center"  
                            TextColor="{StaticResource PrimaryTextColor}"
                            FontSize="Large"
+                           LineBreakMode="TailTruncation"
+                           VerticalTextAlignment="Center" />
+                    <ImageButton Source="ic_statistics.png"
+                                 Margin="3, 0"
+                                 WidthRequest="28" HeightRequest="28"
+                                 BackgroundColor="White"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="CenterAndExpand"
+                                 Clicked="StatButton_Clicked"/>
+                    <ImageButton Source="ic_edit.png"
+                                 Margin="3, 0"
+                                 WidthRequest="28" HeightRequest="28"
+                                 BackgroundColor="White"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="CenterAndExpand"
+                                 Clicked="EditButton_Clicked"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="15, 5">
+                    <Label Text="{Binding DaysOfWeekString}"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Label Text="/"
                            Margin="5, 0"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"  
                            TextColor="{StaticResource PrimaryTextColor}"
-                           FontSize="Large"
+                           FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Label Text="{Binding StartTime, Converter={StaticResource StartTimeStringConverter}}"
                            HorizontalOptions="StartAndExpand"
                            VerticalOptions="Center"
                            TextColor="{StaticResource PrimaryTextColor}"
-                           FontSize="Large"
+                           FontSize="Medium"
                            VerticalTextAlignment="Center" />
-                    <ImageButton Source="ic_menu.png"
-                                 WidthRequest="28" HeightRequest="28"
-                                 BackgroundColor="White"
-                                 HorizontalOptions="End"
-                                 VerticalOptions="CenterAndExpand"
-                                 Clicked="MenuButton_Clicked"/>
                 </StackLayout>
+                <BoxView Color="LightGray" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
                 <ListView x:Name="HabitListView"
                           ItemsSource="{Binding HabitList}"
                           ItemTapped="HabitListView_ItemTapped"

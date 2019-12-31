@@ -12,5 +12,7 @@ namespace miracle_routine.Helpers
         void DeleteRoutineAlarm(int id);
 
         void DeleteAllRoutineAlarms(IEnumerable<Routine> routines);
+        void SetCountAlarm(TimeSpan timeSpan);
+        void DeleteCountAlarm();
     }
 }

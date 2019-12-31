@@ -8,15 +8,17 @@ namespace miracle_routine.Helpers
 {
     public class DeviceTimer
     {
-        readonly Action _Task;
+        readonly Action _RunningTask;
+        readonly Action _StoppingTask;
         readonly List<TaskWrapper> _Tasks = new List<TaskWrapper>();
         readonly TimeSpan _interval;
         public bool IsRecurring { get; }
         public bool IsRunning => _Tasks.Any(t => t.IsRunning);
 
-        public DeviceTimer(Action task, TimeSpan interval, bool isRecurring = false, bool start = false)
+        public DeviceTimer(Action runningTask, TimeSpan interval, bool isRecurring = false, bool start = false, Action stoppingTask = null)
         {
-            _Task = task;
+            _RunningTask = runningTask;
+            _StoppingTask = stoppingTask;
             _interval = interval;
             IsRecurring = isRecurring;
             if (start) Start();
@@ -24,7 +26,7 @@ namespace miracle_routine.Helpers
 
         public void Restart()
         {
-            Stop();
+            Pause();
             Start();
         }
 
@@ -34,19 +36,25 @@ namespace miracle_routine.Helpers
                 // Already Running
                 return;
 
-            var wrapper = new TaskWrapper(_Task, IsRecurring, true);
+            var wrapper = new TaskWrapper(_RunningTask, IsRecurring, true);
             _Tasks.Add(wrapper);
 
             Device.StartTimer(_interval, wrapper.RunTask);
         }
 
-        public void Stop()
+        public void Pause()
         {
             foreach (var task in _Tasks)
                 task.IsRunning = false;
             _Tasks.Clear();
         }
 
+        public void Stop()
+        {
+            Pause();
+
+            _StoppingTask.Invoke();
+        }
 
         class TaskWrapper
         {

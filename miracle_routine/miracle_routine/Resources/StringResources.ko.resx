@@ -147,6 +147,9 @@
   <data name="ElapsedTime" xml:space="preserve">
     <value>소요 시간</value>
   </data>
+  <data name="Everyday" xml:space="preserve">
+    <value>매일</value>
+  </data>
   <data name="ForgotHabit" xml:space="preserve">
     <value>적어도 하나의 습관을 설정하셔야 합니다.</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="Second" xml:space="preserve">
     <value>초</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>시 작</value>
   </data>
@@ -251,5 +257,11 @@
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>수</value>
+  </data>
+  <data name="Weekday" xml:space="preserve">
+    <value>주중</value>
+  </data>
+  <data name="Weekend" xml:space="preserve">
+    <value>주말</value>
   </data>
 </root>

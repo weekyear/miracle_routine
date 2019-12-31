@@ -147,6 +147,9 @@
   <data name="ElapsedTime" xml:space="preserve">
     <value>Elapsed time</value>
   </data>
+  <data name="Everyday" xml:space="preserve">
+    <value>Everyday</value>
+  </data>
   <data name="ForgotHabit" xml:space="preserve">
     <value>You must set up at least one habit.</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="Second" xml:space="preserve">
     <value>s</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
@@ -251,5 +257,11 @@
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>W</value>
+  </data>
+  <data name="Weekday" xml:space="preserve">
+    <value>Weekday</value>
+  </data>
+  <data name="Weekend" xml:space="preserve">
+    <value>Weekend</value>
   </data>
 </root>

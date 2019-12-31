@@ -20,7 +20,7 @@ namespace miracle_routine.Droid.Services
 
         public static AlarmManager GetAlarmManager()
         {
-            var manager = Application.Context.GetSystemService("alarm") as AlarmManager;
+            var manager = Application.Context.GetSystemService(Context.AlarmService) as AlarmManager;
 
             return manager;
         }
@@ -72,7 +72,7 @@ namespace miracle_routine.Droid.Services
             var _alarmIntent = SetAlarmIntent(routine);
 
             var pendingIntent = PendingIntent.GetBroadcast(Application.Context, routine.Id, _alarmIntent, PendingIntentFlags.UpdateCurrent);
-            var alarmManager = (AlarmManager)Application.Context.GetSystemService("alarm");
+            var alarmManager = (AlarmManager)Application.Context.GetSystemService(Context.AlarmService);
 
             Intent showIntent = new Intent(Application.Context, typeof(MainActivity));
             PendingIntent showOperation = PendingIntent.GetActivity(Application.Context, routine.Id, showIntent, PendingIntentFlags.UpdateCurrent);
@@ -98,6 +98,58 @@ namespace miracle_routine.Droid.Services
             var alarmManager = (AlarmManager)Application.Context.GetSystemService(Context.AlarmService);
             var toDeletePendingIntent = PendingIntent.GetBroadcast(Application.Context, id, alarmIntent, PendingIntentFlags.UpdateCurrent);
             alarmManager.Cancel(toDeletePendingIntent);
+        }
+
+        public void SetCountAlarm(TimeSpan timeSpan)
+        {
+            var diffMillis = (long)timeSpan.TotalMilliseconds;
+
+            SetCountAlarmByManager(diffMillis);
+        }
+
+        public void DeleteCountAlarm()
+        {
+            var alarmIntent = new Intent(Application.Context, typeof(CountAlarmReceiver));
+            alarmIntent.SetFlags(ActivityFlags.IncludeStoppedPackages);
+
+            var alarmManager = (AlarmManager)Application.Context.GetSystemService(Context.AlarmService);
+            var toDeletePendingIntent = PendingIntent.GetBroadcast(Application.Context, 99, alarmIntent, PendingIntentFlags.UpdateCurrent);
+            alarmManager.Cancel(toDeletePendingIntent);
+        }
+
+        public static void SetCountAlarmByManager(long diffMillis)
+        {
+            var _alarmIntent = SetCountAlarmIntent();
+
+            var pendingIntent = PendingIntent.GetBroadcast(Application.Context, 99, _alarmIntent, PendingIntentFlags.UpdateCurrent);
+            var alarmManager = (AlarmManager)Application.Context.GetSystemService(Context.AlarmService);
+
+            Intent showIntent = new Intent(Application.Context, typeof(MainActivity));
+            PendingIntent showOperation = PendingIntent.GetActivity(Application.Context, 99, showIntent, PendingIntentFlags.UpdateCurrent);
+            AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + diffMillis, showOperation);
+            alarmManager.SetAlarmClock(alarmClockInfo, pendingIntent);
+        }
+
+        private static Intent SetCountAlarmIntent()
+        {
+            var _alarmIntent = new Intent(Application.Context, typeof(CountAlarmReceiver));
+            _alarmIntent.SetFlags(ActivityFlags.IncludeStoppedPackages);
+            return _alarmIntent;
+        }
+
+        public static void SetAllAlarmWhenRestart()
+        {
+            Console.WriteLine($"SetAllAlarmWhenRestart");
+            var routines = App.RoutineService.GetAllRoutines();
+
+            Console.WriteLine($"GetAllRoutines");
+
+            foreach (var routine in routines)
+            {
+                var diffMillis = CalculateTimeDiff(routine);
+                SetAlarmByManager(routine, diffMillis);
+                Console.WriteLine($"{routine.Name} Set Alarm");
+            }
         }
     }
 }

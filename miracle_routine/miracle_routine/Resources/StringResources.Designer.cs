@@ -151,6 +151,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Everyday.
+        /// </summary>
+        internal static string Everyday {
+            get {
+                return ResourceManager.GetString("Everyday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must set up at least one habit..
         /// </summary>
         internal static string ForgotHabit {
@@ -385,6 +394,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string Start {
@@ -462,6 +480,24 @@ namespace miracle_routine.Resources {
         internal static string Wednesday {
             get {
                 return ResourceManager.GetString("Wednesday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekday.
+        /// </summary>
+        internal static string Weekday {
+            get {
+                return ResourceManager.GetString("Weekday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekend.
+        /// </summary>
+        internal static string Weekend {
+            get {
+                return ResourceManager.GetString("Weekend", resourceCulture);
             }
         }
     }

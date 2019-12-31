@@ -99,6 +99,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BroadcastReceivers\AlarmReceiver.cs" />
+    <Compile Include="BroadcastReceivers\BootReceiver.cs" />
+    <Compile Include="BroadcastReceivers\CountAlarmReceiver.cs" />
     <Compile Include="BroadcastReceivers\NotificationReceiver.cs" />
     <Compile Include="CustomRenderers\AdMobViewRenderer.cs" />
     <Compile Include="CustomRenderers\NoRippleListViewRenderer.cs" />
@@ -115,7 +117,6 @@
     <Compile Include="Services\AdMobInterstitialAndroid.cs" />
     <Compile Include="Services\AlarmSetterAndroid.cs" />
     <Compile Include="Services\NotificationSetterAndroid.cs" />
-    <Compile Include="Services\RoutineForegroundService.cs" />
     <Compile Include="Services\ToastServiceAndroid.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +241,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_statistics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
