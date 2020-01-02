@@ -9,6 +9,9 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using miracle_routine.Droid.Services;
+using miracle_routine.Models;
+using miracle_routine.ViewModels;
 using miracle_routine.Views;
 using Plugin.SharedTransitions;
 using Xamarin.Essentials;
@@ -37,6 +40,50 @@ namespace miracle_routine.Droid.BroadcastReceivers
                     App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(App.RoutineService.GetRoutine(id), null));
                 }
                 catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine(ex.Source);
+                    Console.WriteLine(ex.InnerException);
+                }
+            }
+            else if (intent.Action == "일시정지")
+            {
+                try
+                {
+                    RoutineActionViewModel.ClickPlayCommandByNotification.Execute(null);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine(ex.Source);
+                    Console.WriteLine(ex.InnerException);
+                }
+            }
+            else if (intent.Action == "다음")
+            {
+                try
+                {
+                    RoutineActionViewModel.ShowNextHabitCommandByNotification.Execute(null);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine(ex.Source);
+                    Console.WriteLine(ex.InnerException);
+                }
+            }
+            else if (intent.Action == "완료")
+            {
+                try
+                {
+                    OpenMainActivity(context);
+
+                    RoutineActionViewModel.ShowNextHabitCommandByNotification.Execute(null);
+                }
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     Console.WriteLine(ex.StackTrace);

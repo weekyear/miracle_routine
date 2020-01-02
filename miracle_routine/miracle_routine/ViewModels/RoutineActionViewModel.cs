@@ -76,7 +76,7 @@ namespace miracle_routine.ViewModels
                         DependencyService.Get<IAlarmSetter>().SetCountAlarm(CurrentHabitTime.Add(TimeSpan.FromSeconds(-10)));
                     }
 
-                    DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime);
+                    DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime, false, !IsNotLastHabit);
                     Console.WriteLine($"Notify {CurrentHabitTime.ToString(@"mm\:ss")}");
 
                     if (CurrentHabit.TotalTime.TotalSeconds > 20 && CurrentHabitTime.TotalSeconds < 11 && !IsSoonFinishTime)
@@ -108,8 +108,10 @@ namespace miracle_routine.ViewModels
         public Command UndoCommand { get; set; }
         public Command CloseAllCommand { get; set; }
         public Command ShowNextHabitCommand { get; set; }
+        public static Command ShowNextHabitCommandByNotification { get; set; }
         public Command ShowHabitSettingCommand { get; set; }
         public Command ClickPlayCommand { get; set; }
+        public static Command ClickPlayCommandByNotification { get; set; }
 
         private bool isCounting = true;
         public bool IsCounting 
@@ -129,6 +131,7 @@ namespace miracle_routine.ViewModels
                 else
                 {
                     DependencyService.Get<IAlarmSetter>().DeleteCountAlarm();
+                    DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime, true, !IsNotLastHabit);
                     previousTime = DateTime.MinValue;
                     deviceTimer?.Pause();
                 }
@@ -345,7 +348,7 @@ namespace miracle_routine.ViewModels
             await Navigation.PopAsync(true);
         }
         
-        private async Task ShowNextHabit()
+        public async Task ShowNextHabit()
         {
             if (IsBusy) return;
 
@@ -393,7 +396,7 @@ namespace miracle_routine.ViewModels
             }
         }
         
-        private void ClickPlay()
+        public void ClickPlay()
         {
             if (IsBusy) return;
 

@@ -26,5 +26,12 @@ namespace miracle_routine.Views
             viewModel.Close();
             return true;
         }
+
+        protected override void OnAppearing()
+        {
+            RoutineActionViewModel.ShowNextHabitCommandByNotification = new Command(async () => await viewModel.ShowNextHabit());
+            RoutineActionViewModel.ClickPlayCommandByNotification = new Command(() => viewModel.ClickPlay());
+            base.OnAppearing();
+        }
     }
 }

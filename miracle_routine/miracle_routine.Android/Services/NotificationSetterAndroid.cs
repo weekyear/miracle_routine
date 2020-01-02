@@ -1,23 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.Media;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.App;
-using Android.Support.V4.Content;
-using Android.Views;
-using Android.Widget;
 using miracle_routine.Droid.BroadcastReceivers;
 using miracle_routine.Droid.Services;
 using miracle_routine.Helpers;
 using miracle_routine.Models;
-using miracle_routine.Services;
 using Xamarin.Essentials;
 
 [assembly: Xamarin.Forms.Dependency(typeof(NotificationSetterAndroid))]
@@ -90,9 +80,9 @@ namespace miracle_routine.Droid.Services
             SetNotificationManager().Notify(98, CreateForNotifyFinishHabit(habit, nextHabitName));
         }
 
-        public void NotifyHabitCount(Habit habit, TimeSpan countDown)
+        public void NotifyHabitCount(Habit habit, TimeSpan countDown, bool isPause, bool isLastHabit)
         {
-            SetCountNotificationManager().Notify(99, CreateForNotifyHabitCount(habit, countDown));
+            SetCountNotificationManager().Notify(99, CreateForNotifyHabitCount(habit, countDown, isPause, isLastHabit));
         }
 
         private static PendingIntent OpenAppIntent()
@@ -214,7 +204,7 @@ namespace miracle_routine.Droid.Services
 
             return notification;
         }
-        private Notification CreateForNotifyHabitCount(Habit habit, TimeSpan countDown)
+        private Notification CreateForNotifyHabitCount(Habit habit, TimeSpan countDown, bool isPause, bool isLastHabit)
         {
             var context = Application.Context;
             string title = $"{habit.Name}";
@@ -223,8 +213,34 @@ namespace miracle_routine.Droid.Services
             var fileName = habit.Image.Replace(".png", string.Empty);
             var imageId = context.Resources.GetIdentifier(fileName, "drawable", context.PackageName);
 
+            string Btn1String;
+            if (isPause)
+            {
+                Btn1String = "카운트";
+            }
+            else
+            {
+                Btn1String = "일시정지";
+            }
+
+            string Btn2String;
+            if (isLastHabit)
+            {
+                Btn2String = "완료";
+            }
+            else
+            {
+                Btn2String = "다음";
+            }
+
+            var actionIntent1 = CreateActionIntent("일시정지", habit.Id);
+            var pIntent1 = PendingIntent.GetBroadcast(context, 100, actionIntent1, PendingIntentFlags.OneShot);
+
+            var actionIntent2 = CreateActionIntent(Btn2String, habit.Id);
+            var pIntent2 = PendingIntent.GetBroadcast(context, 100, actionIntent2, PendingIntentFlags.OneShot);
+
             var notificationBuilder = new NotificationCompat.Builder(context, COUNT_NOTIFICATION_CHANNEL_ID);
-            var notification = notificationBuilder.SetOngoing(true)
+            var notification = notificationBuilder.SetOngoing(false)
                     .SetSmallIcon(imageId)
                     .SetContentTitle(title)
                     .SetContentText(message)
@@ -232,7 +248,9 @@ namespace miracle_routine.Droid.Services
                     .SetPriority((int)NotificationImportance.Default)
                     .SetVisibility(NotificationCompat.VisibilityPublic)
                     .SetContentIntent(OpenAppIntent())
-                    .SetAutoCancel(true)
+                    .SetAutoCancel(false)
+                    .AddAction(0, Btn1String, pIntent1)
+                    .AddAction(0, Btn2String, pIntent2)
                     .Build();
 
             return notification;

@@ -47,12 +47,6 @@ namespace miracle_routine.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        protected override void OnDestroy()
-        {
-            RoutineActionViewModel.deviceTimer?.Stop();
-            base.OnDestroy();
-        }
-
         private void SetMobileAds()
         {
             MobileAds.Initialize(ApplicationContext, GetString(Resource.String.admob_app_id));

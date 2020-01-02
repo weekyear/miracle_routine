@@ -93,14 +93,15 @@
                                    IsEnabled="{Binding IsNotBusy}"/>
                 <StackLayout Orientation="Vertical" Margin="30" VerticalOptions="End">
                     <BoxView Color="{StaticResource Icon}" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="2"/>
-                    <custom:DoneButton FontSize="25"
-                                       IsNotDone="{Binding IsNotLastHabit}"
-                                       FontAttributes="Bold"
-                                       WidthRequest="100"
-                                       BackgroundColor="White"
-                                       HorizontalOptions="CenterAndExpand"
-                                       VerticalOptions="StartAndExpand"
-                                       Command="{Binding ShowNextHabitCommand}"/>
+                    <Button FontSize="25"
+                            Text="{Binding DoneBtnName}"
+                            TextColor="{StaticResource Accent}"
+                            FontAttributes="Bold"
+                            WidthRequest="100"
+                            BackgroundColor="White"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="StartAndExpand"
+                            Command="{Binding ShowNextHabitCommand}"/>
                     <BoxView Color="{StaticResource Icon}" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="2"/>
                 </StackLayout>
             </StackLayout>
