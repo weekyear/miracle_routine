@@ -37,7 +37,7 @@ namespace miracle_routine.Droid.BroadcastReceivers
                 {
                     OpenMainActivity(context);
 
-                    App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(App.RoutineService.GetRoutine(id), null));
+                    App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(App.RoutineService.GetRoutine(id), 0));
                 }
                 catch(Exception ex)
                 {

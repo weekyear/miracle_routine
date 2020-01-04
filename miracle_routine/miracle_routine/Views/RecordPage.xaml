@@ -8,7 +8,7 @@
              xmlns:custom="clr-namespace:miracle_routine.CustomControls"
              xmlns:conv="clr-namespace:miracle_routine.Converters"
              mc:Ignorable="d"
-             x:Class="miracle_routine.Views.RoutineRecordPage"
+             x:Class="miracle_routine.Views.RecordPage"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{Binding Title}"
              IsEnabled="{Binding IsNotBusy}">
@@ -17,6 +17,7 @@
         <ResourceDictionary>
             <conv:BooleanOpacityConverter x:Key="BooleanOpacityConverter"/>
             <conv:SelectedMonthStringConverter x:Key="SelectedMonthStringConverter"/>
+            <conv:PercentStringConverter x:Key="PercentStringConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -28,23 +29,23 @@
             </Grid.RowDefinitions>
             <StackLayout Orientation="Horizontal" Margin="10, 5" Grid.Row="0" HorizontalOptions="CenterAndExpand">
                 <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_left.png"
-                     BackgroundColor="{StaticResource BackgroundColor}"
-                     HorizontalOptions="Start"
-                     VerticalOptions="CenterAndExpand"
-                     Command="{Binding PreviousMonthCommand}"/>
+                             BackgroundColor="{StaticResource BackgroundColor}"
+                             HorizontalOptions="Start"
+                             VerticalOptions="CenterAndExpand"
+                             Command="{Binding PreviousMonthCommand}"/>
                 <Label Text="{Binding SelectedMonth, Converter={StaticResource SelectedMonthStringConverter}}"
                        TextColor="Black"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"
                        FontSize="Large" />
                 <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_right.png"
-                     BackgroundColor="{StaticResource BackgroundColor}"
-                     HorizontalOptions="StartAndExpand"
-                     VerticalOptions="CenterAndExpand"
-                     Command="{Binding NextMonthCommand}"/>
+                             BackgroundColor="{StaticResource BackgroundColor}"
+                             HorizontalOptions="StartAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             Command="{Binding NextMonthCommand}"/>
             </StackLayout>
             <Frame CornerRadius="20" BackgroundColor="White" Margin="5" Padding="0" VerticalOptions="Start" Grid.Row="1">
-                <StackLayout VerticalOptions="Start">
+                <StackLayout VerticalOptions="Start" Spacing="0">
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10, 10, 10, 0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
@@ -112,9 +113,9 @@
                     <custom:NoRippleListView x:Name="WeekListView" 
                                              ItemsSource="{Binding WeekRecords}"
                                              ItemSelected="ListView_ItemSelected"
+                                             RowHeight="60"
                                              VerticalOptions="Center"
                                              VerticalScrollBarVisibility="Never"
-                                             HasUnevenRows="True"
                                              Margin="10, 0">
                         <custom:NoRippleListView.ItemTemplate>
                             <DataTemplate>
@@ -288,6 +289,64 @@
                             </DataTemplate>
                         </custom:NoRippleListView.ItemTemplate>
                     </custom:NoRippleListView>
+                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
+                    <StackLayout Orientation="Vertical" Margin="10">
+                        <Label Text="루틴 시도"
+                               TextColor="SlateGray"
+                               FontSize="Body"
+                               Margin="10, 0"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding RoutineNumOfThisMonth}"
+                                   TextColor="{StaticResource PrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <Label Text="/"
+                                   TextColor="{StaticResource PrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <Label Text="{Binding AllDayOfThisMonth}"
+                                   TextColor="{StaticResource PrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <custom:PercentLabel Percent="{Binding RoutineRate}"
+                                                 FontAttributes="Bold"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 HorizontalTextAlignment="Center"
+                                                 VerticalOptions="CenterAndExpand"
+                                                 FontSize="Large"
+                                                 TextColor="LightSlateGray"
+                                                 Text="{Binding RoutineRate, Converter={StaticResource PercentStringConverter}}"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
+                    <StackLayout Orientation="Vertical" Margin="10">
+                        <Label Text="루틴 성공률"
+                               TextColor="SlateGray"
+                               FontSize="Body"
+                               Margin="10, 0"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding SuccessRoutineNumOfThisMonth}"
+                                   TextColor="{StaticResource PrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <Label Text="/"
+                                   TextColor="{StaticResource PrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <Label Text="{Binding RoutineNumOfThisMonth}"
+                                   TextColor="{StaticResource PrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <custom:PercentLabel Percent="{Binding RoutineSuccessRate}"
+                                                 FontAttributes="Bold"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 HorizontalTextAlignment="Center"
+                                                 VerticalOptions="CenterAndExpand"
+                                                 FontSize="Large"
+                                                 TextColor="LightSlateGray"
+                                                 Text="{Binding RoutineSuccessRate, Converter={StaticResource PercentStringConverter}}"/>
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
         </Grid>

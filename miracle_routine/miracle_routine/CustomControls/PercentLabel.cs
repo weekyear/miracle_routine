@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Xamarin.Forms;
+
+namespace miracle_routine.CustomControls
+{
+    public class PercentLabel : Label
+    {
+        public static readonly BindableProperty PercentProperty =
+            BindableProperty.Create(nameof(Percent),
+                typeof(double),
+                typeof(PercentLabel),
+                -1.0,
+                BindingMode.TwoWay,
+                propertyChanged: PercentPropertyChanged);
+
+        public double Percent
+        {
+            get
+            {
+                return (double)GetValue(PercentProperty);
+            }
+            set
+            {
+                SetValue(PercentProperty, value);
+            }
+        }
+
+        public event EventHandler IsActiveChanged;
+
+        static void PercentPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            // Property changed implementation goes here
+            var label = (PercentLabel)bindable;
+            var successRate = label.Percent;
+
+            if (successRate > 0.8)
+            {
+                label.TextColor = Color.DodgerBlue;
+            }
+            else if (successRate > 0.6)
+            {
+                label.TextColor = Color.DarkOrange;
+            }
+            else if (successRate == -1)
+            {
+                label.TextColor = Color.LightSlateGray;
+            }
+            else
+            {
+                label.TextColor = Color.IndianRed;
+            }
+
+            //label.IsActiveChanged?.Invoke(label, null);
+        }
+    }
+}

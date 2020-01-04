@@ -15,13 +15,6 @@ namespace miracle_routine.CustomControls
             InitializeComponent();
         }
 
-        private async void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            var habit = e.Item as Habit;
-
-            await App.Current.MainPage.Navigation.PushModalAsync(new SharedTransitionNavigationPage(new HabitRecordPage(habit)));
-        }
-
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (HabitListView.SelectedItem != null || e.SelectedItem != null)
@@ -35,7 +28,7 @@ namespace miracle_routine.CustomControls
             var menuBtn = sender as Button;
             var routine = menuBtn.BindingContext as Routine;
 
-            await App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, null), true);
+            await App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, 0), true);
         }
 
         private async void StatButton_Clicked(object sender, EventArgs e)
@@ -43,7 +36,7 @@ namespace miracle_routine.CustomControls
             var menuBtn = sender as ImageButton;
             var routine = menuBtn.BindingContext as Routine;
 
-            await App.Current.MainPage.Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutineRecordPage(routine)));
+            await App.Current.MainPage.Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RecordPage(routine)));
         }
         
         private async void EditButton_Clicked(object sender, EventArgs e)

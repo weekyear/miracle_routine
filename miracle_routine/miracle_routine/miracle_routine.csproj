@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -21,12 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="CustomControls\CalendarView.xaml.cs">
-      <DependentUpon>CalendarView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="CustomControls\CalendarWeekView.xaml.cs">
-      <DependentUpon>CalendarWeekView.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Resources\StringResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -34,6 +28,9 @@
     </Compile>
     <Compile Update="Views\RoutineDetailPage.xaml.cs">
       <DependentUpon>RoutineDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RecordPage.xaml.cs">
+      <DependentUpon>RecordPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\RoutineSettingPage.xaml.cs">
       <DependentUpon>RoutineSettingPage.xaml</DependentUpon>
@@ -44,27 +41,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="CustomControls\CalendarDayView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="CustomControls\CalendarView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="CustomControls\DaysOfWeekSelectionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="CustomControls\RoutineTemplate.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="CustomControls\CalendarWeekView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\StringResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\HabitRecordPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\HabitSettingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -72,7 +57,7 @@
     <EmbeddedResource Update="Views\RoutineActionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RoutineRecordPage.xaml">
+    <EmbeddedResource Update="Views\RecordPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:conv="clr-namespace:miracle_routine.Converters"
              xmlns:local="clr-namespace:miracle_routine.Helpers"
+             xmlns:custom="clr-namespace:miracle_routine.CustomControls"
              mc:Ignorable="d"
              x:Class="miracle_routine.CustomControls.RoutineTemplate">
 
@@ -63,15 +64,14 @@
                            VerticalTextAlignment="Center" />
                 </StackLayout>
                 <BoxView Color="LightGray" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
-                <ListView x:Name="HabitListView"
-                          ItemsSource="{Binding HabitList}"
-                          ItemTapped="HabitListView_ItemTapped"
-                          ItemSelected="HabitListView_ItemSelected"
-                          VerticalOptions="FillAndExpand"
-                          HeightRequest="{Binding Height}"
-                          VerticalScrollBarVisibility="Never"
-                          RowHeight="50">
-                    <ListView.ItemTemplate>
+                <custom:NoRippleListView x:Name="HabitListView"
+                                         ItemsSource="{Binding HabitList}"
+                                         ItemSelected="HabitListView_ItemSelected"
+                                         VerticalOptions="FillAndExpand"
+                                         HeightRequest="{Binding Height}"
+                                         VerticalScrollBarVisibility="Never"
+                                         RowHeight="50">
+                    <custom:NoRippleListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal" Margin="7, 7">
@@ -94,8 +94,8 @@
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </custom:NoRippleListView.ItemTemplate>
+                </custom:NoRippleListView>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>

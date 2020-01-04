@@ -8,21 +8,12 @@ namespace miracle_routine.Repositories
     public interface IRecordRepo
     {
         // Record
-        IEnumerable<RoutineRecord> RoutineRecordFromDB { get; }
+        IEnumerable<Record> RecordFromDB { get; }
 
-        RoutineRecord GetRoutineRecord(int id);
-        IEnumerable<RoutineRecord> GetAllRoutineRecords();
-        int SaveRoutineRecord(RoutineRecord routineRecord);
-        int DeleteRoutineRecord(int id);
-        void DeleteAllRoutineRecords();
-
-        //HabitRecord
-        IEnumerable<HabitRecord> HabitRecordFromDB { get; }
-
-        HabitRecord GetHabitRecord(int id);
-        IEnumerable<HabitRecord> GetAllHabitRecords();
-        int SaveHabitRecord(HabitRecord habitRecord);
-        int DeleteHabitRecord(int id);
-        void DeleteAllHabitRecords();
+        Record GetRecord(int id);
+        IEnumerable<Record> GetAllRecords();
+        int SaveRecord(Record record);
+        int DeleteRecord(int id);
+        void DeleteAllRecords();
     }
 }

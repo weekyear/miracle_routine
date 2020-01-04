@@ -81,11 +81,11 @@ namespace miracle_routine.Services
             Repository.DeleteDaysOfWeek(routine.DaysId);
             RefreshRoutines();
 
-            var routineRecords = App.RecordRepo.RoutineRecordFromDB.Where(r => r.RoutineId == id);
+            var records = App.RecordRepo.RecordFromDB.Where(r => r.RoutineId == id);
 
-            foreach(var record in routineRecords)
+            foreach(var record in records)
             {
-                App.RecordRepo.DeleteRoutineRecord(record.Id);
+                App.RecordRepo.DeleteRecord(record.Id);
             }
 
             return id;

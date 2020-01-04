@@ -15,20 +15,11 @@ namespace miracle_routine.ViewModels
     {
         public static DeviceTimer deviceTimer;
         private DateTime previousTime = DateTime.MinValue;
-        public RoutineActionViewModel(INavigation navigation, Routine routine, List<HabitRecord> _habitRecords) : base(navigation)
+        public RoutineActionViewModel(INavigation navigation, Routine routine, int currentIndex) : base(navigation)
         {
             Routine = new Routine(routine);
 
-            if (_habitRecords != null)
-            {
-                HabitRecords = _habitRecords;
-                CurrentIndex = _habitRecords.Count;
-            }
-            else
-            {
-                CurrentIndex = 0;
-            }
-
+            CurrentIndex = currentIndex;
 
             ConstructCommand();
             SubscribeMessage();
@@ -270,18 +261,6 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        private List<HabitRecord> habitRecords = new List<HabitRecord>();
-        public List<HabitRecord> HabitRecords
-        {
-            get { return habitRecords; }
-            set
-            {
-                if (habitRecords == value) return;
-                habitRecords = value;
-                OnPropertyChanged(nameof(HabitRecords));
-            }
-        }
-
         private bool IsFinished { get; set; } = false;
 
         #endregion
@@ -358,36 +337,26 @@ namespace miracle_routine.ViewModels
             {
                 IsCounting = false;
 
-                if (CurrentIndex < HabitRecords.Count)
-                {
-                    var recordsCount = HabitRecords.Count;
-                    for (int i = CurrentIndex; i < recordsCount; i++)
-                    {
-                        HabitRecords.RemoveAt(CurrentIndex);
-                    }
-                }
-
-                HabitRecords.Add(new HabitRecord(CurrentHabit, CurrentHabitTime));
-
                 if (IsNotLastHabit)
                 {
-                    await Navigation.PushAsync(new RoutineActionPage(Routine, HabitRecords), true);
+                    await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1), true);
                     DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
                 }
                 else
                 {
-                    foreach(var habitRec in HabitRecords)
+                    var record = App.RecordRepo.RecordFromDB.FirstOrDefault(r => r.RoutineId == Routine.Id);
+
+                    if (record == null)
                     {
-                        App.RecordRepo.SaveHabitRecord(habitRec);
+                        record = new Record(Routine, true);
+                        App.RecordRepo.SaveRecord(record);
+                    }
+                    else
+                    {
+                        record.IsSuccess = true;
+                        App.RecordRepo.SaveRecord(record);
                     }
 
-                    var routineRecord = App.RecordRepo.RoutineRecordFromDB.FirstOrDefault(r => r.RoutineId == Routine.Id);
-
-                    if (routineRecord == null || routineRecord.IsSuccess == false)
-                    {
-                        routineRecord.IsSuccess = true;
-                        App.RecordRepo.SaveRoutineRecord(routineRecord);
-                    }
                     AlertFinishRoutine();
                 }
             }

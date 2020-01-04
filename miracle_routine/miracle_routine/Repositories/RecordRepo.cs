@@ -12,64 +12,34 @@ namespace miracle_routine.Repositories
         {
             ItemDatabase = itemDatabase;
         }
-        public IEnumerable<RoutineRecord> RoutineRecordFromDB
+        public IEnumerable<Record> RecordFromDB
         {
-            get { return GetAllRoutineRecords() as IEnumerable<RoutineRecord>; }
+            get { return GetAllRecords() as IEnumerable<Record>; }
         }
 
-        public IEnumerable<HabitRecord> HabitRecordFromDB
+        public Record GetRecord(int id)
         {
-            get { return GetAllHabitRecords() as IEnumerable<HabitRecord>; }
+            return ItemDatabase.GetObject<Record>(id);
         }
 
-        public RoutineRecord GetRoutineRecord(int id)
+        public IEnumerable<Record> GetAllRecords()
         {
-            return ItemDatabase.GetObject<RoutineRecord>(id);
+            return ItemDatabase.GetObjects<Record>();
         }
 
-        public IEnumerable<RoutineRecord> GetAllRoutineRecords()
+        public int SaveRecord(Record record)
         {
-            return ItemDatabase.GetObjects<RoutineRecord>();
+            return ItemDatabase.SaveObject(record);
         }
 
-        public int SaveRoutineRecord(RoutineRecord routineRecord)
+        public int DeleteRecord(int id)
         {
-            return ItemDatabase.SaveObject(routineRecord);
+            return ItemDatabase.DeleteObject<Record>(id);
         }
 
-        public int DeleteRoutineRecord(int id)
+        public void DeleteAllRecords()
         {
-            return ItemDatabase.DeleteObject<RoutineRecord>(id);
-        }
-
-        public void DeleteAllRoutineRecords()
-        {
-            ItemDatabase.DeleteAllObjects<RoutineRecord>();
-        }
-
-        public HabitRecord GetHabitRecord(int id)
-        {
-            return ItemDatabase.GetObject<HabitRecord>(id);
-        }
-
-        public IEnumerable<HabitRecord> GetAllHabitRecords()
-        {
-            return ItemDatabase.GetObjects<HabitRecord>();
-        }
-
-        public int SaveHabitRecord(HabitRecord habitRecord)
-        {
-            return ItemDatabase.SaveObject(habitRecord);
-        }
-
-        public int DeleteHabitRecord(int id)
-        {
-            return ItemDatabase.DeleteObject<HabitRecord>(id);
-        }
-
-        public void DeleteAllHabitRecords()
-        {
-            ItemDatabase.DeleteAllObjects<HabitRecord>();
+            ItemDatabase.DeleteAllObjects<Record>();
         }
     }
 }

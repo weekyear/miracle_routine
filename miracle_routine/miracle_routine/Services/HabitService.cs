@@ -50,13 +50,6 @@ namespace miracle_routine.Services
             var dailyId = Repository.DeleteHabit(id);
             RefreshHabits();
 
-            var habitRecords = App.RecordRepo.HabitRecordFromDB.Where(r => r.HabitId == id);
-
-            foreach (var record in habitRecords)
-            {
-                App.RecordRepo.DeleteHabitRecord(record.Id);
-            }
-
             return dailyId;
         }
 

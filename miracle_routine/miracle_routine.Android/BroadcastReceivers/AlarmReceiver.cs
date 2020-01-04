@@ -33,9 +33,9 @@ namespace miracle_routine.Droid.BroadcastReceivers
 
             AlarmSetterAndroid.SetRepeatAlarm(routine);
             NotificationSetterAndroid.NotifyRoutineStart(routine);
-            if (!App.RecordRepo.RoutineRecordFromDB.Any(r => r.RoutineId == routine.Id))
+            if (!App.RecordRepo.RecordFromDB.Any(r => r.RoutineId == routine.Id))
             {
-                App.RecordRepo.SaveRoutineRecord(new RoutineRecord(routine, false));
+                App.RecordRepo.SaveRecord(new Record(routine, false));
             }
         }
     }

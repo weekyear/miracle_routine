@@ -15,12 +15,12 @@ using Xamarin.Forms.Xaml;
 namespace miracle_routine.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoutineRecordPage : ContentPage
+    public partial class RecordPage : ContentPage
     {
-        private RoutineRecordViewModel viewModel;
-        public RoutineRecordPage(Routine routine)
+        private RecordViewModel viewModel;
+        public RecordPage(Routine routine)
         {
-            BindingContext = viewModel = new RoutineRecordViewModel(Navigation, routine);
+            BindingContext = viewModel = new RecordViewModel(Navigation, routine);
 
             InitializeComponent();
         }

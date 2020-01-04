@@ -15,10 +15,10 @@ namespace miracle_routine.Views
     public partial class RoutineActionPage : ContentPage
     {
         RoutineActionViewModel viewModel;
-        public RoutineActionPage(Routine routine, List<HabitRecord> habitRecords)
+        public RoutineActionPage(Routine routine, int currentIndex)
         {
             InitializeComponent();
-            BindingContext = viewModel = new RoutineActionViewModel(Navigation, routine, habitRecords);
+            BindingContext = viewModel = new RoutineActionViewModel(Navigation, routine, currentIndex);
         }
 
         protected override bool OnBackButtonPressed()

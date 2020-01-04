@@ -13,12 +13,9 @@ using Entry = Microcharts.Entry;
 
 namespace miracle_routine.ViewModels
 {
-    public class RoutineRecordViewModel : BaseViewModel
+    public class RecordViewModel : BaseViewModel
     {
-        private readonly int NumOfChartData = 5;
-        private readonly int LabelFontSize = 10;
-        private readonly int AnimationSec = 1;
-        public RoutineRecordViewModel(INavigation navigation, Routine routine) : base(navigation)
+        public RecordViewModel(INavigation navigation, Routine routine) : base(navigation)
         {
             SelectedRoutine = new Routine(routine);
             ConstructCommand();
@@ -27,8 +24,6 @@ namespace miracle_routine.ViewModels
             Title = $"<{routine.Name}> 루틴 기록";
 
             UpdateWeekRecords();
-
-            //InitChart();
         }
         private void ConstructCommand()
         {
@@ -40,41 +35,50 @@ namespace miracle_routine.ViewModels
         {
         }
 
-
         #region Property
 
         public Routine SelectedRoutine { get; set; }
 
-        private List<RoutineRecord> routines;
-        public List<RoutineRecord> RoutineRecords
+        private List<Record> routines;
+        public List<Record> Records
         {
             get
             {
-                return App.RecordRepo.RoutineRecordFromDB.Where(r => r.RoutineId == SelectedRoutine.Id).OrderBy(r => r.RecordTime).ToList();
+                return App.RecordRepo.RecordFromDB.Where(r => r.RoutineId == SelectedRoutine.Id).OrderBy(r => r.RecordTime).ToList();
             }
             set
             {
                 if (routines == value) return;
                 routines = value;
-                OnPropertyChanged(nameof(RoutineRecords));
+                OnPropertyChanged(nameof(Records));
             }
         }
 
         public DateTime SelectedMonth { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
 
+        public List<WeekRecord> WeekRecords { get; set; } = new List<WeekRecord>();
 
-        private void PreviousMonth()
+        public int AllDayOfThisMonth
         {
-            SelectedMonth = SelectedMonth.AddMonths(-1);
-
-            UpdateWeekRecords();
+            get { return DateTime.DaysInMonth(SelectedMonth.Year, SelectedMonth.Month); }
         }
 
-        private void NextMonth()
+        public int RoutineNumOfThisMonth { get; set; }
+        public int SuccessRoutineNumOfThisMonth { get; set; }
+        public double RoutineRate
         {
-            SelectedMonth = SelectedMonth.AddMonths(1);
-
-            UpdateWeekRecords();
+            get
+            {
+                return (double)RoutineNumOfThisMonth / AllDayOfThisMonth;
+            }
+        }
+        
+        public double RoutineSuccessRate
+        {
+            get
+            {
+                return (double)SuccessRoutineNumOfThisMonth / RoutineNumOfThisMonth;
+            }
         }
 
         public Command PreviousMonthCommand { get; set; }
@@ -94,9 +98,12 @@ namespace miracle_routine.ViewModels
 
             var startDateOfMonth = startDateOfWeek;
 
+            RoutineNumOfThisMonth = 0;
+            SuccessRoutineNumOfThisMonth = 0;
+
             while (startDateOfMonth.Ticks <= startDateOfSelectedMonth.Ticks)
             {
-                var RecordsOfWeek = RoutineRecords.FindAll(r => startDateOfWeek.Ticks < r.RecordTime.Ticks && r.RecordTime.Ticks <= startDateOfWeek.AddDays(7).Ticks);
+                var RecordsOfWeek = Records.FindAll(r => startDateOfWeek.Ticks < r.RecordTime.Ticks && r.RecordTime.Ticks <= startDateOfWeek.AddDays(7).Ticks);
 
                 var weekRecord = new WeekRecord()
                 {
@@ -110,25 +117,38 @@ namespace miracle_routine.ViewModels
                 startDateOfWeek = startDateOfWeek.AddDays(7);
 
                 startDateOfMonth = new DateTime(startDateOfWeek.Year, startDateOfWeek.Month, 1, 0, 0, 0);
+                RoutineNumOfThisMonth += RecordsOfWeek.Count;
+                SuccessRoutineNumOfThisMonth += RecordsOfWeek.Where(r => r.IsSuccess == true).Count();
             }
 
             WeekRecords.Clear();
 
             WeekRecords = weekRecords;
             OnPropertyChanged(nameof(WeekRecords));
+            OnPropertyChanged(nameof(AllDayOfThisMonth));
+            OnPropertyChanged(nameof(RoutineNumOfThisMonth));
+            OnPropertyChanged(nameof(SuccessRoutineNumOfThisMonth));
         }
 
-        public List<WeekRecord> WeekRecords { get; set; } = new List<WeekRecord>();
 
+        private void PreviousMonth()
+        {
+            SelectedMonth = SelectedMonth.AddMonths(-1);
+
+            UpdateWeekRecords();
+        }
+
+        private void NextMonth()
+        {
+            SelectedMonth = SelectedMonth.AddMonths(1);
+
+            UpdateWeekRecords();
+        }
         public class WeekRecord
         {
             public int SelectedMonth { get; set; }
             public DateTime StartDateOfWeek { get; set; }
-            public List<RoutineRecord> DayRecords 
-            { 
-                get; 
-                set; 
-            } = new List<RoutineRecord>();
+            public List<Record> DayRecords { get; set; } = new List<Record>();
 
             public string SunDate
             {
@@ -140,7 +160,7 @@ namespace miracle_routine.ViewModels
                 get { return StartDateOfWeek.Month == SelectedMonth; }
             }
 
-            public RoutineRecord SunRecord
+            public Record SunRecord
             {
                 get { return DayRecords.FirstOrDefault(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday); }
             }
@@ -161,7 +181,7 @@ namespace miracle_routine.ViewModels
             {
                 get { return StartDateOfWeek.AddDays(1).Month == SelectedMonth; }
             }
-            public RoutineRecord MonRecord
+            public Record MonRecord
             {
                 get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday); }
             }
@@ -182,7 +202,7 @@ namespace miracle_routine.ViewModels
             {
                 get { return StartDateOfWeek.AddDays(2).Month == SelectedMonth; }
             }
-            public RoutineRecord TueRecord
+            public Record TueRecord
             {
                 get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday); }
             }
@@ -203,7 +223,7 @@ namespace miracle_routine.ViewModels
             {
                 get { return StartDateOfWeek.AddDays(3).Month == SelectedMonth; }
             }
-            public RoutineRecord WedRecord
+            public Record WedRecord
             {
                 get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday); }
             }
@@ -224,7 +244,7 @@ namespace miracle_routine.ViewModels
             {
                 get { return StartDateOfWeek.AddDays(4).Month == SelectedMonth; }
             }
-            public RoutineRecord ThuRecord
+            public Record ThuRecord
             {
                 get 
                 { 
@@ -248,7 +268,7 @@ namespace miracle_routine.ViewModels
             {
                 get { return StartDateOfWeek.AddDays(5).Month == SelectedMonth; }
             }
-            public RoutineRecord FriRecord
+            public Record FriRecord
             {
                 get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday); }
             }
@@ -269,7 +289,7 @@ namespace miracle_routine.ViewModels
             {
                 get { return StartDateOfWeek.AddDays(6).Month == SelectedMonth; }
             }
-            public RoutineRecord SatRecord
+            public Record SatRecord
             {
                 get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Saturday); }
             }
