@@ -79,7 +79,7 @@
                        Margin="0, 10"
                        FontSize="45"
                        FontAttributes="Bold"
-                       TextColor="{Binding IsMinusHabitTime, Converter={StaticResource IsLastHabitTextColorConverter}}"
+                       TextColor="{Binding IsMinusHabitTime, Converter={StaticResource IsMinusTextColorConverter}}"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
                 <custom:PlayButton HorizontalOptions="Center"

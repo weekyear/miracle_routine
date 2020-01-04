@@ -21,8 +21,6 @@ namespace miracle_routine.Droid.Services
         private static readonly string countChannelName = "miracle_routine.count";
         private static readonly long[] vibrationPattern = new long[] { 500, 800, 1000, 1000 };
 
-        public static Notification HabitCountNotification;
-
         private static NotificationManager SetNotificationManager()
         {
             var manager = Application.Context.GetSystemService("notification") as NotificationManager;

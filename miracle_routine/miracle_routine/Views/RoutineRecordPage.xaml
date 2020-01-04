@@ -5,75 +5,291 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:charts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              xmlns:local="clr-namespace:miracle_routine.Helpers"
+             xmlns:custom="clr-namespace:miracle_routine.CustomControls"
+             xmlns:conv="clr-namespace:miracle_routine.Converters"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RoutineRecordPage"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{Binding Title}"
              IsEnabled="{Binding IsNotBusy}">
-    <ContentPage.Content>
-        <ScrollView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <StackLayout Orientation="Horizontal" Margin="10, 5" Grid.Row="0" HorizontalOptions="CenterAndExpand" IsVisible="{Binding HasRecord}">
-                    <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_left.png"
-                         BackgroundColor="{StaticResource BackgroundColor}"
-                         HorizontalOptions="Start"
-                         VerticalOptions="CenterAndExpand"
-                         Command="{Binding PreviousRecordCommand}"/>
-                    <Label Text="{Binding RecordStartPosition}"
-                           VerticalOptions="Center"
-                           FontSize="Medium"/>
-                    <Label Text="~"
-                           VerticalOptions="Center"
-                           FontSize="Medium"/>
-                    <Label Text="{Binding RecordEndPosition}"
-                           VerticalOptions="Center"
-                           FontSize="Medium"/>
-                    <Label Text="/"
-                           VerticalOptions="Center"
-                           FontSize="Medium"/>
-                    <Label Text="{Binding RecordTotalCount}"
-                           VerticalOptions="Center"
-                           FontSize="Medium"/>
-                    <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_right.png"
-                         BackgroundColor="{StaticResource BackgroundColor}"
-                         HorizontalOptions="StartAndExpand"
-                         VerticalOptions="CenterAndExpand"
-                         Command="{Binding NextRecordCommand}"/>
-                </StackLayout>
-                <Frame CornerRadius="15" BackgroundColor="White" Margin="5" Padding="0" Grid.Row="1" IsVisible="{Binding HasRecord}">
-                    <StackLayout Padding="5">
-                        <Label Text="{local:Translate ElapsedTime}"
-                               FontSize="Large"
-                               HorizontalOptions="CenterAndExpand"/>
-                        <charts:ChartView Chart="{Binding ElapsedTimeChart}"
-                                      HorizontalOptions="FillAndExpand"
-                                      VerticalOptions="FillAndExpand"
-                                      HeightRequest="220"/>
-                    </StackLayout>
-                </Frame>
 
-                <Frame CornerRadius="15" BackgroundColor="White" Margin="5" Padding="0" Grid.Row="2" IsVisible="{Binding HasRecord}">
-                    <StackLayout Padding="5">
-                        <Label Text="{local:Translate TimeRemaining}"
-                               FontSize="Large"
-                               HorizontalOptions="CenterAndExpand"/>
-                        <charts:ChartView Chart="{Binding TimeRemainingChart}"
-                                      HorizontalOptions="FillAndExpand"
-                                      VerticalOptions="FillAndExpand"
-                                      HeightRequest="220"/>
-                    </StackLayout>
-                </Frame>
-                <Label Text="{local:Translate ThereIsNoRecord}" IsVisible="{Binding HasNoRecord}"
-                       FontSize="30"
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:BooleanOpacityConverter x:Key="BooleanOpacityConverter"/>
+            <conv:SelectedMonthStringConverter x:Key="SelectedMonthStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout Orientation="Horizontal" Margin="10, 5" Grid.Row="0" HorizontalOptions="CenterAndExpand">
+                <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_left.png"
+                     BackgroundColor="{StaticResource BackgroundColor}"
+                     HorizontalOptions="Start"
+                     VerticalOptions="CenterAndExpand"
+                     Command="{Binding PreviousMonthCommand}"/>
+                <Label Text="{Binding SelectedMonth, Converter={StaticResource SelectedMonthStringConverter}}"
+                       TextColor="Black"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"
-                       Grid.Row="0" Grid.RowSpan="3"/>
-            </Grid>
-        </ScrollView>
+                       FontSize="Large" />
+                <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_right.png"
+                     BackgroundColor="{StaticResource BackgroundColor}"
+                     HorizontalOptions="StartAndExpand"
+                     VerticalOptions="CenterAndExpand"
+                     Command="{Binding NextMonthCommand}"/>
+            </StackLayout>
+            <Frame CornerRadius="20" BackgroundColor="White" Margin="5" Padding="0" VerticalOptions="Start" Grid.Row="1">
+                <StackLayout VerticalOptions="Start">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10, 10, 10, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label BackgroundColor="Transparent"
+                               Margin="0" Padding="0"
+                               Grid.Column="0" 
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               Text="{local:Translate Sunday}" 
+                               TextColor="Black"/>
+                        <Label BackgroundColor="Transparent"
+                               Margin="0" Padding="0"
+                               Grid.Column="1" 
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               Text="{local:Translate Monday}" 
+                               TextColor="Black"/>
+                        <Label BackgroundColor="Transparent"
+                               Margin="0" Padding="0"
+                               Grid.Column="2" 
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               Text="{local:Translate Tuesday}" 
+                               TextColor="Black"/>
+                        <Label BackgroundColor="Transparent"
+                               Margin="0" Padding="0"
+                               Grid.Column="3"                                   
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               Text="{local:Translate Wednesday}" 
+                               TextColor="Black"/>
+                        <Label BackgroundColor="Transparent"
+                               Margin="0" Padding="0"
+                               Grid.Column="4" 
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               Text="{local:Translate Thursday}" 
+                               TextColor="Black"/>
+                        <Label BackgroundColor="Transparent"
+                               Margin="0" Padding="0"
+                               Grid.Column="5" 
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               Text="{local:Translate Friday}" 
+                               TextColor="Black"/>
+                        <Label BackgroundColor="Transparent"
+                               Margin="0" Padding="0"
+                               Grid.Column="6" 
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               Text="{local:Translate Saturday}" 
+                               TextColor="Black"/>
+                    </Grid>
+                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
+                    <custom:NoRippleListView x:Name="WeekListView" 
+                                             ItemsSource="{Binding WeekRecords}"
+                                             ItemSelected="ListView_ItemSelected"
+                                             VerticalOptions="Center"
+                                             VerticalScrollBarVisibility="Never"
+                                             HasUnevenRows="True"
+                                             Margin="10, 0">
+                        <custom:NoRippleListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell Height="50">
+                                    <Grid HorizontalOptions="FillAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0"
+                                              ColumnSpacing="0" RowSpacing="0"
+                                              Opacity="{Binding IsSelectedMonthSun, Converter={StaticResource BooleanOpacityConverter}}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding SunDate}" 
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   FontSize="Small"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"/>
+                                            <custom:ActiveImageView Source="ic_sad.png" Grid.Row="1" Grid.Column="1"
+                                                                    ImageSourceActive="ic_smile.png"
+                                                                    ImageSourceInactive="ic_sad.png"
+                                                                    IsVisible="{Binding IsNotNullSun}"
+                                                                    IsActive="{Binding IsSuccessSun}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="1" 
+                                              ColumnSpacing="0" RowSpacing="0"
+                                              Opacity="{Binding IsSelectedMonthMon, Converter={StaticResource BooleanOpacityConverter}}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding MonDate}" 
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   FontSize="Small"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"/>
+                                            <custom:ActiveImageView Source="ic_sad.png" Grid.Row="1" Grid.Column="1"
+                                                                    ImageSourceActive="ic_smile.png"
+                                                                    ImageSourceInactive="ic_sad.png"
+                                                                    IsVisible="{Binding IsNotNullMon}"
+                                                                    IsActive="{Binding IsSuccessMon}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="2" 
+                                              ColumnSpacing="0" RowSpacing="0"
+                                              Opacity="{Binding IsSelectedMonthTue, Converter={StaticResource BooleanOpacityConverter}}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding TueDate}" 
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   FontSize="Small"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"/>
+                                            <custom:ActiveImageView Source="ic_sad.png" Grid.Row="1" Grid.Column="1"
+                                                                        ImageSourceActive="ic_smile.png"
+                                                                        ImageSourceInactive="ic_sad.png"
+                                                                        IsVisible="{Binding IsNotNullTue}"
+                                                                        IsActive="{Binding IsSuccessTue}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="3"
+                                              ColumnSpacing="0" RowSpacing="0"
+                                              Opacity="{Binding IsSelectedMonthWed, Converter={StaticResource BooleanOpacityConverter}}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding WedDate}" 
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   FontSize="Small"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"/>
+                                            <custom:ActiveImageView Source="ic_sad.png" Grid.Row="1" Grid.Column="1"
+                                                                            ImageSourceActive="ic_smile.png"
+                                                                            ImageSourceInactive="ic_sad.png"
+                                                                            IsVisible="{Binding IsNotNullWed}"
+                                                                            IsActive="{Binding IsSuccessWed}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="4"
+                                              ColumnSpacing="0" RowSpacing="0"
+                                              Opacity="{Binding IsSelectedMonthThu, Converter={StaticResource BooleanOpacityConverter}}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding ThuDate}"
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   FontSize="Small"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"/>
+                                            <custom:ActiveImageView Source="ic_sad.png" Grid.Row="1" Grid.Column="1"
+                                                                    ImageSourceActive="ic_smile.png"
+                                                                    ImageSourceInactive="ic_sad.png"
+                                                                    IsVisible="{Binding IsNotNullThu}"
+                                                                    IsActive="{Binding IsSuccessThu}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="5" 
+                                              ColumnSpacing="0" RowSpacing="0"
+                                              Opacity="{Binding IsSelectedMonthFri, Converter={StaticResource BooleanOpacityConverter}}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding FriDate}" 
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   FontSize="Small"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"/>
+                                            <custom:ActiveImageView Source="ic_sad.png" Grid.Row="1" Grid.Column="1"
+                                                                    ImageSourceActive="ic_smile.png"
+                                                                    ImageSourceInactive="ic_sad.png"
+                                                                    IsVisible="{Binding IsNotNullFri}"
+                                                                    IsActive="{Binding IsSuccessFri}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="6"
+                                              ColumnSpacing="0" RowSpacing="0"
+                                              Opacity="{Binding IsSelectedMonthSat, Converter={StaticResource BooleanOpacityConverter}}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding SatDate}" 
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   FontSize="Small"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"/>
+                                            <custom:ActiveImageView Source="ic_sad.png" Grid.Row="1" Grid.Column="1"
+                                                                    ImageSourceActive="ic_smile.png"
+                                                                    ImageSourceInactive="ic_sad.png"
+                                                                    IsVisible="{Binding IsNotNullSat}"
+                                                                    IsActive="{Binding IsSuccessSat}"/>
+                                        </Grid>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </custom:NoRippleListView.ItemTemplate>
+                    </custom:NoRippleListView>
+                </StackLayout>
+            </Frame>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

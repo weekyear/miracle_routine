@@ -381,7 +381,13 @@ namespace miracle_routine.ViewModels
                         App.RecordRepo.SaveHabitRecord(habitRec);
                     }
 
-                    App.RecordRepo.SaveRoutineRecord(new RoutineRecord(Routine, ElapsedTime));
+                    var routineRecord = App.RecordRepo.RoutineRecordFromDB.FirstOrDefault(r => r.RoutineId == Routine.Id);
+
+                    if (routineRecord == null || routineRecord.IsSuccess == false)
+                    {
+                        routineRecord.IsSuccess = true;
+                        App.RecordRepo.SaveRoutineRecord(routineRecord);
+                    }
                     AlertFinishRoutine();
                 }
             }

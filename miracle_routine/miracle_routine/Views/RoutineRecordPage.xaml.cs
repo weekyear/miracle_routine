@@ -1,4 +1,5 @@
-﻿using miracle_routine.Helpers;
+﻿using miracle_routine.CustomControls;
+using miracle_routine.Helpers;
 using miracle_routine.Models;
 using miracle_routine.Resources;
 using miracle_routine.ViewModels;
@@ -19,9 +20,9 @@ namespace miracle_routine.Views
         private RoutineRecordViewModel viewModel;
         public RoutineRecordPage(Routine routine)
         {
-            InitializeComponent();
-
             BindingContext = viewModel = new RoutineRecordViewModel(Navigation, routine);
+
+            InitializeComponent();
         }
 
         protected override bool OnBackButtonPressed()
@@ -29,6 +30,14 @@ namespace miracle_routine.Views
             DependencyService.Get<IAdMobInterstitial>().Show();
 
             return base.OnBackButtonPressed();
+        }
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (WeekListView.SelectedItem != null || e.SelectedItem != null)
+            {
+                ((NoRippleListView)sender).SelectedItem = null;
+            }
         }
     }
 }

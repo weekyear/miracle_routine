@@ -1,14 +1,7 @@
-﻿using miracle_routine.Helpers;
-using miracle_routine.Models;
-using miracle_routine.Resources;
+﻿using miracle_routine.Models;
 using miracle_routine.Views;
 using Plugin.SharedTransitions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,8 +20,6 @@ namespace miracle_routine.CustomControls
             var habit = e.Item as Habit;
 
             await App.Current.MainPage.Navigation.PushModalAsync(new SharedTransitionNavigationPage(new HabitRecordPage(habit)));
-
-            //App.MessagingCenter.SendShowHabitRecordMessage(habit);
         }
 
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

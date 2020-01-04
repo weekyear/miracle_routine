@@ -28,19 +28,19 @@ namespace miracle_routine.Helpers
         {
             if (diff.Days > 0)
             {
-                return $"{dateTime.Month}월 {dateTime.Day}일 {dateTime.ToString("tt")} {dateTime.Hour}:{dateTime.ToString("mm")}에 미라클 루틴을 실행합니다!";
+                return $"{dateTime.Month}월 {dateTime.Day}일 {dateTime.ToString("tt")} {dateTime.Hour}:{dateTime.ToString("mm")}에 모닝 루틴을 실행합니다!";
             }
             else if (diff.Hours > 0)
             {
-                return $"{diff.Hours}시간 {diff.Minutes + 1}분 후에 미라클 루틴을 실행합니다!";
+                return $"{diff.Hours}시간 {diff.Minutes + 1}분 후에 모닝 루틴을 실행합니다!";
             }
             else if (diff.Minutes > 0)
             {
-                return $"{diff.Minutes + 1}분 후에 미라클 루틴을 실행합니다!";
+                return $"{diff.Minutes + 1}분 후에 모닝 루틴을 실행합니다!";
             }
             else if (diff.Seconds > 0)
             {
-                return $"{diff.Seconds}초 후에 미라클 루틴을 실행합니다!";
+                return $"{diff.Seconds}초 후에 모닝 루틴을 실행합니다!";
             }
             else
             {

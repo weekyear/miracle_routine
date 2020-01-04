@@ -20,27 +20,30 @@ namespace miracle_routine.Models
         public DateTime RecordTime { get; set; }
 
         public string RoutineName { get; set; }
-        public TimeSpan ElapsedTime { get; set; }
-        public TimeSpan TotalTime { get; set; }
-        public TimeSpan TimeRemaining
-        {
-            get { return TotalTime.Subtract(ElapsedTime); }
-        }
+        //public TimeSpan ElapsedTime { get; set; }
+        //public TimeSpan TotalTime { get; set; }
+        //public TimeSpan TimeRemaining
+        //{
+        //    get { return TotalTime.Subtract(ElapsedTime); }
+        //}
 
-        public List<HabitRecord> HabitList
-        {
-            get { return App.RecordRepo.HabitRecordFromDB.Where(h => h.RoutineRecordId == Id).ToList(); }
-        }
+        public bool IsSuccess { get; set; } = true;
+
+        //public List<HabitRecord> HabitList
+        //{
+        //    get { return App.RecordRepo.HabitRecordFromDB.Where(h => h.RoutineRecordId == Id).ToList(); }
+        //}
 
         public RoutineRecord() { }
 
-        public RoutineRecord(Routine routine, TimeSpan recordTime)
+        public RoutineRecord(Routine routine, bool isSuccess)
         {
             RoutineId = routine.Id;
             RoutineName = routine.Name;
-            ElapsedTime = recordTime;
-            TotalTime = routine.TotalTime;
-            RecordTime = DateTime.Now;
+            //ElapsedTime = recordTime;
+            //TotalTime = routine.TotalTime;
+            IsSuccess = isSuccess;
+            RecordTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
         }
     }
 }

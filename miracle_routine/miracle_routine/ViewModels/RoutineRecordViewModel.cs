@@ -4,6 +4,7 @@ using miracle_routine.Models;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,36 +26,20 @@ namespace miracle_routine.ViewModels
 
             Title = $"<{routine.Name}> 루틴 기록";
 
-            InitChart();
+            UpdateWeekRecords();
+
+            //InitChart();
         }
         private void ConstructCommand()
         {
-            NextRecordCommand = new Command(() => NextRecord());
-            PreviousRecordCommand = new Command(() => PreviousRecord());
+            PreviousMonthCommand = new Command(() => PreviousMonth());
+            NextMonthCommand = new Command(() => NextMonth());
         }
 
         private void SubscribeMessage()
         {
         }
 
-        private void InitChart()
-        {
-            //if (RecordTotalCount == 0)
-            //{
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 15, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 01), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 13, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 02), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 11, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 03), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 16, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 04), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 22, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 05), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 18, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 06), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 12, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 07), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 19, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 08), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 20, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 09), RoutineId = SelectedRoutine.Id });
-            //    App.RecordRepo.SaveRoutineRecord(new RoutineRecord() { ElapsedTime = new TimeSpan(0, 11, 0), TotalTime = new TimeSpan(0, 20, 0), RecordTime = new DateTime(2019, 12, 10), RoutineId = SelectedRoutine.Id });
-            //}
-
-            RefreshRecordChart();
-        }
 
         #region Property
 
@@ -75,134 +60,231 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        public Chart ElapsedTimeChart { get; set; }
-        public Chart TimeRemainingChart { get; set; }
+        public DateTime SelectedMonth { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
 
-        public int RecordTotalCount
+
+        private void PreviousMonth()
         {
-            get { return RoutineRecords.Count; }
+            SelectedMonth = SelectedMonth.AddMonths(-1);
+
+            UpdateWeekRecords();
         }
 
-        private int recordStartPosition = -1;
-        public int RecordStartPosition
+        private void NextMonth()
         {
-            get
-            {
-                if (recordStartPosition == -1) recordStartPosition = RecordEndPosition - (NumOfChartData - 1);
-                if (recordStartPosition < 1) recordStartPosition = 1;
-                return recordStartPosition;
-            }
-            set
-            {
-                if (recordStartPosition == value) return;
-                recordStartPosition = value;
-                OnPropertyChanged(nameof(RecordStartPosition));
-            }
-        }
-        private int recordEndPosition = -1;
-        public int RecordEndPosition
-        {
-            get
-            {
-                if (recordEndPosition == -1) recordEndPosition = RecordTotalCount;
-                if (recordEndPosition > RecordTotalCount) recordEndPosition = RecordTotalCount;
-                return recordEndPosition;
-            }
-            set
-            {
-                if (recordEndPosition == value) return;
-                recordEndPosition = value;
-                OnPropertyChanged(nameof(RecordEndPosition));
-            }
+            SelectedMonth = SelectedMonth.AddMonths(1);
+
+            UpdateWeekRecords();
         }
 
-        public bool HasRecord
-        {
-            get 
-            {
-                if (RoutineRecords.Count == 0) return false;
-                return true;
-            }
-        }
-
-        public bool HasNoRecord
-        {
-            get { return !HasRecord; }
-        }
-
-
-        public Command NextRecordCommand { get; set; }
-        public Command PreviousRecordCommand { get; set; }
+        public Command PreviousMonthCommand { get; set; }
+        public Command NextMonthCommand { get; set; }
 
         #endregion
 
         #region Method
 
-        private void PreviousRecord()
+        private void UpdateWeekRecords()
         {
-            if (RecordStartPosition <= 1) return;
+            var weekRecords = new List<WeekRecord>();
+            var startDateOfSelectedMonth = SelectedMonth;
+            var startDateOfWeek = new DateTime(startDateOfSelectedMonth.Year, startDateOfSelectedMonth.Month, 1, 0, 0, 0);
 
-            RecordEndPosition -= NumOfChartData;
-            RecordStartPosition = RecordEndPosition - (NumOfChartData - 1);
+            while (startDateOfWeek.Date.DayOfWeek != DayOfWeek.Sunday) startDateOfWeek = startDateOfWeek.AddDays(-1);
 
-            RefreshRecordChart();
-        }
-        
-        private void NextRecord()
-        {
-            if (RecordEndPosition >= RecordTotalCount) return;
+            var startDateOfMonth = startDateOfWeek;
 
-            RecordEndPosition += NumOfChartData;
-            RecordStartPosition = RecordEndPosition - (NumOfChartData - 1);
-
-            RefreshRecordChart();
-        }
-
-        private void RefreshRecordChart()
-        {
-            var elapsedEntries = new List<Entry>();
-            var overEntries = new List<Entry>();
-
-            for (int i = RecordStartPosition; i <= RecordEndPosition; i++)
+            while (startDateOfMonth.Ticks <= startDateOfSelectedMonth.Ticks)
             {
-                var routine = RoutineRecords[i - 1];
+                var RecordsOfWeek = RoutineRecords.FindAll(r => startDateOfWeek.Ticks < r.RecordTime.Ticks && r.RecordTime.Ticks <= startDateOfWeek.AddDays(7).Ticks);
 
-                var entry = new Entry((float)routine.ElapsedTime.TotalSeconds)
+                var weekRecord = new WeekRecord()
                 {
-                    Label = $"{routine.RecordTime.Month}/{routine.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(routine.RecordTime)})",
-                    Color = SKColor.Parse("#1565c0"),
-                    ValueLabel = CreateTimeToString.TakenTimeToString_en(routine.ElapsedTime)
+                    SelectedMonth = SelectedMonth.Month,
+                    StartDateOfWeek = startDateOfWeek,
+                    DayRecords = RecordsOfWeek.OrderBy(r => r.RecordTime).ToList()
                 };
-                elapsedEntries.Add(entry);
 
-                entry = new Entry((float)routine.TimeRemaining.TotalSeconds)
-                {
-                    Label = $"{routine.RecordTime.Month}/{routine.RecordTime.Day} ({CreateTimeToString.ConvertDayOfWeekToKorDayOfWeek(routine.RecordTime)})",
-                    Color = SKColor.Parse("#90caf9"),
-                    ValueLabel = CreateTimeToString.TakenTimeToString_en(routine.TimeRemaining)
-                };
-                overEntries.Add(entry);
+                weekRecords.Add(weekRecord);
+
+                startDateOfWeek = startDateOfWeek.AddDays(7);
+
+                startDateOfMonth = new DateTime(startDateOfWeek.Year, startDateOfWeek.Month, 1, 0, 0, 0);
             }
 
-            ElapsedTimeChart = new BarChart()
-            {
-                Entries = elapsedEntries,
-                LabelTextSize = DependencyService.Get<INativeFont>().GetNativeSize(LabelFontSize),
-                LabelOrientation = Orientation.Horizontal,
-                ValueLabelOrientation = Orientation.Horizontal,
-                AnimationDuration = TimeSpan.FromSeconds(AnimationSec)
-            };
+            WeekRecords.Clear();
 
-            TimeRemainingChart = new BarChart()
-            {
-                Entries = overEntries,
-                LabelTextSize = DependencyService.Get<INativeFont>().GetNativeSize(LabelFontSize),
-                LabelOrientation = Orientation.Horizontal,
-                ValueLabelOrientation = Orientation.Horizontal,
-                AnimationDuration = TimeSpan.FromSeconds(AnimationSec)
-            };
+            WeekRecords = weekRecords;
+            OnPropertyChanged(nameof(WeekRecords));
         }
 
+        public List<WeekRecord> WeekRecords { get; set; } = new List<WeekRecord>();
+
+        public class WeekRecord
+        {
+            public int SelectedMonth { get; set; }
+            public DateTime StartDateOfWeek { get; set; }
+            public List<RoutineRecord> DayRecords 
+            { 
+                get; 
+                set; 
+            } = new List<RoutineRecord>();
+
+            public string SunDate
+            {
+                get { return $"{StartDateOfWeek.Day}"; }
+            }
+
+            public bool IsSelectedMonthSun
+            {
+                get { return StartDateOfWeek.Month == SelectedMonth; }
+            }
+
+            public RoutineRecord SunRecord
+            {
+                get { return DayRecords.FirstOrDefault(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday); }
+            }
+            public bool IsNotNullSun
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday); }
+            }
+            public bool IsSuccessSun
+            {
+                get { return SunRecord != null ? SunRecord.IsSuccess : false; }
+            }
+
+            public string MonDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(1).Day}"; }
+            }
+            public bool IsSelectedMonthMon
+            {
+                get { return StartDateOfWeek.AddDays(1).Month == SelectedMonth; }
+            }
+            public RoutineRecord MonRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday); }
+            }
+            public bool IsNotNullMon
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday); }
+            }
+            public bool IsSuccessMon
+            {
+                get { return MonRecord != null ? MonRecord.IsSuccess : false; }
+            }
+
+            public string TueDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(2).Day}"; }
+            }
+            public bool IsSelectedMonthTue
+            {
+                get { return StartDateOfWeek.AddDays(2).Month == SelectedMonth; }
+            }
+            public RoutineRecord TueRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday); }
+            }
+            public bool IsNotNullTue
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday); }
+            }
+            public bool IsSuccessTue
+            {
+                get { return TueRecord != null ? TueRecord.IsSuccess : false; }
+            }
+
+            public string WedDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(3).Day}"; }
+            }
+            public bool IsSelectedMonthWed
+            {
+                get { return StartDateOfWeek.AddDays(3).Month == SelectedMonth; }
+            }
+            public RoutineRecord WedRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday); }
+            }
+            public bool IsNotNullWed
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday); }
+            }
+            public bool IsSuccessWed
+            {
+                get { return WedRecord != null ? WedRecord.IsSuccess : false; }
+            }
+
+            public string ThuDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(4).Day}"; }
+            }
+            public bool IsSelectedMonthThu
+            {
+                get { return StartDateOfWeek.AddDays(4).Month == SelectedMonth; }
+            }
+            public RoutineRecord ThuRecord
+            {
+                get 
+                { 
+                    return DayRecords.FirstOrDefault(d => d.RecordTime.DayOfWeek == DayOfWeek.Thursday); 
+                }
+            }
+            public bool IsNotNullThu
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Thursday); }
+            }
+            public bool IsSuccessThu
+            {
+                get { return ThuRecord != null ? ThuRecord.IsSuccess : false; }
+            }
+
+            public string FriDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(5).Day}"; }
+            }
+            public bool IsSelectedMonthFri
+            {
+                get { return StartDateOfWeek.AddDays(5).Month == SelectedMonth; }
+            }
+            public RoutineRecord FriRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday); }
+            }
+            public bool IsNotNullFri
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday); }
+            }
+            public bool IsSuccessFri
+            {
+                get { return FriRecord != null ? FriRecord.IsSuccess : false; }
+            }
+
+            public string SatDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(6).Day}"; }
+            }
+            public bool IsSelectedMonthSat
+            {
+                get { return StartDateOfWeek.AddDays(6).Month == SelectedMonth; }
+            }
+            public RoutineRecord SatRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Saturday); }
+            }
+            public bool IsNotNullSat
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Saturday); }
+            }
+            public bool IsSuccessSat
+            {
+                get 
+                { 
+                    return SatRecord != null ? SatRecord.IsSuccess : false; 
+                }
+            }
+        }
         #endregion
     }
 }

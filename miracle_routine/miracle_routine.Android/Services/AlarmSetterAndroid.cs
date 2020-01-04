@@ -18,13 +18,6 @@ namespace miracle_routine.Droid.Services
     {
         public AlarmSetterAndroid() { }
 
-        public static AlarmManager GetAlarmManager()
-        {
-            var manager = Application.Context.GetSystemService(Context.AlarmService) as AlarmManager;
-
-            return manager;
-        }
-
         public void SetRoutineAlarm(Routine routine)
         {
             var diffMillis = CalculateTimeDiff(routine);

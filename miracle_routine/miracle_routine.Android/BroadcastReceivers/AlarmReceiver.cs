@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using miracle_routine.Droid.Services;
+using miracle_routine.Models;
 
 namespace miracle_routine.Droid.BroadcastReceivers
 {
@@ -32,6 +33,10 @@ namespace miracle_routine.Droid.BroadcastReceivers
 
             AlarmSetterAndroid.SetRepeatAlarm(routine);
             NotificationSetterAndroid.NotifyRoutineStart(routine);
+            if (!App.RecordRepo.RoutineRecordFromDB.Any(r => r.RoutineId == routine.Id))
+            {
+                App.RecordRepo.SaveRoutineRecord(new RoutineRecord(routine, false));
+            }
         }
     }
 }

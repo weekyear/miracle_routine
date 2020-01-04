@@ -1,19 +1,23 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using miracle_routine.Services;
 using miracle_routine.Views;
 using miracle_routine.Repositories;
 using miracle_routine.Helpers;
 using Plugin.SharedTransitions;
-using Xamarin.Essentials;
-using System.Threading.Tasks;
 
 namespace miracle_routine
 {
     public partial class App : Application
     {
-        public static ItemDatabaseGeneric ItemDatabase { get; } = new ItemDatabaseGeneric(new Database().DBConnect());
+        private static ItemDatabaseGeneric itemDatabase;
+        public static ItemDatabaseGeneric ItemDatabase 
+        {
+            get
+            {
+                if (itemDatabase == null) itemDatabase = new ItemDatabaseGeneric(new Database().DBConnect());
+                return itemDatabase;
+            }
+        } 
 
         public App()
         {
@@ -44,10 +48,44 @@ namespace miracle_routine
             //Handle when your app resumes
         }
 
-        public static IHabitRepo HabitRepo { get; } = new HabitRepo(ItemDatabase);
-        public static IHabitService HabitService { get; } = new HabitService(HabitRepo);
-        public static IRoutineRepo RoutineRepo { get; } = new RoutineRepo(ItemDatabase);
-        public static IRoutineService RoutineService { get; } = new RoutineService(RoutineRepo);
+        private static IHabitRepo habitRepo;
+        public static IHabitRepo HabitRepo 
+        {
+            get
+            {
+                if (habitRepo == null) habitRepo = new HabitRepo(ItemDatabase);
+                return habitRepo;
+            }
+        }
+
+        private static IHabitService habitService;
+        public static IHabitService HabitService
+        {
+            get
+            {
+                if (habitService == null) habitService = new HabitService(HabitRepo);
+                return habitService;
+            }
+        }
+
+        private static IRoutineRepo routineRepo;
+        public static IRoutineRepo RoutineRepo
+        {
+            get
+            {
+                if (routineRepo == null) routineRepo = new RoutineRepo(ItemDatabase);
+                return routineRepo;
+            }
+        }
+        private static IRoutineService routineService;
+        public static IRoutineService RoutineService
+        {
+            get
+            {
+                if (routineService == null) routineService = new RoutineService(RoutineRepo);
+                return routineService;
+            }
+        } 
 
         private static IRecordRepo recordRepo;
         public static IRecordRepo RecordRepo
@@ -58,6 +96,15 @@ namespace miracle_routine
                 return recordRepo;
             }
         }
-        public static MyMessagingCenter MessagingCenter { get; } = new MyMessagingCenter();
+
+        private static MyMessagingCenter messagingCenter;
+        public static MyMessagingCenter MessagingCenter
+        {
+            get
+            {
+                if (messagingCenter == null) messagingCenter = new MyMessagingCenter();
+                return messagingCenter;
+            }
+        } 
     }
 }
