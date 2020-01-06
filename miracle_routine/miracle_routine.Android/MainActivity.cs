@@ -3,12 +3,6 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Android.Gms.Ads;
-using miracle_routine.Droid.Services;
-using miracle_routine.ViewModels;
-using Plugin.CurrentActivity;
-using miracle_routine.Droid.Helpers;
-using System;
-using Android.Content;
 
 namespace miracle_routine.Droid
 {
@@ -36,8 +30,6 @@ namespace miracle_routine.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-
-            CrossCurrentActivity.Current.Init(this, savedInstanceState);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

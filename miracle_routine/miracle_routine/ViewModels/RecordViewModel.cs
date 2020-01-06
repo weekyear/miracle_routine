@@ -1,15 +1,10 @@
-﻿using Microcharts;
-using miracle_routine.Helpers;
-using miracle_routine.Models;
-using SkiaSharp;
+﻿using miracle_routine.Models;
+
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Entry = Microcharts.Entry;
+
 
 namespace miracle_routine.ViewModels
 {
@@ -58,9 +53,24 @@ namespace miracle_routine.ViewModels
 
         public List<WeekRecord> WeekRecords { get; set; } = new List<WeekRecord>();
 
-        public int AllDayOfThisMonth
+        private DateTime FirstDateOfThisMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
+        public int AllDayOfSelectedMonthUntilToday
         {
-            get { return DateTime.DaysInMonth(SelectedMonth.Year, SelectedMonth.Month); }
+            get 
+            { 
+                if (FirstDateOfThisMonth.Ticks > SelectedMonth.Ticks)
+                {
+                    return DateTime.DaysInMonth(SelectedMonth.Year, SelectedMonth.Month);
+                }
+                else if (FirstDateOfThisMonth.Ticks == SelectedMonth.Ticks)
+                {
+                    return DateTime.Now.Day;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         }
 
         public int RoutineNumOfThisMonth { get; set; }
@@ -69,7 +79,8 @@ namespace miracle_routine.ViewModels
         {
             get
             {
-                return (double)RoutineNumOfThisMonth / AllDayOfThisMonth;
+                if (AllDayOfSelectedMonthUntilToday == 0) return -1;
+                return (double)RoutineNumOfThisMonth / AllDayOfSelectedMonthUntilToday;
             }
         }
         
@@ -77,6 +88,7 @@ namespace miracle_routine.ViewModels
         {
             get
             {
+                if (RoutineNumOfThisMonth == 0) return -1;
                 return (double)SuccessRoutineNumOfThisMonth / RoutineNumOfThisMonth;
             }
         }
@@ -103,7 +115,7 @@ namespace miracle_routine.ViewModels
 
             while (startDateOfMonth.Ticks <= startDateOfSelectedMonth.Ticks)
             {
-                var RecordsOfWeek = Records.FindAll(r => startDateOfWeek.Ticks < r.RecordTime.Ticks && r.RecordTime.Ticks <= startDateOfWeek.AddDays(7).Ticks);
+                var RecordsOfWeek = Records.FindAll(r => startDateOfWeek.Ticks <= r.RecordTime.Ticks && r.RecordTime.Ticks < startDateOfWeek.AddDays(7).Ticks);
 
                 var weekRecord = new WeekRecord()
                 {
@@ -117,15 +129,16 @@ namespace miracle_routine.ViewModels
                 startDateOfWeek = startDateOfWeek.AddDays(7);
 
                 startDateOfMonth = new DateTime(startDateOfWeek.Year, startDateOfWeek.Month, 1, 0, 0, 0);
-                RoutineNumOfThisMonth += RecordsOfWeek.Count;
-                SuccessRoutineNumOfThisMonth += RecordsOfWeek.Where(r => r.IsSuccess == true).Count();
+                var recordsOfSelectedMonth = RecordsOfWeek.Where(r => r.RecordTime.Month == SelectedMonth.Month).ToList();
+                RoutineNumOfThisMonth += recordsOfSelectedMonth.Count();
+                SuccessRoutineNumOfThisMonth += recordsOfSelectedMonth.Where(r => r.IsSuccess == true).Count();
             }
 
             WeekRecords.Clear();
 
             WeekRecords = weekRecords;
             OnPropertyChanged(nameof(WeekRecords));
-            OnPropertyChanged(nameof(AllDayOfThisMonth));
+            OnPropertyChanged(nameof(AllDayOfSelectedMonthUntilToday));
             OnPropertyChanged(nameof(RoutineNumOfThisMonth));
             OnPropertyChanged(nameof(SuccessRoutineNumOfThisMonth));
         }

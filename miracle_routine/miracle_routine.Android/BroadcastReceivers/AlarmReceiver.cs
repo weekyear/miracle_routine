@@ -33,7 +33,7 @@ namespace miracle_routine.Droid.BroadcastReceivers
 
             AlarmSetterAndroid.SetRepeatAlarm(routine);
             NotificationSetterAndroid.NotifyRoutineStart(routine);
-            if (!App.RecordRepo.RecordFromDB.Any(r => r.RoutineId == routine.Id))
+            if (!App.RecordRepo.RecordFromDB.Any(r => r.RoutineId == routine.Id && r.RecordTime.Date == DateTime.Now.Date))
             {
                 App.RecordRepo.SaveRecord(new Record(routine, false));
             }

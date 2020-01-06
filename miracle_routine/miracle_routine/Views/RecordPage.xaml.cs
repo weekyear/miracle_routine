@@ -39,5 +39,14 @@ namespace miracle_routine.Views
                 ((NoRippleListView)sender).SelectedItem = null;
             }
         }
+        private void ListWeekRecords_SwipeLeft(object sender, EventArgs e)
+        {
+            viewModel.NextMonthCommand.Execute(null);
+        }
+
+        private void ListWeekRecords_SwipeRight(object sender, EventArgs e)
+        {
+            viewModel.PreviousMonthCommand.Execute(null);
+        }
     }
 }

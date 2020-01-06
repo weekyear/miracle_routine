@@ -63,9 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Plugin.CurrentActivity">
-      <Version>2.1.0.4</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Android.Crashlytics">
       <Version>2.9.4.3</Version>
     </PackageReference>
@@ -107,6 +104,7 @@
     <Compile Include="CustomRenderers\NumberPickerRenderer.cs" />
     <Compile Include="Effects\ListViewSortableEffect.cs" />
     <Compile Include="Helpers\AdBannerListener.cs" />
+    <Compile Include="Helpers\CustomGestureListener.cs" />
     <Compile Include="Helpers\DragListAdapter.cs" />
     <Compile Include="Helpers\IAdListener.cs" />
     <Compile Include="Helpers\InterstitialAdListener.cs" />
