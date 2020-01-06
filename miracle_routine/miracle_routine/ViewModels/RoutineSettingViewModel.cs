@@ -144,13 +144,6 @@ namespace miracle_routine.ViewModels
         {
             Name = Name.TrimStart().TrimEnd();
 
-            if (Name == "소리야나와라얍얍얍!!")
-            {
-                Preferences.Set("MyAppWillBeSounded", true);
-                await Application.Current.MainPage.DisplayAlert("", "이제 무음모드여도 소리가 날 것이야", StringResources.OK);
-                return;
-            }
-
             if (string.IsNullOrEmpty(Name))
             {
                 await Application.Current.MainPage.DisplayAlert("", StringResources.ForgotRoutineName, StringResources.OK);

@@ -142,6 +142,24 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification sounds regardless of the sound mode..
+        /// </summary>
+        internal static string DescriptionSoundSettings {
+            get {
+                return ResourceManager.GetString("DescriptionSoundSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification vibrates regardless of the sound mode..
+        /// </summary>
+        internal static string DescriptionVibrationSettings {
+            get {
+                return ResourceManager.GetString("DescriptionVibrationSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Elapsed time.
         /// </summary>
         internal static string ElapsedTime {
@@ -313,6 +331,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification settings.
+        /// </summary>
+        internal static string NotificationSettings {
+            get {
+                return ResourceManager.GetString("NotificationSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string OK {
@@ -403,6 +430,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification sound settings.
+        /// </summary>
+        internal static string SoundSettings {
+            get {
+                return ResourceManager.GetString("SoundSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string Start {
@@ -471,6 +507,15 @@ namespace miracle_routine.Resources {
         internal static string Tuesday {
             get {
                 return ResourceManager.GetString("Tuesday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification vibration settings.
+        /// </summary>
+        internal static string VibrationSettings {
+            get {
+                return ResourceManager.GetString("VibrationSettings", resourceCulture);
             }
         }
         

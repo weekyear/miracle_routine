@@ -19,7 +19,7 @@ namespace miracle_routine.Droid.Services
         private static readonly string COUNT_NOTIFICATION_CHANNEL_ID = "com.beside.miracle_routine.count";
         private static readonly string channelName = "miracle_routine";
         private static readonly string countChannelName = "miracle_routine.count";
-        private static readonly long[] vibrationPattern = new long[] { 500, 800, 1000, 1000 };
+        private static readonly long[] vibrationPattern = new long[] { 0, 250, 250, 250 };
 
         private static NotificationManager SetNotificationManager()
         {
@@ -57,24 +57,23 @@ namespace miracle_routine.Droid.Services
             return manager;
         }
 
-
         public static void NotifyRoutineStart(Routine routine)
         {
-            VibrateWhenNotified();
-            PlayAudio();
+            VibrateAndSoundNotificationByPreferences();
+
             SetNotificationManager().Notify(routine.Id, CreateForNotifyRoutineStart(routine));
         }
 
         public void NotifySoonFinishHabit(Habit habit, string nextHabitName)
         {
-            VibrateWhenNotified();
+            VibrateAndSoundNotificationByPreferences();
             SetNotificationManager().Notify(98, CreateForNotifySoonFinishHabit(habit, nextHabitName));
         }
 
         public void NotifyFinishHabit(Habit habit, string nextHabitName)
         {
-            VibrateWhenNotified();
-            PlayAudio();
+            VibrateAndSoundNotificationByPreferences();
+
             SetNotificationManager().Notify(98, CreateForNotifyFinishHabit(habit, nextHabitName));
         }
 
@@ -105,12 +104,6 @@ namespace miracle_routine.Droid.Services
             return actionIntent;
         }
 
-        private static void VibrateWhenNotified()
-        {
-            var vibrator = (Vibrator)Application.Context.GetSystemService(Context.VibratorService);
-            vibrator.Vibrate(VibrationEffect.CreateWaveform(vibrationPattern, -1));
-        }
-
 
         private static Notification CreateForNotifyRoutineStart(Routine routine)
         {
@@ -135,13 +128,15 @@ namespace miracle_routine.Droid.Services
                     .SetPriority((int)NotificationImportance.High)
                     .SetVisibility(NotificationCompat.VisibilityPublic)
                     .SetSound(alarmSound)
+                    .SetVibrate(vibrationPattern)
                     .SetAutoCancel(false)
                     .SetContentIntent(pIntent2)
                     .AddAction(0, "취소", pIntent1)
-                    .AddAction(0, "시작", pIntent2)
-                    .Build();
+                    .AddAction(0, "시작", pIntent2);
 
-            return notification;
+
+
+            return notification.Build(); ;
         }
 
         private Notification CreateForNotifySoonFinishHabit(Habit habit, string nextHabitName)
@@ -155,6 +150,8 @@ namespace miracle_routine.Droid.Services
                 message = nextHabitName;
             }
 
+            Android.Net.Uri alarmSound = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
+
             var fileName = habit.Image.Replace(".png", string.Empty);
             var imageId = context.Resources.GetIdentifier(fileName, "drawable", context.PackageName);
 
@@ -165,6 +162,8 @@ namespace miracle_routine.Droid.Services
                     .SetContentText(message)
                     .SetPriority((int)NotificationImportance.High)
                     .SetVisibility(NotificationCompat.VisibilityPublic)
+                    .SetSound(alarmSound)
+                    .SetVibrate(vibrationPattern)
                     .SetContentIntent(OpenAppIntent())
                     .SetAutoCancel(true)
                     .Build();
@@ -196,6 +195,7 @@ namespace miracle_routine.Droid.Services
                     .SetPriority((int)NotificationImportance.High)
                     .SetVisibility(NotificationCompat.VisibilityPublic)
                     .SetSound(alarmSound)
+                    .SetVibrate(vibrationPattern)
                     .SetContentIntent(OpenAppIntent())
                     .SetAutoCancel(true)
                     .Build();
@@ -282,9 +282,28 @@ namespace miracle_routine.Droid.Services
         }
 
 
+        private static void VibrateAndSoundNotificationByPreferences()
+        {
+            var am = Application.Context.GetSystemService(Context.AudioService) as AudioManager;
+
+            switch (am.RingerMode)
+            {
+                case RingerMode.Normal:
+                    VibrateWhenNotified();
+                    break;
+                case RingerMode.Vibrate:
+                    PlayAudio();
+                    break;
+                case RingerMode.Silent:
+                    PlayAudio();
+                    VibrateWhenNotified();
+                    break;
+            }
+        }
+
         private static void PlayAudio()
         {
-            if (Preferences.Get("MyAppWillBeSounded", false))
+            if (Preferences.Get("IsSound", false))
             {
                 var _mediaPlayer = new MediaPlayer();
 
@@ -311,6 +330,15 @@ namespace miracle_routine.Droid.Services
                 _mediaPlayer.Looping = false;
                 _mediaPlayer.Prepare();
                 _mediaPlayer.Start();
+            }
+        }
+
+        private static void VibrateWhenNotified()
+        {
+            if (Preferences.Get("IsVibrate", false))
+            {
+                var vibrator = (Vibrator)Application.Context.GetSystemService(Context.VibratorService);
+                vibrator.Vibrate(VibrationEffect.CreateWaveform(vibrationPattern, -1));
             }
         }
     }

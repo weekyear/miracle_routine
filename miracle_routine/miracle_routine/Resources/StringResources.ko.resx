@@ -144,6 +144,12 @@
   <data name="Description" xml:space="preserve">
     <value>부가 설명</value>
   </data>
+  <data name="DescriptionSoundSettings" xml:space="preserve">
+    <value>소리 모드에 상관없이 알림 소리가 나옵니다.</value>
+  </data>
+  <data name="DescriptionVibrationSettings" xml:space="preserve">
+    <value>소리 모드에 상관없이 알림 진동이 울립니다.</value>
+  </data>
   <data name="ElapsedTime" xml:space="preserve">
     <value>소요 시간</value>
   </data>
@@ -201,6 +207,9 @@
   <data name="NextHabit" xml:space="preserve">
     <value>다음 습관</value>
   </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value>알림 설정</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>확인</value>
   </data>
@@ -231,6 +240,9 @@
   <data name="Settings" xml:space="preserve">
     <value>설정</value>
   </data>
+  <data name="SoundSettings" xml:space="preserve">
+    <value>알림 소리 설정</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>시 작</value>
   </data>
@@ -254,6 +266,9 @@
   </data>
   <data name="Tuesday" xml:space="preserve">
     <value>화</value>
+  </data>
+  <data name="VibrationSettings" xml:space="preserve">
+    <value>알림 진동 설정</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>수</value>

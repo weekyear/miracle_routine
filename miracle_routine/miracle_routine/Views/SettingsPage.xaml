@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:miracle_routine.Helpers"
+             mc:Ignorable="d"
+             x:Class="miracle_routine.Views.SettingsPage"
+             Title="{local:Translate NotificationSettings}">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Vertical" Margin="10">
+                <Label TextColor="{StaticResource PrimaryTextColor}" 
+                   Text="{local:Translate SoundSettings}" 
+                   Margin="10, 0" 
+                   FontSize="Medium" 
+                   VerticalOptions="Start" />
+                <StackLayout Orientation="Horizontal" VerticalOptions="Start">
+                    <Label TextColor="LightSlateGray" 
+                       Text="{local:Translate DescriptionSoundSettings}" 
+                       Margin="10, 0" 
+                       FontSize="Small" 
+                       VerticalOptions="CenterAndExpand" />
+                    <Switch x:Name="SoundSettingSwitch"
+                        HorizontalOptions="EndAndExpand"
+                        OnColor="LightSteelBlue"
+                        Toggled="SoundSettingSwitch_Toggled"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" Margin="10">
+                <Label TextColor="{StaticResource PrimaryTextColor}" 
+                   Text="{local:Translate VibrationSettings}" 
+                   Margin="10, 0" 
+                   FontSize="Medium" 
+                   VerticalOptions="Start" />
+                <StackLayout Orientation="Horizontal" VerticalOptions="Start">
+                    <Label TextColor="LightSlateGray" 
+                       Text="{local:Translate DescriptionVibrationSettings}" 
+                       Margin="10, 0" 
+                       FontSize="Small" 
+                       VerticalOptions="CenterAndExpand" />
+                    <Switch x:Name="VibrationSettingSwitch"
+                        HorizontalOptions="EndAndExpand"
+                        OnColor="LightSteelBlue"
+                        Toggled="VibrationSettingSwitch_Toggled"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

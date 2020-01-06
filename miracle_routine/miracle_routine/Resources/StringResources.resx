@@ -144,6 +144,12 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="DescriptionSoundSettings" xml:space="preserve">
+    <value>Notification sounds regardless of the sound mode.</value>
+  </data>
+  <data name="DescriptionVibrationSettings" xml:space="preserve">
+    <value>Notification vibrates regardless of the sound mode.</value>
+  </data>
   <data name="ElapsedTime" xml:space="preserve">
     <value>Elapsed time</value>
   </data>
@@ -201,6 +207,9 @@
   <data name="NextHabit" xml:space="preserve">
     <value>Next habit</value>
   </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value>Notification settings</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -231,6 +240,9 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SoundSettings" xml:space="preserve">
+    <value>Notification sound settings</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
@@ -254,6 +266,9 @@
   </data>
   <data name="Tuesday" xml:space="preserve">
     <value>T</value>
+  </data>
+  <data name="VibrationSettings" xml:space="preserve">
+    <value>Notification vibration settings</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>W</value>

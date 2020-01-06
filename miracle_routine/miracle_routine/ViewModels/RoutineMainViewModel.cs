@@ -92,7 +92,7 @@ namespace miracle_routine.ViewModels
 
         private async Task ShowMenu()
         {
-            string[] actionSheetBtns = { StringResources.IconCopyright };
+            string[] actionSheetBtns = { StringResources.IconCopyright, StringResources.NotificationSettings };
 
             string action = await DependencyService.Get<MessageBoxService>().ShowActionSheet(StringResources.Menu, StringResources.Cancel, null, actionSheetBtns);
 
@@ -107,6 +107,10 @@ namespace miracle_routine.ViewModels
             if (action == StringResources.IconCopyright)
             {
                 await Application.Current.MainPage.DisplayAlert(StringResources.IconCopyright, "https://icons8.com", StringResources.OK);
+            }
+            else if (action == StringResources.NotificationSettings)
+            {
+                await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new SettingsPage()));
             }
         }
 
