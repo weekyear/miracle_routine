@@ -3,6 +3,8 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Android.Gms.Ads;
+using miracle_routine.ViewModels;
+using System;
 
 namespace miracle_routine.Droid
 {

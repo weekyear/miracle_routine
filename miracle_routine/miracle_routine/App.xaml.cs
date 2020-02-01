@@ -4,6 +4,9 @@ using miracle_routine.Views;
 using miracle_routine.Repositories;
 using miracle_routine.Helpers;
 using Plugin.SharedTransitions;
+using System;
+using Xamarin.Essentials;
+using miracle_routine.ViewModels;
 
 namespace miracle_routine
 {
@@ -14,7 +17,10 @@ namespace miracle_routine
         {
             get
             {
-                if (itemDatabase == null) itemDatabase = new ItemDatabaseGeneric(new Database().DBConnect());
+                if (itemDatabase == null)
+                {
+                    itemDatabase = new ItemDatabaseGeneric(new Database().DBConnect());
+                }
                 return itemDatabase;
             }
         } 
@@ -36,6 +42,45 @@ namespace miracle_routine
         protected override void OnStart()
         {
             // Handle when your app starts
+
+            if (IsRoutining())
+            {
+                var routine = App.RoutineService.GetRoutine(RoutineActionViewModel.CurrentRoutineId);
+
+                var habitTimeList = RoutineActionViewModel.HabitTimeList;
+
+                RoutineActionViewModel.deviceTimer?.Stop();
+
+                if (habitTimeList.Count > 0)
+                {
+                    var currentIndex = RoutineActionViewModel.CurrentIndex;
+
+                    var routinePage = new RoutineActionPage(routine, currentIndex, habitTimeList[currentIndex]);
+                    MainPage.Navigation.PushAsync(routinePage);
+                    
+
+                    for (int i = 0; i < currentIndex; i++)
+                    {
+                        var addedPage = new RoutineActionPage(routine, i, habitTimeList[i]);
+                        MainPage.Navigation.InsertPageBefore(addedPage, routinePage);
+                    }
+
+                    if (RoutineActionViewModel.IsFinished == true)
+                    {
+                        RoutineActionViewModel.ShowNextHabitCommandByNotification.Execute(null);
+                        RoutineActionViewModel.IsFinished = false;
+                    }
+                }
+                else
+                {
+                    MainPage.Navigation.PushAsync(new RoutineActionPage(routine, -1));
+                }
+            }
+        }
+
+        private bool IsRoutining()
+        {
+            return RoutineActionViewModel.CurrentRoutineId != 0;
         }
 
         protected override void OnSleep()
@@ -73,7 +118,10 @@ namespace miracle_routine
         {
             get
             {
-                if (routineRepo == null) routineRepo = new RoutineRepo(ItemDatabase);
+                if (routineRepo == null)
+                {
+                    routineRepo = new RoutineRepo(ItemDatabase);
+                }
                 return routineRepo;
             }
         }
@@ -82,7 +130,10 @@ namespace miracle_routine
         {
             get
             {
-                if (routineService == null) routineService = new RoutineService(RoutineRepo);
+                if (routineService == null)
+                {
+                    routineService = new RoutineService(RoutineRepo);
+                }
                 return routineService;
             }
         } 

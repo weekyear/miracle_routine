@@ -115,6 +115,7 @@
     <Compile Include="Services\AdMobInterstitialAndroid.cs" />
     <Compile Include="Services\AlarmSetterAndroid.cs" />
     <Compile Include="Services\NotificationSetterAndroid.cs" />
+    <Compile Include="Services\RoutineForegroundService.cs" />
     <Compile Include="Services\ToastServiceAndroid.cs" />
   </ItemGroup>
   <ItemGroup>

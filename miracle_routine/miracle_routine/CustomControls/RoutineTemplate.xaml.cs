@@ -28,7 +28,7 @@ namespace miracle_routine.CustomControls
             var menuBtn = sender as Button;
             var routine = menuBtn.BindingContext as Routine;
 
-            await App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, 0), true);
+            await App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(routine, -1), true);
         }
 
         private async void StatButton_Clicked(object sender, EventArgs e)

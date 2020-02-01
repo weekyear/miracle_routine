@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace miracle_routine.ViewModels
@@ -14,40 +15,91 @@ namespace miracle_routine.ViewModels
     public class RoutineActionViewModel : BaseViewModel
     {
         public static DeviceTimer deviceTimer;
+
+        public static int CurrentIndex { get; set; } = -1;
+        public static List<TimeSpan> HabitTimeList { get; } = new List<TimeSpan>();
+        public static List<TimeSpan> ElapsedTimeList { get; } = new List<TimeSpan>();
+        public static int CurrentRoutineId = 0;
+        public static bool IsFinished { get; set; } = false;
+
+
         private DateTime previousTime = DateTime.MinValue;
-        public RoutineActionViewModel(INavigation navigation, Routine routine, int currentIndex) : base(navigation)
+        public RoutineActionViewModel(INavigation navigation, Routine routine, int habitIndex, TimeSpan _currentHabitTime = new TimeSpan()) : base(navigation)
         {
             Routine = new Routine(routine);
 
-            CurrentIndex = currentIndex;
+            CurrentRoutineId = Routine.Id;
+            HabitIndex = habitIndex;
 
-            ConstructCommand();
-            SubscribeMessage();
-
-            if (CurrentIndex == 0)
+            if (IsNotRoutineActionWhenRestart(_currentHabitTime))
             {
-                AskIfYouWantStart();
+                if (habitIndex == -1)
+                {
+                    HabitIndex = 0;
+                    CurrentIndex = HabitIndex;
+
+                    if (!App.RecordRepo.RecordFromDB.Any(r => r.RoutineId == CurrentRoutineId && r.RecordTime.Date == DateTime.Now.Date))
+                    {
+                        App.RecordRepo.SaveRecord(new Record(routine, false));
+                    }
+
+                    AskIfYouWantStart();
+                }
+                else
+                {
+                    CurrentIndex = HabitIndex;
+                    IsCounting = true;
+                }
             }
             else
             {
-                SetTimer();
+                CurrentHabitTime = _currentHabitTime;
+
+                ElapsedTime = ElapsedTimeList[HabitIndex];
+
+                if (HabitIndex == CurrentIndex) IsCounting = true;
             }
+
+            ConstructCommand();
+        }
+
+        private bool IsNotRoutineActionWhenRestart(TimeSpan _currentHabitTime)
+        {
+            return _currentHabitTime == new TimeSpan();
         }
 
         private void ConstructCommand()
-        {
-        }
-
-        private void SubscribeMessage()
         {
             UndoCommand = new Command(() => Close());
             CloseAllCommand = new Command(() => CloseAll());
             ShowNextHabitCommand = new Command(async () => await ShowNextHabit());
             ClickPlayCommand = new Command(() => ClickPlay());
+
+            if (HabitIndex == CurrentIndex)
+            {
+                ConstuctNotifictionCommand();
+            }
+        }
+
+
+        private void ConstuctNotifictionCommand()
+        {
+            ShowNextHabitCommandByNotification = new Command(async () =>
+            {
+                //CurrentIndex += 1;
+                await ShowNextHabit();
+            });
+            ClickPlayCommandByNotification = new Command(() => ClickPlay());
         }
 
         private void SetTimer()
         {
+            if (HabitTimeList.Count <= CurrentIndex)
+            {
+                HabitTimeList.Add(CurrentHabitTime);
+                ElapsedTimeList.Add(ElapsedTime);
+            }
+
             void action()
             {
                 if (previousTime == DateTime.MinValue) previousTime = DateTime.Now;
@@ -62,13 +114,16 @@ namespace miracle_routine.ViewModels
 
                 if (oldHabitTime.Seconds != CurrentHabitTime.Seconds)
                 {
+                    Console.WriteLine($"{ElapsedTime.ToString(@"mm\:ss")}");
+
+                    RefreshHabitAndElapsedTimeList();
+
                     if (!IsSoonFinishTime)
                     {
                         DependencyService.Get<IAlarmSetter>().SetCountAlarm(CurrentHabitTime.Add(TimeSpan.FromSeconds(-10)));
                     }
 
                     DependencyService.Get<INotifySetter>().NotifyHabitCount(CurrentHabit, CurrentHabitTime, false, !IsNotLastHabit);
-                    Console.WriteLine($"Notify {CurrentHabitTime.ToString(@"mm\:ss")}");
 
                     if (CurrentHabit.TotalTime.TotalSeconds > 20 && CurrentHabitTime.TotalSeconds < 11 && !IsSoonFinishTime)
                     {
@@ -88,11 +143,26 @@ namespace miracle_routine.ViewModels
 
             void stoppingaAction()
             {
+                IsCounting = false;
                 DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
                 DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
             }
 
             deviceTimer = new DeviceTimer(action, TimeSpan.FromSeconds(0.1), true, true, stoppingaAction);
+        }
+
+        private void RefreshHabitAndElapsedTimeList()
+        {
+            if (CurrentIndex != -1)
+            {
+                if (HabitTimeList.Count > CurrentIndex)
+                {
+                    HabitTimeList.RemoveAt(CurrentIndex);
+                    HabitTimeList.Insert(CurrentIndex, CurrentHabitTime);
+                    ElapsedTimeList.RemoveAt(CurrentIndex);
+                    ElapsedTimeList.Insert(CurrentIndex, ElapsedTime);
+                }
+            }
         }
 
         #region PROPERTY
@@ -104,7 +174,7 @@ namespace miracle_routine.ViewModels
         public Command ClickPlayCommand { get; set; }
         public static Command ClickPlayCommandByNotification { get; set; }
 
-        private bool isCounting = true;
+        private bool isCounting = false;
         public bool IsCounting 
         {
             get { return isCounting; }
@@ -129,7 +199,7 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        public Routine Routine
+        public  Routine Routine
         {
             get; set;
         }
@@ -139,19 +209,16 @@ namespace miracle_routine.ViewModels
             get { return Routine.HabitList.Count; }
         }
         
-        public int CurrentIndex
-        {
-            get; set;
-        }
+        public int HabitIndex { get; set; }
 
-        public int CurrentCount
+        public int HabitNum
         {
-            get { return CurrentIndex + 1; }
+            get { return HabitIndex + 1; }
         }
 
         public Habit CurrentHabit
         {
-            get { return Routine.HabitList[CurrentIndex]; }
+            get { return Routine.HabitList[HabitIndex]; }
         }
 
         public string HabitName
@@ -168,7 +235,7 @@ namespace miracle_routine.ViewModels
         {
             get 
             {
-                var nextIndex = CurrentIndex + 1;
+                var nextIndex = HabitIndex + 1;
                 if (nextIndex < Routine.HabitList.Count)
                 {
                     return Routine.HabitList[nextIndex];
@@ -197,7 +264,7 @@ namespace miracle_routine.ViewModels
 
         public bool IsNotLastHabit
         {
-            get { return NextHabit != null ? true : false; }
+            get { return HabitNum < Routine.HabitList.Count ? true : false; }
         }
 
         public TimeSpan NextHabitTime
@@ -261,7 +328,6 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        private bool IsFinished { get; set; } = false;
 
         #endregion
 
@@ -270,7 +336,7 @@ namespace miracle_routine.ViewModels
 
         public void Close()
         {
-            if (CurrentIndex == 0 || IsFinished)
+            if (HabitIndex == 0)
             {
                 CloseAll();
             }
@@ -292,6 +358,7 @@ namespace miracle_routine.ViewModels
                 },
                 async () =>
                 {
+                    CurrentIndex -= 1;
                     await Navigation.PopAsync(true);
                 });
         }
@@ -309,22 +376,24 @@ namespace miracle_routine.ViewModels
                 },
                 async () =>
                 {
+                    deviceTimer?.Stop();
                     await CloseAllNavigationPage();
                 });
         }
 
         private async Task CloseAllNavigationPage()
         {
-            IsCounting = false;
+            CurrentIndex = -1;
+            HabitTimeList.Clear();
+            ElapsedTimeList.Clear();
 
-            DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
-            DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
             var existingPages = Navigation.NavigationStack.ToList();
             for (int i = 1; i < existingPages.Count - 1; i++)
             {
                 Navigation.RemovePage(existingPages[i]);
             }
-            await Navigation.PopAsync(true);
+
+            await PopRoutineActionPage();
         }
         
         public async Task ShowNextHabit()
@@ -335,27 +404,26 @@ namespace miracle_routine.ViewModels
 
             try
             {
-                IsCounting = false;
+                deviceTimer?.Stop();
 
                 if (IsNotLastHabit)
                 {
-                    await Navigation.PushAsync(new RoutineActionPage(Routine, CurrentIndex + 1), true);
-                    DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
+                    await Navigation.PushAsync(new RoutineActionPage(Routine, HabitIndex + 1), true);
                 }
                 else
                 {
-                    var record = App.RecordRepo.RecordFromDB.FirstOrDefault(r => r.RoutineId == Routine.Id);
+                    var record = App.RecordRepo.RecordFromDB.FirstOrDefault(r => r.RoutineId == Routine.Id && r.RecordTime.Date == DateTime.Now.Date);
 
                     if (record == null)
                     {
                         record = new Record(Routine, true);
-                        App.RecordRepo.SaveRecord(record);
                     }
                     else
                     {
                         record.IsSuccess = true;
-                        App.RecordRepo.SaveRecord(record);
                     }
+
+                    App.RecordRepo.SaveRecord(record);
 
                     AlertFinishRoutine();
                 }
@@ -370,7 +438,7 @@ namespace miracle_routine.ViewModels
                 IsBusy = false;
             }
         }
-        
+
         public void ClickPlay()
         {
             if (IsBusy) return;
@@ -399,11 +467,11 @@ namespace miracle_routine.ViewModels
                 $"예상 소요 시간 {CreateTimeToString.TakenTimeToString(Routine.TotalTime)}",
                 async () =>
                 {
-                    await Navigation.PopAsync(true);
+                    await PopRoutineActionPage();
                 },
                 () =>
                 {
-                    SetTimer();
+                    IsCounting = true;
                 });
         }
 
@@ -414,10 +482,15 @@ namespace miracle_routine.ViewModels
                 $"총 소요 시간 : {CreateTimeToString.TakenTimeToString(ElapsedTime)}",
                 async () =>
                 {
-                    IsFinished = true; 
                     await CloseAllNavigationPage();
                     DependencyService.Get<IAdMobInterstitial>().Show();
                 });
+        }
+
+        private async Task PopRoutineActionPage()
+        {
+            CurrentRoutineId = 0;
+            await Navigation.PopAsync(true);
         }
 
         #endregion

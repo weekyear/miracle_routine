@@ -35,6 +35,7 @@ namespace miracle_routine.Models
         {
             get; set;
         }
+
         [Ignore]
         public string DaysOfWeekString
         {
@@ -45,6 +46,7 @@ namespace miracle_routine.Models
         {
             get { return App.HabitService.Habits.Where(habit => habit.RoutineId == Id).OrderBy(h => h.Index).ToList(); }
         }
+
         public DateTime NextAlarmTime
         {
             get { return CalculateNextAlarmTime.NextAlarmTime(this); }

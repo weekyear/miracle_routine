@@ -117,7 +117,7 @@
                            TextColor="{StaticResource PrimaryTextColor}"
                            FontSize="Body"
                            VerticalTextAlignment="Center" />
-                <Label Text="{Binding CurrentCount}"
+                <Label Text="{Binding HabitNum}"
                            HorizontalOptions="End"
                            VerticalOptions="Center"  
                            TextColor="{StaticResource PrimaryTextColor}"

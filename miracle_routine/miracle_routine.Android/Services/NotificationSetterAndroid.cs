@@ -9,6 +9,7 @@ using miracle_routine.Droid.Services;
 using miracle_routine.Helpers;
 using miracle_routine.Models;
 using Xamarin.Essentials;
+using Environment = System.Environment;
 
 [assembly: Xamarin.Forms.Dependency(typeof(NotificationSetterAndroid))]
 namespace miracle_routine.Droid.Services
@@ -20,6 +21,8 @@ namespace miracle_routine.Droid.Services
         private static readonly string channelName = "miracle_routine";
         private static readonly string countChannelName = "miracle_routine.count";
         private static readonly long[] vibrationPattern = new long[] { 0, 250, 250, 250 };
+
+        public static Notification HabitCountNotification;
 
         private static NotificationManager SetNotificationManager()
         {
@@ -79,18 +82,16 @@ namespace miracle_routine.Droid.Services
 
         public void NotifyHabitCount(Habit habit, TimeSpan countDown, bool isPause, bool isLastHabit)
         {
-            SetCountNotificationManager().Notify(99, CreateForNotifyHabitCount(habit, countDown, isPause, isLastHabit));
+            SetCountNotificationManager();
+
+            HabitCountNotification = CreateForNotifyHabitCount(habit, countDown, isPause, isLastHabit);
+
+            StartCountService(false);
         }
 
         private static PendingIntent OpenAppIntent()
         {
-            Intent notificationIntent = new Intent(Application.Context, typeof(MainActivity));
-
-            notificationIntent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-
-            PendingIntent pendingIntent = PendingIntent.GetActivity(Application.Context, 0, notificationIntent, 0);
-
-            return pendingIntent;
+            return PendingIntent.GetBroadcast(Application.Context, 100, CreateActionIntent("재시작", 0), PendingIntentFlags.OneShot);
         }
 
         private static Intent CreateActionIntent(string action, int id)
@@ -109,19 +110,22 @@ namespace miracle_routine.Droid.Services
         {
             var context = Application.Context;
 
+            var wise_sayings = context.Resources.GetStringArray(Resource.Array.wise_sayings);
+            var random = new Random();
+
             string title = $"{routine.Name} 시작!";
-            string message = $"{routine.Name} 루틴을 바로 시작해보세요!";
+            string message = wise_sayings[random.Next(wise_sayings.Length)];
+
+            var style = new NotificationCompat.BigTextStyle();
+            style.BigText(message);
 
             Android.Net.Uri alarmSound = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
 
-            var actionIntent1 = CreateActionIntent("취소", routine.Id);
-            var pIntent1 = PendingIntent.GetBroadcast(context, 100, actionIntent1, PendingIntentFlags.OneShot);
-
-            var actionIntent2 = CreateActionIntent("시작", routine.Id);
-            var pIntent2 = PendingIntent.GetBroadcast(context, 100, actionIntent2, PendingIntentFlags.OneShot);
+            var actionIntent2 = CreateActionIntent("루틴 시작", routine.Id);
+            var pIntent2 = PendingIntent.GetBroadcast(context, routine.Id, actionIntent2, PendingIntentFlags.OneShot);
 
             var notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
-            var notification = notificationBuilder.SetOngoing(true)
+            var notification = notificationBuilder.SetOngoing(false)
                     .SetSmallIcon(Resource.Drawable.ic_miracle_routine_mini)
                     .SetContentTitle(title)
                     .SetContentText(message)
@@ -129,14 +133,13 @@ namespace miracle_routine.Droid.Services
                     .SetVisibility(NotificationCompat.VisibilityPublic)
                     .SetSound(alarmSound)
                     .SetVibrate(vibrationPattern)
-                    .SetAutoCancel(false)
+                    .SetAutoCancel(true)
+                    .SetStyle(style)
                     .SetContentIntent(pIntent2)
-                    .AddAction(0, "취소", pIntent1)
-                    .AddAction(0, "시작", pIntent2);
+                    .AddAction(0, "루틴 시작", pIntent2)
+                    .Build();
 
-
-
-            return notification.Build(); ;
+            return notification;
         }
 
         private Notification CreateForNotifySoonFinishHabit(Habit habit, string nextHabitName)
@@ -262,8 +265,7 @@ namespace miracle_routine.Droid.Services
 
         public void CancelHabitCountNotify()
         {
-            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
-            manager.Cancel(99);
+            StartCountService(true);
         }
 
         public static void CancelRoutineNotification(Context context, int id)
@@ -339,6 +341,20 @@ namespace miracle_routine.Droid.Services
             {
                 var vibrator = (Vibrator)Application.Context.GetSystemService(Context.VibratorService);
                 vibrator.Vibrate(VibrationEffect.CreateWaveform(vibrationPattern, -1));
+            }
+        }
+        public static void StartCountService(bool isFinished)
+        {
+            Intent serviceIntent = new Intent(Application.Context, typeof(RoutineForegroundService));
+            serviceIntent.PutExtra("isFinished", isFinished);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                Application.Context.StartForegroundService(serviceIntent);
+            }
+            else
+            {
+                Application.Context.StartService(serviceIntent);
             }
         }
     }

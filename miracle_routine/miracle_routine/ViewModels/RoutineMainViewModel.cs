@@ -64,6 +64,7 @@ namespace miracle_routine.ViewModels
         public Command ShowMenuCommand { get; set; }
 
 
+
         private async Task ShowRoutine()
         {
             if (IsBusy) return;

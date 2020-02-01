@@ -15,10 +15,10 @@ namespace miracle_routine.Views
     public partial class RoutineActionPage : ContentPage
     {
         RoutineActionViewModel viewModel;
-        public RoutineActionPage(Routine routine, int currentIndex)
+        public RoutineActionPage(Routine routine, int habitIndex, TimeSpan currentHabitTime = new TimeSpan())
         {
             InitializeComponent();
-            BindingContext = viewModel = new RoutineActionViewModel(Navigation, routine, currentIndex);
+            BindingContext = viewModel = new RoutineActionViewModel(Navigation, routine, habitIndex, currentHabitTime);
         }
 
         protected override bool OnBackButtonPressed()
@@ -29,8 +29,7 @@ namespace miracle_routine.Views
 
         protected override void OnAppearing()
         {
-            RoutineActionViewModel.ShowNextHabitCommandByNotification = new Command(async () => await viewModel.ShowNextHabit());
-            RoutineActionViewModel.ClickPlayCommandByNotification = new Command(() => viewModel.ClickPlay());
+            //ConstuctNotifictionCommand();
             base.OnAppearing();
         }
     }

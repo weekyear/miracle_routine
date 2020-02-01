@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using miracle_routine.Droid.Services;
-using miracle_routine.Models;
 using miracle_routine.ViewModels;
 using miracle_routine.Views;
-using Plugin.SharedTransitions;
-using Xamarin.Essentials;
 
 namespace miracle_routine.Droid.BroadcastReceivers
 {
@@ -25,70 +13,61 @@ namespace miracle_routine.Droid.BroadcastReceivers
 
         public override void OnReceive(Context context, Intent intent)
         {
-            Console.WriteLine("OnReceive_NotificationReceiver");
             var bundle = intent.Extras;
             id = bundle.GetInt("id", 0);
 
-            CancelNotification(context);
-
-            if (intent.Action == "시작")
+            try
             {
-                try
+                if (intent.Action == "루틴 시작")
                 {
                     OpenMainActivity(context);
 
-                    App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(App.RoutineService.GetRoutine(id), 0));
+                    App.Current.MainPage.Navigation.PushAsync(new RoutineActionPage(App.RoutineService.GetRoutine(id), -1));
                 }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.WriteLine(ex.Source);
-                    Console.WriteLine(ex.InnerException);
-                }
-            }
-            else if (intent.Action == "일시정지")
-            {
-                try
+                else if (intent.Action == "일시정지")
                 {
                     RoutineActionViewModel.ClickPlayCommandByNotification.Execute(null);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.WriteLine(ex.Source);
-                    Console.WriteLine(ex.InnerException);
-                }
-            }
-            else if (intent.Action == "다음")
-            {
-                try
+                else if (intent.Action == "다음")
                 {
                     RoutineActionViewModel.ShowNextHabitCommandByNotification.Execute(null);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.WriteLine(ex.Source);
-                    Console.WriteLine(ex.InnerException);
-                }
-            }
-            else if (intent.Action == "완료")
-            {
-                try
+                else if (intent.Action == "완료")
                 {
                     OpenMainActivity(context);
 
+                    RoutineActionViewModel.IsFinished = true;
+
                     RoutineActionViewModel.ShowNextHabitCommandByNotification.Execute(null);
                 }
-                catch (Exception ex)
+                else if (intent.Action == "재시작")
                 {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.WriteLine(ex.Source);
-                    Console.WriteLine(ex.InnerException);
+                    OpenMainActivity(context);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(intent.Action);
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Source);
+                Console.WriteLine(ex.InnerException);
+
+                if (ex is NullReferenceException && intent.Action == "루틴 시작")
+                {
+                    RoutineActionViewModel.CurrentRoutineId = id;
+                }
+            }
+            finally
+            {
+                if (intent.Action == "루틴 시작")
+                {
+                    CancelRoutineStartNotification(context);
+                }
+
+                if (intent.Action == "재시작" || intent.Action == "완료")
+                {
+                    CancelNotification(context);
                 }
             }
         }
@@ -103,6 +82,16 @@ namespace miracle_routine.Droid.BroadcastReceivers
 
 
         private void CancelNotification(Context context)
+        {
+            NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
+            if (id != -100000)
+            {
+                Console.WriteLine("CancelNotification_NotificationReceiver");
+                manager.Cancel(99);
+            }
+        }
+
+        private void CancelRoutineStartNotification(Context context)
         {
             NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
             if (id != -100000)

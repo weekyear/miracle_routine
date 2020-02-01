@@ -14,6 +14,7 @@ namespace miracle_routine.Helpers
         readonly TimeSpan _interval;
         public bool IsRecurring { get; }
         public bool IsRunning => _Tasks.Any(t => t.IsRunning);
+        private bool IsStopping { get; set; }
 
         public DeviceTimer(Action runningTask, TimeSpan interval, bool isRecurring = false, bool start = false, Action stoppingTask = null)
         {
@@ -53,7 +54,9 @@ namespace miracle_routine.Helpers
         {
             Pause();
 
-            _StoppingTask.Invoke();
+            if (!IsStopping) _StoppingTask.Invoke();
+
+            IsStopping = true;
         }
 
         class TaskWrapper
