@@ -8,6 +8,8 @@ using miracle_routine.Views;
 using miracle_routine.Helpers;
 using Plugin.SharedTransitions;
 using miracle_routine.Resources;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace miracle_routine.ViewModels
 {
@@ -32,15 +34,15 @@ namespace miracle_routine.ViewModels
             });
         }
 
-        private ObservableCollection<Routine> routines;
-        public ObservableCollection<Routine> Routines
+        private OrderableCollection<Routine> routines;
+        public OrderableCollection<Routine> Routines
         {
             get
             {
                 if (routines == null)
                 {
-                    var _routines = App.RoutineService.Routines;
-                    routines = Helper.ConvertIEnuemrableToObservableCollection(_routines);
+                    var _orderedRoutines = AssignIndexToHabits(App.RoutineService.Routines.OrderBy(r => r.Index));
+                    routines = Helper.ConvertIEnuemrableToObservableCollection(_orderedRoutines);
                 }
                 return routines;
             }
@@ -51,6 +53,17 @@ namespace miracle_routine.ViewModels
                 OnPropertyChanged(nameof(Routines));
             }
         }
+
+        private IOrderedEnumerable<Routine> AssignIndexToHabits(IEnumerable<Routine> routines)
+        {
+            int i = 0;
+            foreach (var routine in routines)
+            {
+                routine.Index = i++;
+            }
+            return routines.OrderBy((d) => d.Index);
+        }
+
         public bool HasRoutine
         {
             get { return Routines.Count != 0 ? true : false; }
@@ -123,7 +136,11 @@ namespace miracle_routine.ViewModels
 
             try
             {
-                var _routines = App.RoutineService.Routines;
+                var _routines = AssignIndexToHabits(App.RoutineService.Routines.OrderBy(r => r.Index));
+                foreach (var _routine in _routines)
+                {
+                    App.RoutineService.SaveRoutineAtLocal(_routine);
+                }
                 routines = Helper.ConvertIEnuemrableToObservableCollection(_routines);
                 OnPropertyChanged(nameof(Routines));
                 OnPropertyChanged(nameof(HasRoutine));

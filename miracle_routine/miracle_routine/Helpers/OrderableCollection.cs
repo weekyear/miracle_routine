@@ -76,6 +76,26 @@ namespace miracle_routine.Helpers
                     App.RecommendedHabitRepo.SaveRecommendedHabit(reommendedHabit);
                 }
             }
+
+            if (Items is IEnumerable<Routine> routines)
+            {
+                if (routines != null)
+                {
+                    int i = 0;
+                    foreach (var routine in routines)
+                    {
+                        routine.Index = i++;
+                    }
+                }
+
+                foreach (var routine in routines)
+                {
+                    App.RoutineService.SaveRoutineAtLocal(routine);
+                }
+                App.RoutineService.RefreshRoutines();
+
+                App.MessagingCenter.SendChangeRoutineMessage();
+            }
         }
     }
 }

@@ -62,11 +62,12 @@
             </Grid>
 
             <custom:NoRippleListView x:Name="RoutineListView" Grid.Row="1"
-                                 ItemsSource="{Binding Routines}"
-                                 VerticalOptions="FillAndExpand"
-                                 HasUnevenRows="True"
-                                 ItemSelected="OnItemSelected"
-                                 SeparatorVisibility="None">
+                                     ItemsSource="{Binding Routines}"
+                                     VerticalOptions="FillAndExpand"
+                                     HasUnevenRows="True"
+                                     ItemSelected="OnItemSelected"
+                                     SeparatorVisibility="None"
+                                     local:Sorting.IsSortable="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

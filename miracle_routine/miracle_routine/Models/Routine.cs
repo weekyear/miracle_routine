@@ -18,6 +18,7 @@ namespace miracle_routine.Models
 
         [PrimaryKey, NotNull, AutoIncrement]
         public int Id { get; set; }
+        public int Index { get; set; } = -1;
         public string Name { get; set; } = string.Empty;
         public int DaysId { get; set; }
         public bool IsLocation { get; set; }
@@ -100,6 +101,7 @@ namespace miracle_routine.Models
         {
             Id = routine.Id;
             Name = routine.Name;
+            Index = routine.Index;
             DaysId = routine.DaysId;
             Days = routine.Days;
             IsLocation = routine.IsLocation;

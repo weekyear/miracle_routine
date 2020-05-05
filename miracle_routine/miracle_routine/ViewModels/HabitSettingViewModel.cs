@@ -108,14 +108,6 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        //public List<RecommendedHabit> RecommendedHabitList
-        //{
-        //    get
-        //    {
-        //        return App.RecommendedHabitRepo.RecommendedHabitsFromDB;
-        //    }
-        //}
-
         public static OrderableCollection<RecommendedHabit> recommendedHabitList;
         public OrderableCollection<RecommendedHabit> RecommendedHabitList
         {
