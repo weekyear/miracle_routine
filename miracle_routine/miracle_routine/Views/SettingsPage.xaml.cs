@@ -18,6 +18,7 @@ namespace miracle_routine.Views
 
             SoundSettingSwitch.IsToggled = Preferences.Get("IsSound", false);
             VibrationSettingSwitch.IsToggled = Preferences.Get("IsVibrate", false);
+            AutoFlipHabitSettingSwitch.IsToggled = Preferences.Get("IsAutoFlipHabit", false);
         }
 
         private void SoundSettingSwitch_Toggled(object sender, ToggledEventArgs e)
@@ -28,6 +29,11 @@ namespace miracle_routine.Views
         private void VibrationSettingSwitch_Toggled(object sender, ToggledEventArgs e)
         {
             Preferences.Set("IsVibrate", e.Value);
+        }
+        
+        private void AutoFlipHabitSettingSwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            Preferences.Set("IsAutoFlipHabit", e.Value);
         }
     }
 }

@@ -7,6 +7,7 @@ using Plugin.SharedTransitions;
 using System;
 using Xamarin.Essentials;
 using miracle_routine.ViewModels;
+using miracle_routine.Models;
 
 namespace miracle_routine
 {
@@ -37,6 +38,8 @@ namespace miracle_routine
             DependencyService.Get<IAdMobInterstitial>().Start();
 
             MainPage = new SharedTransitionNavigationPage(new RoutinesPage());
+
+            Routine.IsInitFinished = true;
         }
 
         protected override void OnStart()

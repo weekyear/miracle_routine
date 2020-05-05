@@ -357,5 +357,33 @@ namespace miracle_routine.Droid.Services
                 Application.Context.StartService(serviceIntent);
             }
         }
+
+        public void NotifyFinishRoutine(Routine routine, TimeSpan ElapsedTime)
+        {
+            VibrateAndSoundNotificationByPreferences();
+
+            SetNotificationManager().Notify(98, CreateForNotifyFinishHabit(routine, ElapsedTime));
+        }
+
+        private Notification CreateForNotifyFinishHabit(Routine routine, TimeSpan ElapsedTime)
+        {
+            var context = Application.Context;
+            string title = $"{routine.Name} 완료";
+            string message = $"{CreateTimeToString.TakenTimeToString(ElapsedTime)} 경과";
+
+            var notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
+            var notification = notificationBuilder.SetOngoing(false)
+                    .SetSmallIcon(Resource.Drawable.ic_miracle_routine_mini)
+                    .SetContentTitle(title)
+                    .SetContentText(message)
+                    .SetPriority((int)NotificationImportance.High)
+                    .SetVisibility(NotificationCompat.VisibilityPublic)
+                    .SetVibrate(vibrationPattern)
+                    .SetContentIntent(OpenAppIntent())
+                    .SetAutoCancel(true)
+                    .Build();
+
+            return notification;
+        }
     }
 }

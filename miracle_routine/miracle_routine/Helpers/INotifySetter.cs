@@ -9,6 +9,7 @@ namespace miracle_routine.Helpers
     {
         void NotifySoonFinishHabit(Habit habit, string nextHabitName);
         void NotifyFinishHabit(Habit habit, string nextHabitName);
+        void NotifyFinishRoutine(Routine routine, TimeSpan ElapsedTime);
         void NotifyHabitCount(Habit habit, TimeSpan countDown, bool isPause, bool isLastHabit);
         void CancelFinishHabitNotify();
         void CancelHabitCountNotify();

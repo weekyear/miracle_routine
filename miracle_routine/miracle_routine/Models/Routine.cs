@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace miracle_routine.Models
 {
@@ -13,12 +14,40 @@ namespace miracle_routine.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public static bool IsInitFinished = false;
+
         [PrimaryKey, NotNull, AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int DaysId { get; set; }
         public bool IsLocation { get; set; }
-        
+
+        public bool IsExpand { get; set; } = true;
+        public bool IsActive { get; set; } = true;
+        public void OnIsActiveChanged()
+        {
+            try
+            {
+                if (IsInitFinished)
+                {
+                    App.RoutineService.SaveRoutineAtLocal(this);
+
+                    if (IsActive)
+                    {
+                        var diffString = CreateTimeToString.CreateTimeRemainingString(NextAlarmTime);
+                        DependencyService.Get<IToastService>().Show(diffString);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{e.Message}");
+                Console.WriteLine($"{e.StackTrace}");
+                Console.WriteLine($"{e.Data}");
+                Console.WriteLine("OnIsActiveChangedException");
+            }
+        }
+
         [OneToOne]
         public DaysOfWeek Days { get; set; } = new DaysOfWeek();
 

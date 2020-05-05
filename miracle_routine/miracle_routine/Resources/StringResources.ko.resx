@@ -123,8 +123,14 @@
   <data name="AdMobInterstitialId" xml:space="preserve">
     <value>ca-app-pub-8413101784746060/9891550667</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>루틴 앱 설정</value>
+  </data>
   <data name="AskDeleteRoutine" xml:space="preserve">
     <value>이 루틴을 삭제하시겠습니까?</value>
+  </data>
+  <data name="AutoFlipHabit" xml:space="preserve">
+    <value>습관 자동넘김</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>부가 설명</value>
+  </data>
+  <data name="DescriptionAutoFlipHabitSettings" xml:space="preserve">
+    <value>습관 시간 경과 시 바로 다음 습관을 실행합니다.</value>
   </data>
   <data name="DescriptionSoundSettings" xml:space="preserve">
     <value>소리 모드에 상관없이 알림 소리가 나옵니다.</value>
@@ -207,14 +216,11 @@
   <data name="NextHabit" xml:space="preserve">
     <value>다음 습관</value>
   </data>
-  <data name="NotificationSettings" xml:space="preserve">
-    <value>알림 설정</value>
-  </data>
   <data name="OK" xml:space="preserve">
     <value>확인</value>
   </data>
   <data name="PleaseWriteDescription" xml:space="preserve">
-    <value>습관을 설명하는 말을 적는 공간입니다.(선택)</value>
+    <value>(선택)</value>
   </data>
   <data name="PleaseWriteHabitName" xml:space="preserve">
     <value>습관 이름을 적어주세요~</value>

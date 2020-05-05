@@ -123,8 +123,14 @@
   <data name="AdMobInterstitialId" xml:space="preserve">
     <value>ca-app-pub-8413101784746060/9891550667</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>App settings</value>
+  </data>
   <data name="AskDeleteRoutine" xml:space="preserve">
     <value>Do you really want to delete this routine?</value>
+  </data>
+  <data name="AutoFlipHabit" xml:space="preserve">
+    <value>Automatic flipping habit</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="DescriptionAutoFlipHabitSettings" xml:space="preserve">
+    <value>Immediately after the habit has elapsed, the next habit will be executed.</value>
   </data>
   <data name="DescriptionSoundSettings" xml:space="preserve">
     <value>Notification sounds regardless of the sound mode.</value>
@@ -206,9 +215,6 @@
   </data>
   <data name="NextHabit" xml:space="preserve">
     <value>Next habit</value>
-  </data>
-  <data name="NotificationSettings" xml:space="preserve">
-    <value>Notification settings</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>

@@ -79,11 +79,29 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App settings.
+        /// </summary>
+        internal static string AppSettings {
+            get {
+                return ResourceManager.GetString("AppSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete this routine?.
         /// </summary>
         internal static string AskDeleteRoutine {
             get {
                 return ResourceManager.GetString("AskDeleteRoutine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic flipping habit.
+        /// </summary>
+        internal static string AutoFlipHabit {
+            get {
+                return ResourceManager.GetString("AutoFlipHabit", resourceCulture);
             }
         }
         
@@ -138,6 +156,15 @@ namespace miracle_routine.Resources {
         internal static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Immediately after the habit has elapsed, the next habit will be executed..
+        /// </summary>
+        internal static string DescriptionAutoFlipHabitSettings {
+            get {
+                return ResourceManager.GetString("DescriptionAutoFlipHabitSettings", resourceCulture);
             }
         }
         
@@ -327,15 +354,6 @@ namespace miracle_routine.Resources {
         internal static string NextHabit {
             get {
                 return ResourceManager.GetString("NextHabit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notification settings.
-        /// </summary>
-        internal static string NotificationSettings {
-            get {
-                return ResourceManager.GetString("NotificationSettings", resourceCulture);
             }
         }
         

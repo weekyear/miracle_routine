@@ -1,4 +1,5 @@
-﻿using miracle_routine.Models;
+﻿using miracle_routine.CustomControls;
+using miracle_routine.Models;
 using miracle_routine.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,19 @@ namespace miracle_routine.Views
 
             BindingContext = viewModel = new HabitSettingViewModel(Navigation, habit);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            HabitImageGrid.OnHabitImageSeleted += HabitImageChanged;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            HabitImageGrid.OnHabitImageSeleted -= HabitImageChanged;
+        }
+
         private void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var selectedHabit = e.Item as Habit;
@@ -31,9 +45,33 @@ namespace miracle_routine.Views
             viewModel.Description = selectedHabit.Description;
         }
 
+        private void HabitImageChanged(string image_string)
+        {
+            viewModel.Image = image_string;
+            ChangeImageFrameVisibleState();
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            ChangeImageFrameVisibleState();
+        }
+
+        private void ChangeImageFrameVisibleState()
+        {
+            ImageFrame.IsVisible = !ImageFrame.IsVisible;
+        }
+
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (HabitListView.SelectedItem != null || e.SelectedItem != null)
+            {
+                ((ListView)sender).SelectedItem = null;
+            }
+        }
+
+        private void ImageListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (ImageListView.SelectedItem != null || e.SelectedItem != null)
             {
                 ((ListView)sender).SelectedItem = null;
             }

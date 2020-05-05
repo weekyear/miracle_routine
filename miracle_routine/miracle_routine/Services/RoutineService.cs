@@ -55,6 +55,7 @@ namespace miracle_routine.Services
         public int SaveRoutine(Routine routine)
         {
             var id = SaveRoutineAtLocal(routine);
+            RefreshRoutines();
             DependencyService.Get<IAlarmSetter>().SetRoutineAlarm(routine);
 
             return id;
@@ -64,14 +65,15 @@ namespace miracle_routine.Services
         {
             routine.DaysId = Repository.SaveDaysOfWeek(routine.Days);
             var id = Repository.SaveRoutine(routine);
-            RefreshRoutines();
 
             return id;
         }
 
         public void RefreshRoutines()
         {
+            Routine.IsInitFinished = false;
             Routines = GetAllRoutines();
+            Routine.IsInitFinished = true;
         }
 
         public int DeleteRoutine(Routine routine)

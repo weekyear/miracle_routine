@@ -1,4 +1,5 @@
-﻿using miracle_routine.Models;
+﻿using miracle_routine.Helpers;
+using miracle_routine.Models;
 using miracle_routine.Views;
 using Plugin.SharedTransitions;
 using System;
@@ -46,5 +47,30 @@ namespace miracle_routine.CustomControls
 
             await App.Current.MainPage.Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RoutineSettingPage(routine)));
         }
+        
+        private void ExpandButton_Clicked(object sender, EventArgs e)
+        {
+            var routine = BindingContext as Routine;
+            routine.IsExpand = !routine.IsExpand;
+
+            App.RoutineService.SaveRoutineAtLocal(routine);
+            App.RoutineService.RefreshRoutines();
+        }
+
+        //private void AlarmSwitch_Toggled(object sender, ToggledEventArgs e)
+        //{
+        //    if (Routine.IsInitFinished)
+        //    {
+        //        var routine = BindingContext as Routine;
+
+        //        App.RoutineService.SaveRoutineAtLocal(routine);
+
+        //        if (routine.IsActive)
+        //        {
+        //            var diffString = CreateTimeToString.CreateTimeRemainingString(routine.NextAlarmTime);
+        //            DependencyService.Get<IToastService>().Show(diffString);
+        //        }
+        //    }
+        //}
     }
 }

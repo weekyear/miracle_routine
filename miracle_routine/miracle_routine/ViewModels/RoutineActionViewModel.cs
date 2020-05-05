@@ -86,7 +86,6 @@ namespace miracle_routine.ViewModels
         {
             ShowNextHabitCommandByNotification = new Command(async () =>
             {
-                //CurrentIndex += 1;
                 await ShowNextHabit();
             });
             ClickPlayCommandByNotification = new Command(() => ClickPlay());
@@ -135,6 +134,8 @@ namespace miracle_routine.ViewModels
                     {
                         DependencyService.Get<INotifySetter>().NotifyFinishHabit(CurrentHabit, NextHabitName);
                         IsMinusHabitTime = true;
+
+                        if (Preferences.Get("IsAutoFlipHabit", false)) ShowNextHabitCommand.Execute(null);
                     };
                 }
 
@@ -165,7 +166,8 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        #region PROPERTY
+        #region PROPERTY00000.0
+
         public Command UndoCommand { get; set; }
         public Command CloseAllCommand { get; set; }
         public Command ShowNextHabitCommand { get; set; }
@@ -426,6 +428,8 @@ namespace miracle_routine.ViewModels
                     App.RecordRepo.SaveRecord(record);
 
                     AlertFinishRoutine();
+
+                    if (Preferences.Get("IsAutoFlipHabit", false)) DependencyService.Get<INotifySetter>().NotifyFinishRoutine(Routine, ElapsedTime);
                 }
             }
             catch (Exception ex)
@@ -483,6 +487,8 @@ namespace miracle_routine.ViewModels
                 async () =>
                 {
                     await CloseAllNavigationPage();
+                    //DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
+                    DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
                     DependencyService.Get<IAdMobInterstitial>().Show();
                 });
         }

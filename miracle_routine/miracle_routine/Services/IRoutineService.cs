@@ -13,6 +13,7 @@ namespace miracle_routine.Services
         Routine GetRoutine(int id);
         int DeleteRoutine(Routine routine);
         int SaveRoutine(Routine routine);
+        int SaveRoutineAtLocal(Routine routine);
         void DeleteAllRoutines();
         List<Routine> GetAllRoutines();
         void RefreshRoutines();

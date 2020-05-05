@@ -57,11 +57,23 @@
                            FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Label Text="{Binding StartTime, Converter={StaticResource StartTimeStringConverter}}"
-                           HorizontalOptions="StartAndExpand"
+                           HorizontalOptions="Start"
                            VerticalOptions="Center"
                            TextColor="{StaticResource PrimaryTextColor}"
                            FontSize="Medium"
                            VerticalTextAlignment="Center" />
+                    <Switch x:Name="AlarmSwitch"
+                            IsToggled="{Binding IsActive}"
+                            HorizontalOptions="StartAndExpand"
+                            OnColor="LightSteelBlue"/>
+                    <custom:PlayButton HorizontalOptions="End"
+                                       WidthRequest="28" HeightRequest="28"
+                                       BackgroundColor="White"
+                                       IsPlaying="{Binding IsExpand}"
+                                       ImageSource="ic_down"
+                                       ImageSourcePlay="ic_down"
+                                       ImageSourcePause="ic_up"
+                                       Clicked="ExpandButton_Clicked"/>
                 </StackLayout>
                 <BoxView Color="LightGray" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
                 <custom:NoRippleListView x:Name="HabitListView"
@@ -70,6 +82,7 @@
                                          VerticalOptions="FillAndExpand"
                                          HeightRequest="{Binding Height}"
                                          VerticalScrollBarVisibility="Never"
+                                         IsVisible="{Binding IsExpand}"
                                          RowHeight="50">
                     <custom:NoRippleListView.ItemTemplate>
                         <DataTemplate>

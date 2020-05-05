@@ -32,7 +32,11 @@ namespace miracle_routine.Droid.BroadcastReceivers
             var routine = App.RoutineService.GetRoutine(id);
 
             AlarmSetterAndroid.SetRepeatAlarm(routine);
-            NotificationSetterAndroid.NotifyRoutineStart(routine);
+
+            if (routine.IsActive)
+            {
+                NotificationSetterAndroid.NotifyRoutineStart(routine);
+            }
         }
     }
 }

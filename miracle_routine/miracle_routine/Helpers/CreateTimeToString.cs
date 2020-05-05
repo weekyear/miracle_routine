@@ -151,6 +151,7 @@ namespace miracle_routine.Helpers
             var stringBuilder = new StringBuilder();
 
             var allDays = routine.Days.AllDays;
+
             var allDaysString = DaysOfWeek.AllDaysString;
 
             for (int i = 0; i < 7; i++)
@@ -160,6 +161,8 @@ namespace miracle_routine.Helpers
                     stringBuilder.Append($", {allDaysString[i]}");
                 }
             }
+
+            if (string.IsNullOrEmpty(stringBuilder.ToString())) return string.Empty;
 
             stringBuilder.Remove(0, 2);
 

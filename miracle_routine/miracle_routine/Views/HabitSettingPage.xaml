@@ -24,7 +24,29 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+            <Frame x:Name="ImageFrame"
+                   VerticalOptions="FillAndExpand"
+                   Margin="10, 10, 10, 0"
+                   CornerRadius="15"
+                   Padding="5"
+                   BackgroundColor="White"
+                   IsVisible="False">
+                <custom:NoRippleListView x:Name="ImageListView"
+                          ItemsSource="{Binding HabitImageList}"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="FillAndExpand"
+                          ItemSelected="ImageListView_ItemSelected"
+                          HasUnevenRows="True">
+                    <custom:NoRippleListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <custom:HabitImageGrid ImageList="{Binding .}"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </custom:NoRippleListView.ItemTemplate>
+                </custom:NoRippleListView>
+            </Frame>
             <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10, 5" Padding="0">
                 <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" Padding="0" Margin="10, 0">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 10, 15, 0">
@@ -32,7 +54,12 @@
                                HorizontalOptions="Start" 
                                VerticalOptions="CenterAndExpand"
                                WidthRequest="32"
-                               HeightRequest="32"/>
+                               HeightRequest="32">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="TapGestureRecognizer_Tapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
                         <Label Text="{local:Translate Name}" FontSize="Body"
                                TextColor="{StaticResource PrimaryTextColor}"
                                VerticalOptions="CenterAndExpand"/>
@@ -79,15 +106,15 @@
             <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
                     <Label Text="{local:Translate RecommendedHabit}" Margin="10, 10, 10, 0" FontSize="Medium" VerticalTextAlignment="Center" />
-                    
+
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
-                    
+
                     <ListView x:Name="HabitListView"
-                          ItemsSource="{Binding RecommendedHabitList}"
-                          ItemTapped="HabitListView_ItemTapped"
-                          ItemSelected="HabitListView_ItemSelected"
-                          VerticalOptions="FillAndExpand"
-                          VerticalScrollBarVisibility="Never"
+                              ItemsSource="{Binding RecommendedHabitList}"
+                              ItemTapped="HabitListView_ItemTapped"
+                              ItemSelected="HabitListView_ItemSelected"
+                              VerticalOptions="FillAndExpand"
+                              VerticalScrollBarVisibility="Never"
                               HasUnevenRows="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -126,5 +153,6 @@
                 </StackLayout>
             </Frame>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>
