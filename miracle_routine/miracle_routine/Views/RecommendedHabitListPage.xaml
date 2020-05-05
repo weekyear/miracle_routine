@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:miracle_routine.Helpers"
+             xmlns:conv="clr-namespace:miracle_routine.Converters"
+             mc:Ignorable="d"
+             x:Class="miracle_routine.Views.RecommendedHabitListPage"
+             IsEnabled="{Binding IsNotBusy}"
+             NavigationPage.HasNavigationBar="False">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:TakenTimeStringConverter x:Key="TakenTimeStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
+                <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0" HorizontalOptions="FillAndExpand">
+                        <Label Text="{local:Translate RecommendedHabitList}" FontSize="Medium" VerticalTextAlignment="Center" />
+                        <ImageButton Source="ic_add.png"
+                                     WidthRequest="32" HeightRequest="32"
+                                     Margin="5, 0"
+                                     BackgroundColor="White"
+                                     HorizontalOptions="EndAndExpand"
+                                     VerticalOptions="CenterAndExpand"
+                                     Command="{Binding ShowRecommendedHabitSettingCommand}"/>
+                    </StackLayout>
+
+                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
+
+                    <ListView x:Name="HabitListView"
+                              ItemsSource="{Binding RecommendedHabitList}"
+                              ItemTapped="HabitListView_ItemTapped"
+                              ItemSelected="HabitListView_ItemSelected"
+                              VerticalOptions="FillAndExpand"
+                              VerticalScrollBarVisibility="Never"
+                              HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" Margin="7, 7">
+                                        <Image Source="{Binding Image}" 
+                                               HorizontalOptions="Start" 
+                                               VerticalOptions="CenterAndExpand"
+                                               WidthRequest="28"
+                                               HeightRequest="28"/>
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                                <Label Margin="10, 0" 
+                                                       VerticalOptions="CenterAndExpand" 
+                                                       Text="{Binding Name}"
+                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                       FontSize="Body"/>
+                                                <Label Margin="10, 0" 
+                                                       HorizontalOptions="EndAndExpand"
+                                                       VerticalOptions="CenterAndExpand" 
+                                                       Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
+                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                       FontSize="Body"/>
+                                            </StackLayout>
+                                            <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
+                                                   Text="{Binding Description}"
+                                                   TextColor="{StaticResource MediumGrayTextColor}"
+                                                       IsVisible="{Binding IsNotEmptyDescription}"
+                                                   FontSize="Small"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

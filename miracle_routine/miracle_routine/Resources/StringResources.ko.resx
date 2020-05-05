@@ -228,6 +228,12 @@
   <data name="RecommendedHabit" xml:space="preserve">
     <value>추천 습관</value>
   </data>
+  <data name="RecommendedHabitList" xml:space="preserve">
+    <value>추천 습관 목록</value>
+  </data>
+  <data name="RecommendedHabitListSetting" xml:space="preserve">
+    <value>추천 습관 목록 설정</value>
+  </data>
   <data name="RoutineRecord" xml:space="preserve">
     <value>루틴 기록</value>
   </data>

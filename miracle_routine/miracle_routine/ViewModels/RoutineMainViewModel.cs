@@ -106,7 +106,7 @@ namespace miracle_routine.ViewModels
 
         private async Task ShowMenu()
         {
-            string[] actionSheetBtns = { StringResources.IconCopyright, StringResources.AppSettings };
+            string[] actionSheetBtns = { StringResources.RecommendedHabitListSetting, StringResources.AppSettings, StringResources.IconCopyright };
 
             string action = await DependencyService.Get<MessageBoxService>().ShowActionSheet(StringResources.Menu, StringResources.Cancel, null, actionSheetBtns);
 
@@ -125,6 +125,10 @@ namespace miracle_routine.ViewModels
             else if (action == StringResources.AppSettings)
             {
                 await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new SettingsPage()));
+            }
+            else if (action == StringResources.RecommendedHabitListSetting)
+            {
+                await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RecommendedHabitListPage()));
             }
         }
 

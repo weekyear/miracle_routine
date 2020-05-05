@@ -124,7 +124,8 @@
                               ItemSelected="HabitListView_ItemSelected"
                               VerticalOptions="FillAndExpand"
                               VerticalScrollBarVisibility="Never"
-                              HasUnevenRows="True">
+                              HasUnevenRows="True"
+                              local:Sorting.IsSortable="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
