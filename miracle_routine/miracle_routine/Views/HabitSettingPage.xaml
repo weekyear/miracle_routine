@@ -105,7 +105,16 @@
 
             <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
-                    <Label Text="{local:Translate RecommendedHabit}" Margin="10, 10, 10, 0" FontSize="Medium" VerticalTextAlignment="Center" />
+                    <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0" HorizontalOptions="FillAndExpand">
+                        <Label Text="{local:Translate RecommendedHabit}" FontSize="Medium" VerticalTextAlignment="Center" />
+                        <ImageButton Source="ic_add.png"
+                                     WidthRequest="32" HeightRequest="32"
+                                     Margin="5, 0"
+                                     BackgroundColor="White"
+                                     HorizontalOptions="EndAndExpand"
+                                     VerticalOptions="CenterAndExpand"
+                                     Command="{Binding ShowHabitSettingCommand}"/>
+                    </StackLayout>
 
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
 

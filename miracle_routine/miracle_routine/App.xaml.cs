@@ -105,6 +105,16 @@ namespace miracle_routine
                 return habitRepo;
             }
         }
+        
+        private static IRecommendedHabitRepo recommendedHabitRepo;
+        public static IRecommendedHabitRepo RecommendedHabitRepo
+        {
+            get
+            {
+                if (recommendedHabitRepo == null) recommendedHabitRepo = new RecommendedHabitRepo(ItemDatabase);
+                return recommendedHabitRepo;
+            }
+        }
 
         private static IHabitService habitService;
         public static IHabitService HabitService

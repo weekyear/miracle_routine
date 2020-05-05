@@ -37,7 +37,7 @@ namespace miracle_routine.Views
 
         private void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var selectedHabit = e.Item as Habit;
+            var selectedHabit = e.Item as RecommendedHabit;
             viewModel.Image = selectedHabit.Image;
             viewModel.Name = selectedHabit.Name;
             viewModel.Minutes = selectedHabit.Minutes;
