@@ -46,6 +46,7 @@ namespace miracle_routine.ViewModels
             }
             return habits.OrderBy((d) => d.Index);
         }
+
         public Command CloseCommand { get; set; }
         public Command ShowRecommendedHabitSettingCommand { get; set; }
 

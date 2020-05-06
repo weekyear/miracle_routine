@@ -105,16 +105,7 @@
 
             <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
-                    <StackLayout Orientation="Horizontal" Margin="10, 10, 10, 0" HorizontalOptions="FillAndExpand">
-                        <Label Text="{local:Translate RecommendedHabit}" FontSize="Medium" VerticalTextAlignment="Center" />
-                        <ImageButton Source="ic_add.png"
-                                     WidthRequest="32" HeightRequest="32"
-                                     Margin="5, 0"
-                                     BackgroundColor="White"
-                                     HorizontalOptions="EndAndExpand"
-                                     VerticalOptions="CenterAndExpand"
-                                     Command="{Binding ShowHabitSettingCommand}"/>
-                    </StackLayout>
+                    <Label Text="{local:Translate RecommendedHabit}" FontSize="Medium" VerticalTextAlignment="Center" />
 
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
 
@@ -124,8 +115,7 @@
                               ItemSelected="HabitListView_ItemSelected"
                               VerticalOptions="FillAndExpand"
                               VerticalScrollBarVisibility="Never"
-                              HasUnevenRows="True"
-                              local:Sorting.IsSortable="True">
+                              HasUnevenRows="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

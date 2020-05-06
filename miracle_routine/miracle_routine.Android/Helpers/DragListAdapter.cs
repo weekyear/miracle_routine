@@ -181,6 +181,11 @@ namespace miracle_routine.Droid.Helpers
 
                     _translatedItems.Clear();
 
+                    if (_element.BindingContext != App.CurrPage.BindingContext)
+                    {
+                        return false;
+                    }
+
                     if (_element.ItemsSource is IOrderable orderable)
                     {
                         orderable.ChangeOrdinal(mobileItem.OriginalIndex, mobileItem.Index);

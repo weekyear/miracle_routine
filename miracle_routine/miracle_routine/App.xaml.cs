@@ -8,6 +8,7 @@ using System;
 using Xamarin.Essentials;
 using miracle_routine.ViewModels;
 using miracle_routine.Models;
+using System.Linq;
 
 namespace miracle_routine
 {
@@ -169,6 +170,20 @@ namespace miracle_routine
                 if (messagingCenter == null) messagingCenter = new MyMessagingCenter();
                 return messagingCenter;
             }
-        } 
+        }
+        public static Page CurrPage
+        {
+            get
+            {
+                if (Current.MainPage.Navigation.ModalStack.LastOrDefault() is SharedTransitionNavigationPage sharedTransitionNavigationPage)
+                {
+                    return sharedTransitionNavigationPage.CurrentPage;
+                }
+                else
+                {
+                    return Current.MainPage.Navigation.NavigationStack.LastOrDefault();
+                }
+            }
+        }
     }
 }
