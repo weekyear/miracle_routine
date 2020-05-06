@@ -1,5 +1,6 @@
 ﻿using miracle_routine.Models;
 using miracle_routine.ViewModels;
+using Plugin.SharedTransitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,11 @@ namespace miracle_routine.Views
             BindingContext = viewModel = new RecommendedHabitListViewModel(Navigation);
         }
 
-        private void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void HabitListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var selectedHabit = e.Item as RecommendedHabit;
 
-            //await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RecommendedHabitListPage()));
+            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RecommendedHabitSettingPage(new RecommendedHabit(selectedHabit)))).ConfigureAwait(false);
         }
 
         private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -36,6 +37,12 @@ namespace miracle_routine.Views
             {
                 ((ListView)sender).SelectedItem = null;
             }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.RefreshRecommendedHabitList();
         }
     }
 }

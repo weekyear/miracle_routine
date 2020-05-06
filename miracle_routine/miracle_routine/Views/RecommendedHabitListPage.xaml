@@ -18,8 +18,7 @@
 
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{local:Translate Delete}" Command="{Binding DeleteCommand}"/>
-        <ToolbarItem Text="{local:Translate Save}" Command="{Binding SaveCommand}"/>
+        <ToolbarItem Text="{local:Translate Add}" Command="{Binding ShowRecommendedHabitSettingCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

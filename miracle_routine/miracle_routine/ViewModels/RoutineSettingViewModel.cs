@@ -158,7 +158,7 @@ namespace miracle_routine.ViewModels
             }
             else
             {
-                Routine.Index = App.RoutineService.Routines.Count;
+                if (Routine.Id == 0) Routine.Index = App.RoutineService.Routines.Count;
                 var id = App.RoutineService.SaveRoutine(Routine);
 
                 foreach (var habit in Habits)

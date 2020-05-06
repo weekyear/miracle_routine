@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:miracle_routine.Helpers"
              xmlns:custom="clr-namespace:miracle_routine.CustomControls"
              xmlns:conv="clr-namespace:miracle_routine.Converters"
-             Title="{local:Translate HabitSetting}"
+             Title="{local:Translate RecommendedHabitSetting}"
              mc:Ignorable="d"
-             x:Class="miracle_routine.Views.HabitSettingPage"
+             x:Class="miracle_routine.Views.RecommendedHabitSettingPage"
              NavigationPage.HasBackButton="True"
              IsEnabled="{Binding IsNotBusy}">
 
@@ -22,11 +22,12 @@
         <ToolbarItem Text="{local:Translate Delete}" Command="{Binding DeleteCommand}"/>
         <ToolbarItem Text="{local:Translate Save}" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
             <Frame x:Name="ImageFrame"
-                   VerticalOptions="FillAndExpand"
+                   VerticalOptions="Start"
+                   HeightRequest="250"
                    Margin="10, 10, 10, 0"
                    CornerRadius="15"
                    Padding="5"
@@ -35,7 +36,7 @@
                 <custom:NoRippleListView x:Name="ImageListView"
                           ItemsSource="{Binding HabitImageList}"
                           HorizontalOptions="CenterAndExpand"
-                          VerticalOptions="FillAndExpand"
+                          VerticalOptions="Start"
                           ItemSelected="ImageListView_ItemSelected"
                           HasUnevenRows="True">
                     <custom:NoRippleListView.ItemTemplate>
@@ -47,7 +48,7 @@
                     </custom:NoRippleListView.ItemTemplate>
                 </custom:NoRippleListView>
             </Frame>
-            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10, 5" Padding="0">
+            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="10, 5" Padding="0">
                 <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" Padding="0" Margin="10, 0">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 10, 15, 0">
                         <Image Source="{Binding Image}" 
@@ -102,67 +103,7 @@
                     </Grid>
                 </StackLayout>
             </Frame>
-
-            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
-                <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
-                    <StackLayout Orientation="Horizontal"
-                                 HorizontalOptions="FillAndExpand">
-                        <Label Text="{local:Translate RecommendedHabit}" Margin="10, 5" FontSize="Medium" VerticalTextAlignment="Center" />
-                        <ImageButton WidthRequest="24" HeightRequest="24"
-                                     Source="ic_settings.png"
-                                     Margin="5, 0"
-                                     BackgroundColor="White"
-                                     HorizontalOptions="EndAndExpand"
-                                     VerticalOptions="CenterAndExpand"
-                                     Command="{Binding ShowRecommendedHabitsCommand}"/>
-                    </StackLayout>
-
-                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
-
-                    <ListView x:Name="HabitListView"
-                              ItemsSource="{Binding RecommendedHabitList}"
-                              ItemTapped="HabitListView_ItemTapped"
-                              ItemSelected="HabitListView_ItemSelected"
-                              VerticalOptions="FillAndExpand"
-                              VerticalScrollBarVisibility="Never"
-                              HasUnevenRows="True">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <StackLayout Orientation="Horizontal" Margin="7, 7">
-                                        <Image Source="{Binding Image}" 
-                                               HorizontalOptions="Start" 
-                                               VerticalOptions="CenterAndExpand"
-                                               WidthRequest="28"
-                                               HeightRequest="28"/>
-                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                                                <Label Margin="10, 0" 
-                                                       VerticalOptions="CenterAndExpand" 
-                                                       Text="{Binding Name}"
-                                                       TextColor="{StaticResource PrimaryTextColor}"
-                                                       FontSize="Body"/>
-                                                <Label Margin="10, 0" 
-                                                       HorizontalOptions="EndAndExpand"
-                                                       VerticalOptions="CenterAndExpand" 
-                                                       Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                                                       TextColor="{StaticResource PrimaryTextColor}"
-                                                       FontSize="Body"/>
-                                            </StackLayout>
-                                            <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
-                                                   Text="{Binding Description}"
-                                                   TextColor="{StaticResource MediumGrayTextColor}"
-                                                       IsVisible="{Binding IsNotEmptyDescription}"
-                                                   FontSize="Small"/>
-                                        </StackLayout>
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackLayout>
-            </Frame>
         </StackLayout>
-        
+
     </ContentPage.Content>
 </ContentPage>

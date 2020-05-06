@@ -237,6 +237,12 @@
   <data name="RecommendedHabitListSetting" xml:space="preserve">
     <value>추천 습관 목록 설정</value>
   </data>
+  <data name="RecommendedHabitSetting" xml:space="preserve">
+    <value>추천 습관 설정</value>
+  </data>
+  <data name="RecommendedHabitSettingDescription" xml:space="preserve">
+    <value>추천 습관 설정은 앱의 홈 화면의 우측 상단 메뉴 버튼을 누르시면 확인할 수 있습니다.</value>
+  </data>
   <data name="RoutineRecord" xml:space="preserve">
     <value>루틴 기록</value>
   </data>

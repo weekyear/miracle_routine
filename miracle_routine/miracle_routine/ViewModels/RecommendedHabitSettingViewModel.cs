@@ -1,22 +1,18 @@
 ﻿using miracle_routine.Helpers;
 using miracle_routine.Models;
-using miracle_routine.Resources;
-using miracle_routine.Views;
-using Plugin.SharedTransitions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace miracle_routine.ViewModels
 {
-    public class HabitSettingViewModel : BaseViewModel
+    public class RecommendedHabitSettingViewModel : BaseViewModel
     {
-        public HabitSettingViewModel(INavigation navigation, Habit habit) : base(navigation)
+        public RecommendedHabitSettingViewModel(INavigation navigation, RecommendedHabit habit) : base(navigation)
         {
-            Habit = new Habit(habit);
+            Habit = new RecommendedHabit(habit);
 
             ConstructCommand();
         }
@@ -25,12 +21,11 @@ namespace miracle_routine.ViewModels
         {
             DeleteCommand = new Command(async () => await Delete());
             SaveCommand = new Command(async () => await Save());
-            ShowRecommendedHabitsCommand = new Command(async () => await ShowRecommendedHabits());
             CloseCommand = new Command(async () => await ClosePopup());
         }
 
         #region PROPERTY
-        public Habit Habit { get; set; }
+        public RecommendedHabit Habit { get; set; }
 
         public string Image
         {
@@ -42,7 +37,7 @@ namespace miracle_routine.ViewModels
                 OnPropertyChanged(nameof(Image));
             }
         }
-        
+
         public string Name
         {
             get { return Habit.Name; }
@@ -53,7 +48,7 @@ namespace miracle_routine.ViewModels
                 OnPropertyChanged(nameof(Name));
             }
         }
-        
+
         public int Minutes
         {
             get { return Habit.Minutes; }
@@ -67,13 +62,13 @@ namespace miracle_routine.ViewModels
 
         public int Seconds
         {
-            get 
+            get
             {
                 if (Habit.Seconds >= 10)
                 {
                     return Habit.Seconds / 10;
                 }
-                return Habit.Seconds; 
+                return Habit.Seconds;
             }
             set
             {
@@ -82,12 +77,12 @@ namespace miracle_routine.ViewModels
                 OnPropertyChanged(nameof(Seconds));
             }
         }
-        
+
         public string Description
         {
-            get 
+            get
             {
-                return Habit.Description; 
+                return Habit.Description;
             }
             set
             {
@@ -113,31 +108,6 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        public static OrderableCollection<RecommendedHabit> recommendedHabitList;
-        public OrderableCollection<RecommendedHabit> RecommendedHabitList
-        {
-            get
-            {
-                if (recommendedHabitList == null)
-                {
-                    var orderedHabits = AssignIndexToRecommendedHabits(App.RecommendedHabitRepo.RecommendedHabitsFromDB.OrderBy(r => r.Index));
-                    recommendedHabitList = Helper.ConvertIEnuemrableToObservableCollection(orderedHabits);
-                }
-                return recommendedHabitList;
-            }
-        }
-
-        private IOrderedEnumerable<RecommendedHabit> AssignIndexToRecommendedHabits(IEnumerable<RecommendedHabit> habits)
-        {
-            int i = 0;
-            foreach (var habit in habits)
-            {
-                habit.Index = i++;
-            }
-            return habits.OrderBy((d) => d.Index);
-        }
-
-        public Command ShowRecommendedHabitsCommand { get; set; }
         public Command DeleteCommand { get; set; }
         public Command SaveCommand { get; set; }
         public Command CloseCommand { get; set; }
@@ -157,7 +127,8 @@ namespace miracle_routine.ViewModels
                 {
                     Seconds = Seconds * 10;
                 }
-                AddHabitList(Habit);
+                if (Habit.Id == 0) Habit.Index = App.RecommendedHabitRepo.RecommendedHabitsFromDB.Count;
+                App.RecommendedHabitRepo.SaveRecommendedHabit(Habit);
             }
             catch (Exception ex)
             {
@@ -172,7 +143,7 @@ namespace miracle_routine.ViewModels
                 IsBusy = false;
             }
         }
-        
+
         private async Task Delete()
         {
             if (IsBusy) return;
@@ -182,11 +153,11 @@ namespace miracle_routine.ViewModels
             try
             {
                 DependencyService.Get<MessageBoxService>().ShowConfirm(
-                    $"습관 삭제",
-                    $"습관을 삭제하시겠습니까?", null,
+                    $"추천 습관 삭제",
+                    $"추천 습관을 삭제하시겠습니까?", null,
                     async () =>
                     {
-                        RemoveHabitList(Habit);
+                        if (Habit.Id != 0) App.RecommendedHabitRepo.DeleteRecommendedHabit(Habit.Id);
 
                         await ClosePopup();
                     });
@@ -207,71 +178,6 @@ namespace miracle_routine.ViewModels
         private async Task ClosePopup()
         {
             await Navigation.PopModalAsync(true);
-        }
-
-        private async Task ShowRecommendedHabits()
-        {
-            await Navigation.PushModalAsync(new SharedTransitionNavigationPage(new RecommendedHabitListPage()));
-            //await Application.Current.MainPage.DisplayAlert("", StringResources.RecommendedHabitSettingDescription, StringResources.OK);
-        }
-        public void RefreshRecommendedHabitList()
-        {
-            if (IsBusy) return;
-
-            IsBusy = true;
-
-            try
-            {
-                var _habits = AssignIndexToRecommendedHabits(App.RecommendedHabitRepo.GetRecommendedHabits().OrderBy(r => r.Index));
-                foreach (var _habit in _habits)
-                {
-                    App.RecommendedHabitRepo.SaveRecommendedHabit(_habit);
-                }
-                recommendedHabitList = Helper.ConvertIEnuemrableToObservableCollection(_habits);
-                OnPropertyChanged(nameof(RecommendedHabitList));
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private void AddHabitList(Habit habit)
-        {
-            var Habits = RoutineSettingViewModel.habits;
-            if (habit.Index == -1)
-            {
-                habit.Index = Habits.Count;
-                Habits.Add(habit);
-            }
-            else
-            {
-                var oldHabit = Habits.FirstOrDefault(h => h.Index == habit.Index);
-                int i = Habits.IndexOf(oldHabit);
-                Habits.Remove(oldHabit);
-                Habits.Insert(i, habit);
-            }
-        }
-
-        private void RemoveHabitList(Habit habit)
-        {
-            var Habits = RoutineSettingViewModel.habits;
-            if (habit.Index == -1)
-            {
-                return;
-            }
-            else
-            {
-                var oldHabit = Habits.FirstOrDefault(h => h.Index == habit.Index);
-                int i = Habits.IndexOf(oldHabit);
-                Habits.Remove(oldHabit);
-
-                RoutineSettingViewModel.HabitsForDelete.Add(oldHabit);
-            }
         }
         #endregion
     }

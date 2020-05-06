@@ -13,21 +13,20 @@ using Xamarin.Forms.Xaml;
 namespace miracle_routine.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HabitSettingPage : ContentPage
+    public partial class RecommendedHabitSettingPage : ContentPage
     {
-        HabitSettingViewModel viewModel;
-        public HabitSettingPage(Habit habit)
+        RecommendedHabitSettingViewModel viewModel;
+        public RecommendedHabitSettingPage(RecommendedHabit habit)
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new HabitSettingViewModel(Navigation, habit);
+            BindingContext = viewModel = new RecommendedHabitSettingViewModel(Navigation, habit);
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             HabitImageGrid.OnHabitImageSeleted += HabitImageChanged;
-            viewModel.RefreshRecommendedHabitList();
         }
 
         protected override void OnDisappearing()
@@ -60,14 +59,6 @@ namespace miracle_routine.Views
         private void ChangeImageFrameVisibleState()
         {
             ImageFrame.IsVisible = !ImageFrame.IsVisible;
-        }
-
-        private void HabitListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (HabitListView.SelectedItem != null || e.SelectedItem != null)
-            {
-                ((ListView)sender).SelectedItem = null;
-            }
         }
 
         private void ImageListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

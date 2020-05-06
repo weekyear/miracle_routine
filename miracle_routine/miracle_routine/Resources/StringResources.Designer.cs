@@ -421,6 +421,24 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recommended Habit Setting.
+        /// </summary>
+        internal static string RecommendedHabitSetting {
+            get {
+                return ResourceManager.GetString("RecommendedHabitSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recommended habit settings can be checked by pressing the menu button in the upper right of the app home window..
+        /// </summary>
+        internal static string RecommendedHabitSettingDescription {
+            get {
+                return ResourceManager.GetString("RecommendedHabitSettingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Routine record.
         /// </summary>
         internal static string RoutineRecord {
