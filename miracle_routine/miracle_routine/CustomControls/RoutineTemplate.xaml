@@ -23,7 +23,7 @@
                     <Label Text="{Binding Name}"
                            HorizontalOptions="StartAndExpand"
                            VerticalOptions="Center"  
-                           TextColor="{StaticResource PrimaryTextColor}"
+                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                            FontSize="Large"
                            LineBreakMode="TailTruncation"
                            VerticalTextAlignment="Center" />
@@ -46,20 +46,20 @@
                     <Label Text="{Binding DaysOfWeekString}"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"
-                           TextColor="{StaticResource PrimaryTextColor}"
+                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                            FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Label Text="/"
                            Margin="5, 0"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"  
-                           TextColor="{StaticResource PrimaryTextColor}"
+                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                            FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Label Text="{Binding StartTime, Converter={StaticResource StartTimeStringConverter}}"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"
-                           TextColor="{StaticResource PrimaryTextColor}"
+                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                            FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Switch x:Name="AlarmSwitch"
@@ -96,13 +96,13 @@
                                            HeightRequest="28"/>
                                     <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
                                            Text="{Binding Name}"
-                                           TextColor="{StaticResource PrimaryTextColor}"
+                                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                                            FontSize="Body"/>
                                     <Label Margin="10, 0" 
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="CenterAndExpand" 
                                            Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                                           TextColor="{StaticResource PrimaryTextColor}"
+                                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                                            FontSize="Body"/>
                                 </StackLayout>
                             </ViewCell>
@@ -117,7 +117,7 @@
                     <Button Text="{local:Translate Start}" Grid.Column="0"
                             FontSize="Medium"
                             FontAttributes="Bold"
-                            TextColor="{StaticResource Accent}"
+                            TextColor="{StaticResource LightThemeAccent}"
                             Clicked="StartButton_Clicked"
                             HorizontalOptions="FillAndExpand"
                             CornerRadius="15"
@@ -126,7 +126,7 @@
                            HorizontalOptions="End"
                            VerticalOptions="CenterAndExpand" 
                            Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                           TextColor="{StaticResource PrimaryTextColor}"
+                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                            FontSize="Body"/>
                 </Grid>
             </StackLayout>

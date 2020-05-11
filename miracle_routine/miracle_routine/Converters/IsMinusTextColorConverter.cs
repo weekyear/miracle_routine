@@ -27,7 +27,7 @@ namespace miracle_routine.Converters
             }
             else
             {
-                return (Color)App.Current.Resources["PrimaryTextColor"];
+                return (Color)App.Current.Resources["LightThemePrimaryTextColor"];
             }
         }
     }

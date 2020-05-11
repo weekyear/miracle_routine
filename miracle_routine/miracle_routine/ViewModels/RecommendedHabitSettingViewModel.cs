@@ -96,15 +96,7 @@ namespace miracle_routine.ViewModels
         {
             get
             {
-                return new List<HabitImages>
-                {
-                    new HabitImages { "ic_water.png", "ic_tea.png", "ic_bed.png", "ic_stretching.png", "ic_meditation.png", "ic_todo.png", "ic_diary.png" },
-                    new HabitImages { "ic_reading.png", "ic_exercise.png", "ic_jogging.png", "ic_apple.png", "ic_pills.png", "ic_meal.png", "ic_shower.png" },
-                    new HabitImages { "ic_baby.png", "ic_barber.png", "ic_basket.png", "ic_bath.png", "ic_check.png", "ic_drive.png", "ic_dryer.png" },
-                    new HabitImages { "ic_game.png", "ic_libstick.png", "ic_sun_2.png", "ic_moon.png", "ic_shoping.png", "ic_trash.png", "ic_waste.png" },
-                    new HabitImages { "ic_pets.png", "ic_plant.png", "ic_phone.png", "ic_notebook.png", "ic_music.png", "ic_bus.png", "ic_train.png" },
-                    new HabitImages { "ic_bank.png", "ic_church.png", "ic_library.png", "ic_facebook.png", "ic_instagram.png", "ic_twitter.png", "ic_miracle_routine_mini.png" }
-                };
+                return HabitImages.HabitImageList;
             }
         }
 

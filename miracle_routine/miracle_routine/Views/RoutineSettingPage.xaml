@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RoutineSettingPage"
              Title="{local:Translate RoutineSetting}"
-             BackgroundColor="{StaticResource BackgroundColor}"
+             BackgroundColor="{StaticResource LightThemeBackgroundColor}"
              NavigationPage.HasBackButton="True"
              IsEnabled="{Binding IsNotBusy}">
 
@@ -97,18 +97,18 @@
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                                 <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding Name}"
-                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                       TextColor="{StaticResource LightThemePrimaryTextColor}"
                                                        FontSize="Body"/>
                                                 <Label Margin="10, 0" 
                                                        HorizontalOptions="EndAndExpand"
                                                        VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                       TextColor="{StaticResource LightThemePrimaryTextColor}"
                                                        FontSize="Body"/>
                                             </StackLayout>
                                             <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
                                                    Text="{Binding Description}"
-                                                   TextColor="{StaticResource MediumGrayTextColor}"
+                                                   TextColor="{StaticResource LightThemeMediumGrayTextColor}"
                                                    IsVisible="{Binding IsNotEmptyDescription}"
                                                    FontSize="Small"/>
                                         </StackLayout>

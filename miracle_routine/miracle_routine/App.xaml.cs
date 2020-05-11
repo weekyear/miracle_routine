@@ -25,11 +25,24 @@ namespace miracle_routine
                 }
                 return itemDatabase;
             }
-        } 
+        }
+
+        public static bool IsDarkTheme;
 
         public App()
         {
             InitializeComponent();
+
+            IsDarkTheme = Preferences.Get("IsDarkTheme", false);
+
+            if (IsDarkTheme)
+            {
+                ResourcesHelper.SetDarkMode();
+            }
+            else
+            {
+                ResourcesHelper.SetLightMode();
+            }
 
             DependencyService.Register<INavigation>();
             DependencyService.Register<INotifySetter>();

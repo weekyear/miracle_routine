@@ -9,22 +9,22 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="BackgroundColor">#f3f3f3</Color>
-            <Color x:Key="PrimaryLight">#c3fdff</Color>
-            <Color x:Key="Primary">#90caf9</Color>
-            <Color x:Key="PrimaryDark">#5e92f3</Color>
-            <Color x:Key="Accent">#003c8f</Color>
-            <Color x:Key="Icon">#1565c0</Color>
-            <Color x:Key="LightBackgroundColor">#FAFAFA</Color>
-            <Color x:Key="DarkBackgroundColor">#C0C0C0</Color>
-            <Color x:Key="MediumGrayTextColor">#4d4d4d</Color>
-            <Color x:Key="LightTextColor">#ffffff</Color>
-            <Color x:Key="PrimaryTextColor">#1b1b1b</Color>
-            <Color x:Key="SecondaryTextColor">#828282</Color>
+            <Color x:Key="LightThemeBackgroundColor">#f3f3f3</Color>
+            <Color x:Key="LightThemePrimary">#90caf9</Color>
+            <Color x:Key="LightThemePrimaryDark">#5e92f3</Color>
+            <Color x:Key="LightThemeAccent">#003c8f</Color>
+            <Color x:Key="LightThemeIcon">#1565c0</Color>
+            <Color x:Key="LightThemePrimaryTextColor">#1b1b1b</Color>
+            <Color x:Key="LightThemeMediumGrayTextColor">#4d4d4d</Color>
+            <Color x:Key="LightThemeBarTextColor">#fffff</Color>
+
+
 
             <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="BarTextColor" Value="White" />
+                <!--<Setter Property="BarBackgroundColor" Value="{StaticResource LightThemePrimary}" />-->
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource DynamicNavigationBarColor}" />
+                <!--<Setter Property="BarTextColor" Value="White" />-->
+                <Setter Property="BarTextColor" Value="{DynamicResource DynamicBarTextColor}" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

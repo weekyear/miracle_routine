@@ -61,7 +61,7 @@
                             </Image.GestureRecognizers>
                         </Image>
                         <Label Text="{local:Translate Name}" FontSize="Body"
-                               TextColor="{StaticResource PrimaryTextColor}"
+                               TextColor="{StaticResource LightThemePrimaryTextColor}"
                                VerticalOptions="CenterAndExpand"/>
                         <Entry Text="{Binding Name}" 
                                HorizontalOptions="FillAndExpand"
@@ -72,16 +72,16 @@
                     </StackLayout>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.8"/>
                     <Label Text="소요 시간" FontSize="Body" Margin="15, 0"
-                           TextColor="{StaticResource PrimaryTextColor}"
+                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="15, 0" HeightRequest="60">
                         <custom:NumberPicker Value="{Binding Minutes}" PickerType="Minutes" Margin="0"/>
                         <Label Text="분" FontSize="Body"
-                           TextColor="{StaticResource PrimaryTextColor}"
+                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
                         <custom:NumberPicker Value="{Binding Seconds}" PickerType="Seconds" Margin="0"/>
                         <Label Text="초" FontSize="Body"
-                           TextColor="{StaticResource PrimaryTextColor}"
+                           TextColor="{StaticResource LightThemePrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.8"/>
@@ -91,7 +91,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Text="{local:Translate Description}" FontSize="Body" Margin="15, 0" Padding="0"
-                               TextColor="{StaticResource PrimaryTextColor}"
+                               TextColor="{StaticResource LightThemePrimaryTextColor}"
                                VerticalOptions="CenterAndExpand"/>
                         <Editor Grid.Row="1" Text="{Binding Description}"
                                 HorizontalOptions="FillAndExpand"
@@ -140,18 +140,18 @@
                                                 <Label Margin="10, 0" 
                                                        VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding Name}"
-                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                       TextColor="{StaticResource LightThemePrimaryTextColor}"
                                                        FontSize="Body"/>
                                                 <Label Margin="10, 0" 
                                                        HorizontalOptions="EndAndExpand"
                                                        VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                       TextColor="{StaticResource LightThemePrimaryTextColor}"
                                                        FontSize="Body"/>
                                             </StackLayout>
                                             <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
                                                    Text="{Binding Description}"
-                                                   TextColor="{StaticResource MediumGrayTextColor}"
+                                                   TextColor="{StaticResource LightThemeMediumGrayTextColor}"
                                                        IsVisible="{Binding IsNotEmptyDescription}"
                                                    FontSize="Small"/>
                                         </StackLayout>

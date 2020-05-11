@@ -23,11 +23,11 @@ namespace miracle_routine.Converters
             var isNotLastHabit = (bool)value;
             if (isNotLastHabit)
             {
-                return (Color)App.Current.Resources["PrimaryDark"];
+                return (Color)App.Current.Resources["LightThemePrimaryDark"];
             }
             else
             {
-                return (Color)App.Current.Resources["Accent"];
+                return (Color)App.Current.Resources["LightThemeAccent"];
             }
         }
     }
