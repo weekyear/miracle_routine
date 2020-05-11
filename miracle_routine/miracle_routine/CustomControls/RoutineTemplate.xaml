@@ -17,27 +17,27 @@
     </ContentView.Resources>
     
   <ContentView.Content>
-        <Frame CornerRadius="15" BackgroundColor="White" Margin="10" Padding="0">
+        <Frame CornerRadius="15" BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}" Margin="10" Padding="0">
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal" Margin="15, 15, 15, 0">
                     <Label Text="{Binding Name}"
                            HorizontalOptions="StartAndExpand"
                            VerticalOptions="Center"  
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Large"
                            LineBreakMode="TailTruncation"
                            VerticalTextAlignment="Center" />
                     <ImageButton Source="ic_statistics.png"
                                  Margin="3, 0"
                                  WidthRequest="28" HeightRequest="28"
-                                 BackgroundColor="White"
+                                 BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                                  HorizontalOptions="End"
                                  VerticalOptions="CenterAndExpand"
                                  Clicked="StatButton_Clicked"/>
                     <ImageButton Source="ic_edit.png"
                                  Margin="3, 0"
                                  WidthRequest="28" HeightRequest="28"
-                                 BackgroundColor="White"
+                                 BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                                  HorizontalOptions="End"
                                  VerticalOptions="CenterAndExpand"
                                  Clicked="EditButton_Clicked"/>
@@ -46,20 +46,20 @@
                     <Label Text="{Binding DaysOfWeekString}"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Label Text="/"
                            Margin="5, 0"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"  
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Label Text="{Binding StartTime, Converter={StaticResource StartTimeStringConverter}}"
                            HorizontalOptions="Start"
                            VerticalOptions="Center"
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Medium"
                            VerticalTextAlignment="Center" />
                     <Switch x:Name="AlarmSwitch"
@@ -68,7 +68,7 @@
                             OnColor="LightSteelBlue"/>
                     <custom:PlayButton HorizontalOptions="End"
                                        WidthRequest="28" HeightRequest="28"
-                                       BackgroundColor="White"
+                                       BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                                        IsPlaying="{Binding IsExpand}"
                                        ImageSource="ic_down"
                                        ImageSourcePlay="ic_down"
@@ -96,13 +96,13 @@
                                            HeightRequest="28"/>
                                     <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
                                            Text="{Binding Name}"
-                                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                            FontSize="Body"/>
                                     <Label Margin="10, 0" 
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="CenterAndExpand" 
                                            Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                            FontSize="Body"/>
                                 </StackLayout>
                             </ViewCell>
@@ -117,16 +117,16 @@
                     <Button Text="{local:Translate Start}" Grid.Column="0"
                             FontSize="Medium"
                             FontAttributes="Bold"
-                            TextColor="{StaticResource LightThemeAccent}"
+                            TextColor="{DynamicResource DynamicAccentColor}"
                             Clicked="StartButton_Clicked"
                             HorizontalOptions="FillAndExpand"
                             CornerRadius="15"
-                            BackgroundColor="White"/>
+                            BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"/>
                     <Label Margin="10, 0" Grid.Column="1"
                            HorizontalOptions="End"
                            VerticalOptions="CenterAndExpand" 
                            Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Body"/>
                 </Grid>
             </StackLayout>

@@ -11,7 +11,7 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Vertical" Margin="10">
-                <Label TextColor="{StaticResource LightThemePrimaryTextColor}" 
+                <Label TextColor="{DynamicResource DynamicPrimaryTextColor}" 
                    Text="{local:Translate SoundSettings}" 
                    Margin="10, 0" 
                    FontSize="Medium" 
@@ -29,7 +29,7 @@
                 </StackLayout>
             </StackLayout>
             <StackLayout Orientation="Vertical" Margin="10">
-                <Label TextColor="{StaticResource LightThemePrimaryTextColor}" 
+                <Label TextColor="{DynamicResource DynamicPrimaryTextColor}" 
                    Text="{local:Translate VibrationSettings}" 
                    Margin="10, 0" 
                    FontSize="Medium" 
@@ -47,7 +47,7 @@
                 </StackLayout>
             </StackLayout>
             <StackLayout Orientation="Vertical" Margin="10">
-                <Label TextColor="{StaticResource LightThemePrimaryTextColor}" 
+                <Label TextColor="{DynamicResource DynamicPrimaryTextColor}" 
                        Text="{local:Translate AutoFlipHabit}" 
                        Margin="10, 0" 
                        FontSize="Medium" 

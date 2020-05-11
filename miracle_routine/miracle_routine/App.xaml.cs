@@ -35,7 +35,7 @@ namespace miracle_routine
 
             IsDarkTheme = Preferences.Get("IsDarkTheme", false);
 
-            if (IsDarkTheme)
+            if (!IsDarkTheme)
             {
                 ResourcesHelper.SetDarkMode();
             }

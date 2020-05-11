@@ -9,7 +9,7 @@
              xmlns:conv="clr-namespace:miracle_routine.Converters"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RecordPage"
-             BackgroundColor="{StaticResource LightThemeBackgroundColor}"
+             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
              Title="{Binding Title}"
              IsEnabled="{Binding IsNotBusy}">
 
@@ -29,7 +29,7 @@
             </Grid.RowDefinitions>
             <StackLayout Orientation="Horizontal" Margin="10, 5" Grid.Row="0" HorizontalOptions="CenterAndExpand">
                 <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_left.png"
-                             BackgroundColor="{StaticResource LightThemeBackgroundColor}"
+                             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
                              HorizontalOptions="Start"
                              VerticalOptions="CenterAndExpand"
                              Command="{Binding PreviousMonthCommand}"/>
@@ -39,12 +39,12 @@
                        VerticalOptions="CenterAndExpand"
                        FontSize="Large" />
                 <ImageButton WidthRequest="32" HeightRequest="32" Source="ic_right.png"
-                             BackgroundColor="{StaticResource LightThemeBackgroundColor}"
+                             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
                              HorizontalOptions="StartAndExpand"
                              VerticalOptions="CenterAndExpand"
                              Command="{Binding NextMonthCommand}"/>
             </StackLayout>
-            <Frame CornerRadius="20" BackgroundColor="White" Margin="5" Padding="0" VerticalOptions="Start" Grid.Row="1">
+            <Frame CornerRadius="20" BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}" Margin="5" Padding="0" VerticalOptions="Start" Grid.Row="1">
                 <StackLayout VerticalOptions="Start" Spacing="0">
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10, 10, 10, 0">
                         <Grid.RowDefinitions>
@@ -136,7 +136,7 @@
                                         <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                                      Opacity="{Binding IsSelectedMonthSun, Converter={StaticResource BooleanOpacityConverter}}">
                                             <Label Text="{Binding SunDate}" 
-                                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start"/>
@@ -151,7 +151,7 @@
                                         <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                                      Opacity="{Binding IsSelectedMonthMon, Converter={StaticResource BooleanOpacityConverter}}">
                                             <Label Text="{Binding MonDate}" 
-                                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start"/>
@@ -166,7 +166,7 @@
                                         <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                                      Opacity="{Binding IsSelectedMonthTue, Converter={StaticResource BooleanOpacityConverter}}">
                                             <Label Text="{Binding TueDate}" 
-                                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start"/>
@@ -181,7 +181,7 @@
                                         <StackLayout Grid.Column="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                                      Opacity="{Binding IsSelectedMonthWed, Converter={StaticResource BooleanOpacityConverter}}">
                                             <Label Text="{Binding WedDate}" 
-                                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start"/>
@@ -196,7 +196,7 @@
                                         <StackLayout Grid.Column="4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                                      Opacity="{Binding IsSelectedMonthThu, Converter={StaticResource BooleanOpacityConverter}}">
                                                 <Label Text="{Binding ThuDate}"
-                                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start"/>
@@ -211,7 +211,7 @@
                                         <StackLayout Grid.Column="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                                      Opacity="{Binding IsSelectedMonthFri, Converter={StaticResource BooleanOpacityConverter}}">
                                             <Label Text="{Binding FriDate}" 
-                                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start"/>
@@ -226,7 +226,7 @@
                                         <StackLayout Grid.Column="6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                                      Opacity="{Binding IsSelectedMonthSat, Converter={StaticResource BooleanOpacityConverter}}">
                                             <Label Text="{Binding SatDate}" 
-                                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
                                                    VerticalOptions="Start"/>
@@ -253,15 +253,15 @@
                                Margin="10, 0"/>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding RoutineNumOfThisMonth}"
-                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                    FontSize="Large"
                                    Margin="5, 0"/>
                             <Label Text="/"
-                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                    FontSize="Large"
                                    Margin="5, 0"/>
                             <Label Text="{Binding AllDayOfSelectedMonthUntilToday}"
-                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                    FontSize="Large"
                                    Margin="5, 0"/>
                             <custom:PercentLabel Percent="{Binding RoutineRate}"
@@ -283,15 +283,15 @@
                                Margin="10, 0"/>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding SuccessRoutineNumOfThisMonth}"
-                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                    FontSize="Large"
                                    Margin="5, 0"/>
                             <Label Text="/"
-                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                    FontSize="Large"
                                    Margin="5, 0"/>
                             <Label Text="{Binding RoutineNumOfThisMonth}"
-                                   TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                    FontSize="Large"
                                    Margin="5, 0"/>
                             <custom:PercentLabel Percent="{Binding RoutineSuccessRate}"

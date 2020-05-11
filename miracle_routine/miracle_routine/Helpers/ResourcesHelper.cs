@@ -8,6 +8,7 @@ namespace miracle_routine.Helpers
     public static class ResourcesHelper
     {
         public const string DynamicBackgroundColor = nameof(DynamicBackgroundColor);
+        public const string DynamicSecondaryBackgroundColor = nameof(DynamicSecondaryBackgroundColor);
         public const string DynamicPrimaryColor = nameof(DynamicPrimaryColor);
         public const string DynamicPrimaryDarkColor = nameof(DynamicPrimaryDarkColor);
         public const string DynamicAccentColor = nameof(DynamicAccentColor);
@@ -38,6 +39,7 @@ namespace miracle_routine.Helpers
         public static void SetLightMode()
         {
             SetDynamicResource(DynamicBackgroundColor, "LightThemeBackgroundColor");
+            SetDynamicResource(DynamicSecondaryBackgroundColor, "LightThemeSecondaryBackgroundColor");
             SetDynamicResource(DynamicPrimaryColor, "LightThemePrimary");
             SetDynamicResource(DynamicPrimaryDarkColor, "LightThemePrimaryDark");
             SetDynamicResource(DynamicAccentColor, "LightThemeAccent");
@@ -52,13 +54,18 @@ namespace miracle_routine.Helpers
 
         public static void SetDarkMode()
         {
-            SetDynamicResource(DynamicNavigationBarColor, "DarkElevation2dp");
-            SetDynamicResource(DynamicBarTextColor, "TextPrimaryDarkColor");
+            SetDynamicResource(DynamicBackgroundColor, "DarkThemeBackgroundColor");
+            SetDynamicResource(DynamicSecondaryBackgroundColor, "DarkThemeSecondaryBackgroundColor");
+            SetDynamicResource(DynamicPrimaryColor, "DarkThemePrimary");
+            SetDynamicResource(DynamicPrimaryDarkColor, "DarkThemePrimaryDark");
+            SetDynamicResource(DynamicAccentColor, "DarkThemeAccent");
+            SetDynamicResource(DynamicIconColor, "DarkThemeIcon");
 
-            SetDynamicResource(DynamicPrimaryTextColor, "TextPrimaryDarkColor");
-            SetDynamicResource(DynamicMediumGrayTextColor, "TextSecondaryDarkColor");
+            SetDynamicResource(DynamicPrimaryTextColor, "DarkThemePrimaryTextColor");
+            SetDynamicResource(DynamicMediumGrayTextColor, "DarkThemeMediumGrayTextColor");
 
-            SetDynamicResource(DynamicBackgroundColor, "DarkSurface");
+            SetDynamicResource(DynamicNavigationBarColor, "DarkThemePrimary");
+            SetDynamicResource(DynamicBarTextColor, "DarkThemeBarTextColor");
         }
     }
 }

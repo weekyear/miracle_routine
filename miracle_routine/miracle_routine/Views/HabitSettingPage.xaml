@@ -30,7 +30,7 @@
                    Margin="10, 10, 10, 0"
                    CornerRadius="15"
                    Padding="5"
-                   BackgroundColor="White"
+                   BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                    IsVisible="False">
                 <custom:NoRippleListView x:Name="ImageListView"
                           ItemsSource="{Binding HabitImageList}"
@@ -47,7 +47,7 @@
                     </custom:NoRippleListView.ItemTemplate>
                 </custom:NoRippleListView>
             </Frame>
-            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10, 5" Padding="0">
+            <Frame CornerRadius="15" BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10, 5" Padding="0">
                 <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" Padding="0" Margin="10, 0">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 10, 15, 0">
                         <Image Source="{Binding Image}" 
@@ -61,7 +61,7 @@
                             </Image.GestureRecognizers>
                         </Image>
                         <Label Text="{local:Translate Name}" FontSize="Body"
-                               TextColor="{StaticResource LightThemePrimaryTextColor}"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                VerticalOptions="CenterAndExpand"/>
                         <Entry Text="{Binding Name}" 
                                HorizontalOptions="FillAndExpand"
@@ -72,16 +72,16 @@
                     </StackLayout>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.8"/>
                     <Label Text="소요 시간" FontSize="Body" Margin="15, 0"
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="15, 0" HeightRequest="60">
                         <custom:NumberPicker Value="{Binding Minutes}" PickerType="Minutes" Margin="0"/>
                         <Label Text="분" FontSize="Body"
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
                         <custom:NumberPicker Value="{Binding Seconds}" PickerType="Seconds" Margin="0"/>
                         <Label Text="초" FontSize="Body"
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.8"/>
@@ -91,7 +91,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Text="{local:Translate Description}" FontSize="Body" Margin="15, 0" Padding="0"
-                               TextColor="{StaticResource LightThemePrimaryTextColor}"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                VerticalOptions="CenterAndExpand"/>
                         <Editor Grid.Row="1" Text="{Binding Description}"
                                 HorizontalOptions="FillAndExpand"
@@ -103,7 +103,7 @@
                 </StackLayout>
             </Frame>
 
-            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
+            <Frame CornerRadius="15" BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand">
@@ -111,7 +111,7 @@
                         <ImageButton WidthRequest="24" HeightRequest="24"
                                      Source="ic_settings.png"
                                      Margin="5, 0"
-                                     BackgroundColor="White"
+                                     BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                                      HorizontalOptions="EndAndExpand"
                                      VerticalOptions="CenterAndExpand"
                                      Command="{Binding ShowRecommendedHabitsCommand}"/>
@@ -140,18 +140,18 @@
                                                 <Label Margin="10, 0" 
                                                        VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding Name}"
-                                                       TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                        FontSize="Body"/>
                                                 <Label Margin="10, 0" 
                                                        HorizontalOptions="EndAndExpand"
                                                        VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                                                       TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                        FontSize="Body"/>
                                             </StackLayout>
                                             <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
                                                    Text="{Binding Description}"
-                                                   TextColor="{StaticResource LightThemeMediumGrayTextColor}"
+                                                   TextColor="{DynamicResource DynamicMediumGrayTextColor}"
                                                        IsVisible="{Binding IsNotEmptyDescription}"
                                                    FontSize="Small"/>
                                         </StackLayout>

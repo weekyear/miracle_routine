@@ -9,7 +9,7 @@
              xmlns:custom="clr-namespace:miracle_routine.CustomControls"
              transition:SharedTransitionNavigationPage.TransitionDuration="700"
              NavigationPage.HasNavigationBar="False"
-             BackgroundColor="White"
+             BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RoutineActionPage"
              IsEnabled="{Binding IsNotBusy}">
@@ -40,18 +40,18 @@
                        VerticalOptions="CenterAndExpand"/>
                 <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeCountStringConverter}}"
                        FontSize="Medium"
-                       TextColor="{StaticResource LightThemePrimaryTextColor}"
+                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="End">
                     <ImageButton Source="ic_undo.png"
                              WidthRequest="24" HeightRequest="24"
-                             BackgroundColor="White"
+                             BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                                  Margin="5, 0"
                              Command="{Binding UndoCommand}"/>
                     <ImageButton Source="ic_cancel.png"
                              WidthRequest="24" HeightRequest="24"
-                             BackgroundColor="White"
+                             BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                                  Margin="5, 0"
                              Command="{Binding CloseAllCommand}"/>
                 </StackLayout>
@@ -61,7 +61,7 @@
                          VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding HabitName}"
                        FontSize="30"
-                       TextColor="{StaticResource LightThemePrimaryTextColor}"
+                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
                 <Image Source="{Binding CurrentHabit.Image}" transition:Transition.Name="{Binding CurrentHabit.Id}"
@@ -71,7 +71,7 @@
                 <Label Text="{Binding HabitDescription}"
                        Margin="20, 0"
                        FontSize="Medium"
-                       TextColor="{StaticResource LightThemePrimaryTextColor}"
+                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                        HorizontalOptions="FillAndExpand"
                        HorizontalTextAlignment="Center"
                        VerticalOptions="Start"/>
@@ -83,7 +83,7 @@
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Start"/>
                 <custom:PlayButton HorizontalOptions="Center"
-                                   BackgroundColor="{StaticResource LightThemeIcon}"
+                                   BackgroundColor="{DynamicResource DynamicPrimaryTextColor}"
                                    IsPlaying="{Binding IsCounting}"
                                    ImageSource="ic_play"
                                    ImageSourcePlay="ic_play"
@@ -93,17 +93,17 @@
                                    Command="{Binding ClickPlayCommand}"
                                    IsEnabled="{Binding IsNotBusy}"/>
                 <StackLayout Orientation="Vertical" Margin="30" VerticalOptions="End">
-                    <BoxView Color="{StaticResource LightThemeIcon}" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="2"/>
+                    <BoxView Color="{DynamicResource DynamicPrimaryTextColor}" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="2"/>
                     <Button FontSize="25"
                             Text="{Binding DoneBtnName}"
                             TextColor="{Binding IsNotLastHabit, Converter={StaticResource IsLastHabitTextColorConverter}}"
                             FontAttributes="Bold"
                             WidthRequest="100"
-                            BackgroundColor="White"
+                            BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                             HorizontalOptions="CenterAndExpand"
                             VerticalOptions="StartAndExpand"
                             Command="{Binding ShowNextHabitCommand}"/>
-                    <BoxView Color="{StaticResource LightThemeIcon}" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="2"/>
+                    <BoxView Color="{DynamicResource DynamicPrimaryTextColor}" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="2"/>
                 </StackLayout>
             </StackLayout>
 
@@ -114,26 +114,26 @@
                 <Label Text="{local:Translate NextHabit}"
                            HorizontalOptions="StartAndExpand"
                            VerticalOptions="Center"  
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Body"
                            VerticalTextAlignment="Center" />
                 <Label Text="{Binding HabitNum}"
                            HorizontalOptions="End"
                            VerticalOptions="Center"  
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Body"
                            VerticalTextAlignment="Center" />
                 <Label Text="/"
                            Margin="5, 0"
                            HorizontalOptions="End"
                            VerticalOptions="Center"  
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Body"
                            VerticalTextAlignment="Center" />
                 <Label Text="{Binding TotalCount}"
                            HorizontalOptions="End"
                            VerticalOptions="Center"  
-                           TextColor="{StaticResource LightThemePrimaryTextColor}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Body"
                            VerticalTextAlignment="Center" />
             </StackLayout>
@@ -152,7 +152,7 @@
                        Margin="15, 0"
                        HorizontalOptions="StartAndExpand"
                        VerticalOptions="Center"  
-                       TextColor="{StaticResource LightThemePrimaryTextColor}"
+                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                        FontSize="Body"
                        VerticalTextAlignment="Center" />
                 <Label Text="{Binding NextHabitTime, Converter={StaticResource TimeCountStringConverter}}"

@@ -9,7 +9,7 @@
              x:Class="miracle_routine.Views.RoutinesPage"
              Title="{Binding Title}"
              NavigationPage.HasNavigationBar="False"
-             BackgroundColor="{StaticResource LightThemeBackgroundColor}"
+             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
              IsEnabled="{Binding IsNotBusy}">
     
     <Grid RowSpacing="0">
@@ -38,7 +38,7 @@
                    WidthRequest="32"
                    HeightRequest="32"/>
                     <Label Text="{local:Translate MiracleRoutine}"
-                       TextColor="Black"
+                       TextColor="{DynamicResource DynamicBarTextColor}"
                        HorizontalTextAlignment="Start"
                        HorizontalOptions="StartAndExpand"
                        VerticalOptions="CenterAndExpand"
@@ -48,13 +48,13 @@
                     <ImageButton WidthRequest="32" HeightRequest="32"
                              Source="ic_add.png"
                              Margin="5, 0"
-                             BackgroundColor="{StaticResource LightThemeBackgroundColor}"
+                             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
                              HorizontalOptions="CenterAndExpand"
                              VerticalOptions="CenterAndExpand"
                              Command="{Binding ShowRoutineCommand}"/>
                     <ImageButton Source="ic_menu.png"
                                  WidthRequest="32" HeightRequest="32"
-                                 BackgroundColor="{StaticResource LightThemeBackgroundColor}"
+                                 BackgroundColor="{DynamicResource DynamicBackgroundColor}"
                                  HorizontalOptions="End"
                                  VerticalOptions="CenterAndExpand"
                                  Command="{Binding ShowMenuCommand}"/>

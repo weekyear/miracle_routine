@@ -23,7 +23,7 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Frame CornerRadius="15" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
+            <Frame CornerRadius="15" BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}" HorizontalOptions="FillAndExpand" Margin="10, 5" Padding="0">
                 <StackLayout Orientation="Vertical" Margin="10, 5" VerticalOptions="FillAndExpand">
 
                     <ListView x:Name="HabitListView"
@@ -48,18 +48,18 @@
                                                 <Label Margin="10, 0" 
                                                        VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding Name}"
-                                                       TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                        FontSize="Body"/>
                                                 <Label Margin="10, 0" 
                                                        HorizontalOptions="EndAndExpand"
                                                        VerticalOptions="CenterAndExpand" 
                                                        Text="{Binding TotalTime, Converter={StaticResource TakenTimeStringConverter}}"
-                                                       TextColor="{StaticResource LightThemePrimaryTextColor}"
+                                                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                        FontSize="Body"/>
                                             </StackLayout>
                                             <Label Margin="10, 0" VerticalOptions="CenterAndExpand" 
                                                    Text="{Binding Description}"
-                                                   TextColor="{StaticResource LightThemeMediumGrayTextColor}"
+                                                   TextColor="{DynamicResource DynamicMediumGrayTextColor}"
                                                    IsVisible="{Binding IsNotEmptyDescription}"
                                                    FontSize="Small"/>
                                         </StackLayout>
