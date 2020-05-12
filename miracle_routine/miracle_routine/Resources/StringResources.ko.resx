@@ -141,6 +141,9 @@
   <data name="Complete" xml:space="preserve">
     <value>완 료</value>
   </data>
+  <data name="DarkMode" xml:space="preserve">
+    <value>다크 모드</value>
+  </data>
   <data name="DayOfWeek" xml:space="preserve">
     <value>요일 반복</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="DescriptionAutoFlipHabitSettings" xml:space="preserve">
     <value>습관 시간 경과 시 바로 다음 습관을 실행합니다.</value>
+  </data>
+  <data name="DescriptionDarkMode" xml:space="preserve">
+    <value>앱이 다크 모드로 바뀝니다.</value>
   </data>
   <data name="DescriptionSoundSettings" xml:space="preserve">
     <value>소리 모드에 상관없이 알림 소리가 나옵니다.</value>

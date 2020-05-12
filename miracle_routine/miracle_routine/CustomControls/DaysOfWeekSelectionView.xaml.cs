@@ -48,7 +48,7 @@ namespace miracle_routine.CustomControls
 
             if (button.IsSelected == true)
             {
-                button.BorderColor = Color.DarkBlue;
+                button.BorderColor = (Color)App.Current.Resources["DynamicAccentColor"];
             }
             else
             {

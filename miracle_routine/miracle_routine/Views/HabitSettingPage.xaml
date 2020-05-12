@@ -9,6 +9,7 @@
              Title="{local:Translate HabitSetting}"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.HabitSettingPage"
+             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
              NavigationPage.HasBackButton="True"
              IsEnabled="{Binding IsNotBusy}">
 
@@ -68,6 +69,8 @@
                                Margin="5, 0"
                                Placeholder="{local:Translate PleaseWriteHabitName}"
                                FontSize="Body"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                               PlaceholderColor="{DynamicResource DynamicMediumGrayTextColor}"
                                VerticalTextAlignment="Center" />
                     </StackLayout>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.8"/>
@@ -75,10 +78,12 @@
                            TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            VerticalOptions="CenterAndExpand"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="15, 0" HeightRequest="60">
-                        <custom:NumberPicker Value="{Binding Minutes}" PickerType="Minutes" Margin="0"/>
+                        <custom:NumberPicker Value="{Binding Minutes}" 
+                                             PickerType="Minutes" 
+                                             Margin="0"/>
                         <Label Text="분" FontSize="Body"
-                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
-                           VerticalOptions="CenterAndExpand"/>
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                               VerticalOptions="CenterAndExpand"/>
                         <custom:NumberPicker Value="{Binding Seconds}" PickerType="Seconds" Margin="0"/>
                         <Label Text="초" FontSize="Body"
                            TextColor="{DynamicResource DynamicPrimaryTextColor}"
@@ -98,6 +103,8 @@
                                 Margin="5, 0"
                                 AutoSize="TextChanges"
                                 Placeholder="{local:Translate PleaseWriteDescription}"
+                                TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                                PlaceholderColor="{DynamicResource DynamicMediumGrayTextColor}"
                                 FontSize="Body"/>
                     </Grid>
                 </StackLayout>
@@ -107,7 +114,11 @@
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand">
-                        <Label Text="{local:Translate RecommendedHabit}" Margin="10, 5" FontSize="Medium" VerticalTextAlignment="Center" />
+                        <Label Text="{local:Translate RecommendedHabit}" 
+                               Margin="10, 5" 
+                               FontSize="Medium" 
+                               VerticalTextAlignment="Center"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}" />
                         <ImageButton WidthRequest="24" HeightRequest="24"
                                      Source="ic_settings.png"
                                      Margin="5, 0"

@@ -34,7 +34,7 @@
                              VerticalOptions="CenterAndExpand"
                              Command="{Binding PreviousMonthCommand}"/>
                 <Label Text="{Binding SelectedMonth, Converter={StaticResource SelectedMonthStringConverter}}"
-                       TextColor="Black"
+                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"
                        FontSize="Large" />
@@ -65,49 +65,49 @@
                                FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                Text="{local:Translate Sunday}" 
-                               TextColor="Black"/>
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"/>
                         <Label BackgroundColor="Transparent"
                                Margin="0" Padding="0"
                                Grid.Column="1" 
                                FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                Text="{local:Translate Monday}" 
-                               TextColor="Black"/>
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"/>
                         <Label BackgroundColor="Transparent"
                                Margin="0" Padding="0"
                                Grid.Column="2" 
                                FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                Text="{local:Translate Tuesday}" 
-                               TextColor="Black"/>
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"/>
                         <Label BackgroundColor="Transparent"
                                Margin="0" Padding="0"
                                Grid.Column="3"                                   
                                FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                Text="{local:Translate Wednesday}" 
-                               TextColor="Black"/>
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"/>
                         <Label BackgroundColor="Transparent"
                                Margin="0" Padding="0"
                                Grid.Column="4" 
                                FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                Text="{local:Translate Thursday}" 
-                               TextColor="Black"/>
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"/>
                         <Label BackgroundColor="Transparent"
                                Margin="0" Padding="0"
                                Grid.Column="5" 
                                FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                Text="{local:Translate Friday}" 
-                               TextColor="Black"/>
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"/>
                         <Label BackgroundColor="Transparent"
                                Margin="0" Padding="0"
                                Grid.Column="6" 
                                FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                Text="{local:Translate Saturday}" 
-                               TextColor="Black"/>
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"/>
                     </Grid>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
                     <custom:NoRippleListView x:Name="WeekListView" 

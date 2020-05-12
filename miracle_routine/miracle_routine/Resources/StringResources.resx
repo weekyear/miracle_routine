@@ -141,6 +141,9 @@
   <data name="Complete" xml:space="preserve">
     <value>Complete</value>
   </data>
+  <data name="DarkMode" xml:space="preserve">
+    <value>Dark mode</value>
+  </data>
   <data name="DayOfWeek" xml:space="preserve">
     <value>Day of week</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="DescriptionAutoFlipHabitSettings" xml:space="preserve">
     <value>Immediately after the habit has elapsed, the next habit will be executed.</value>
+  </data>
+  <data name="DescriptionDarkMode" xml:space="preserve">
+    <value>The app changes to dark mode.</value>
   </data>
   <data name="DescriptionSoundSettings" xml:space="preserve">
     <value>Notification sounds regardless of the sound mode.</value>

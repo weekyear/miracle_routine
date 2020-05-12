@@ -1,4 +1,5 @@
-﻿using System;
+﻿using miracle_routine.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace miracle_routine.Views
         {
             InitializeComponent();
 
+            DarkModeSettingSwitch.IsToggled = Preferences.Get("IsDarkTheme", false);
             SoundSettingSwitch.IsToggled = Preferences.Get("IsSound", false);
             VibrationSettingSwitch.IsToggled = Preferences.Get("IsVibrate", false);
             AutoFlipHabitSettingSwitch.IsToggled = Preferences.Get("IsAutoFlipHabit", false);
@@ -34,6 +36,20 @@ namespace miracle_routine.Views
         private void AutoFlipHabitSettingSwitch_Toggled(object sender, ToggledEventArgs e)
         {
             Preferences.Set("IsAutoFlipHabit", e.Value);
+        }
+
+        private void DarkModeSettingSwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            Preferences.Set("IsDarkTheme", e.Value);
+
+            if (e.Value)
+            {
+                ResourcesHelper.SetDarkMode();
+            }
+            else
+            {
+                ResourcesHelper.SetLightMode();
+            }
         }
     }
 }

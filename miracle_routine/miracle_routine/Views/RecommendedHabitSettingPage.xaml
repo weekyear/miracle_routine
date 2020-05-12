@@ -9,6 +9,7 @@
              Title="{local:Translate RecommendedHabitSetting}"
              mc:Ignorable="d"
              x:Class="miracle_routine.Views.RecommendedHabitSettingPage"
+             BackgroundColor="{DynamicResource DynamicBackgroundColor}"
              NavigationPage.HasBackButton="True"
              IsEnabled="{Binding IsNotBusy}">
 
@@ -68,6 +69,8 @@
                                HorizontalOptions="FillAndExpand"
                                Margin="5, 0"
                                Placeholder="{local:Translate PleaseWriteHabitName}"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                               PlaceholderColor="{DynamicResource DynamicMediumGrayTextColor}"
                                FontSize="Body"
                                VerticalTextAlignment="Center" />
                     </StackLayout>
@@ -99,6 +102,8 @@
                                 Margin="5, 0"
                                 AutoSize="TextChanges"
                                 Placeholder="{local:Translate PleaseWriteDescription}"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                               PlaceholderColor="{DynamicResource DynamicMediumGrayTextColor}"
                                 FontSize="Body"/>
                     </Grid>
                 </StackLayout>

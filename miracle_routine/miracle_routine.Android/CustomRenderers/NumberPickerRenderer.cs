@@ -16,6 +16,8 @@ using static Android.Widget.NumberPicker;
 using System.ComponentModel;
 using miracle_routine.Droid.CustomRenderers;
 using Xamarin.Forms;
+using Xamarin.Essentials;
+using Android.Graphics;
 
 [assembly: ExportRenderer(typeof(miracle_routine.CustomControls.NumberPicker), typeof(NumberPickerRenderer))]
 namespace miracle_routine.Droid.CustomRenderers
@@ -39,6 +41,7 @@ namespace miracle_routine.Droid.CustomRenderers
                 ScaleY = (float)1.3
             };
             SetDividerColor(numberPicker);
+            SetTextColor(numberPicker);
 
             numberPicker.WrapSelectorWheel = false;
 
@@ -82,9 +85,43 @@ namespace miracle_routine.Droid.CustomRenderers
             }
         }
 
+        private void SetTextColor(NumberPicker picker)
+        {
+
+            Android.Graphics.Color color = new Android.Graphics.Color(27, 27, 27);
+            if (Preferences.Get("IsDarkTheme", false))
+            {
+                color = new Android.Graphics.Color(245, 245, 245);
+            }
+            try
+            {
+                var selectorWheelPaintField = picker.Class.GetDeclaredField("mSelectorWheelPaint");
+                selectorWheelPaintField.Accessible = true;
+
+                ((Paint)selectorWheelPaintField.Get(picker)).Color = color;
+            }
+            catch
+            {
+                // ignored
+            }
+
+            int count = picker.ChildCount;
+            for (int i = 0; i < count; i++)
+            {
+                Android.Views.View child = picker.GetChildAt(i);
+                if (child is EditText)
+                {
+                    ((EditText)child).SetTextColor(color);
+                }
+                picker.Invalidate();
+            }
+        }
+
         private void NumberPicker_ValueChanged(object sender, ValueChangeEventArgs e)
         {
             Element.Value = e.NewVal;
+            var numberPicker = sender as NumberPicker;
+            SetTextColor(numberPicker);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

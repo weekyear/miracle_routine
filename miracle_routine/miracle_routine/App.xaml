@@ -19,22 +19,18 @@
             <Color x:Key="LightThemeMediumGrayTextColor">#4d4d4d</Color>
             <Color x:Key="LightThemeBarTextColor">#fffff</Color>
 
-            <Color x:Key="DarkThemeBackgroundColor">#3b3b3b</Color>
-            <Color x:Key="DarkThemeSecondaryBackgroundColor">#000000</Color>
-            <Color x:Key="DarkThemePrimary">#90caf9</Color>
-            <Color x:Key="DarkThemePrimaryDark">#5e92f3</Color>
+            <Color x:Key="DarkThemeBackgroundColor">#5c5c5c</Color>
+            <Color x:Key="DarkThemeSecondaryBackgroundColor">#404040</Color>
+            <Color x:Key="DarkThemePrimary">#1e88e5</Color>
+            <Color x:Key="DarkThemePrimaryDark">#005cb2</Color>
             <Color x:Key="DarkThemeAccent">#ffffff</Color>
             <Color x:Key="DarkThemeIcon">#1565c0</Color>
             <Color x:Key="DarkThemePrimaryTextColor">#f5f5f5</Color>
             <Color x:Key="DarkThemeMediumGrayTextColor">#a1a1a1</Color>
             <Color x:Key="DarkThemeBarTextColor">#ffffff</Color>
 
-
-
             <Style TargetType="NavigationPage">
-                <!--<Setter Property="BarBackgroundColor" Value="{StaticResource LightThemePrimary}" />-->
                 <Setter Property="BarBackgroundColor" Value="{DynamicResource DynamicNavigationBarColor}" />
-                <!--<Setter Property="BarTextColor" Value="{DynamicResource DynamicSecondaryBackgroundColor}" />-->
                 <Setter Property="BarTextColor" Value="{DynamicResource DynamicBarTextColor}" />
             </Style>
         </ResourceDictionary>

@@ -28,31 +28,45 @@
         <Frame CornerRadius="15" BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}" VerticalOptions="FillAndExpand" Margin="5" Padding="0">
             <StackLayout Spacing="5" Padding="0" VerticalOptions="FillAndExpand">
                 <StackLayout Orientation="Horizontal" Margin="15, 0, 15, 0">
-                    <Label Text="{local:Translate Name}" FontSize="Medium" VerticalTextAlignment="Center" />
+                    <Label Text="{local:Translate Name}" 
+                           FontSize="Medium" 
+                           VerticalTextAlignment="Center"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"/>
                     <Entry Text="{Binding Name}"
                            Margin="5"
                            d:Text="ToDoName" 
                            FontSize="Medium"
                            HorizontalOptions="FillAndExpand"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            Placeholder="{local:Translate PleaseWriteSchedule}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" Margin="15, 0">
-                    <Label Text="{local:Translate StartTime}" FontSize="Medium" VerticalTextAlignment="Center" />
+                    <Label Text="{local:Translate StartTime}" 
+                           FontSize="Medium" 
+                           VerticalTextAlignment="Center"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}" />
                     <TimePicker Time="{Binding StartTime}"
                                 FontSize="25"
                                 Format="HH:mm"
+                                TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                 HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical" Margin="15, 0, 15, 5">
-                    <Label Text="{local:Translate DayOfWeek}" FontSize="Medium" VerticalTextAlignment="Center" />
+                    <Label Text="{local:Translate DayOfWeek}" 
+                           FontSize="Medium" 
+                           VerticalTextAlignment="Center"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}" />
                     <custom:DaysOfWeekSelectionView Days="{Binding Routine.Days}" HorizontalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical" Margin="15, 5" VerticalOptions="FillAndExpand">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="{local:Translate HabitList}" FontSize="Medium" VerticalTextAlignment="Center" />
+                        <Label Text="{local:Translate HabitList}" 
+                               FontSize="Medium" 
+                               VerticalTextAlignment="Center"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}" />
                         <ImageButton Source="ic_sun.png"
                                      WidthRequest="28" HeightRequest="28"
                                      BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
@@ -69,6 +83,7 @@
                     </StackLayout>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="1"/>
                     <Label Text="{local:Translate ThereIsNoHabit}"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
                            FontSize="Large"
                            Margin="10"
                            IsVisible="{Binding HasNoHabit}"

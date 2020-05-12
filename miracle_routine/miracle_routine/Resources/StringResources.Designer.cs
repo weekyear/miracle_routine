@@ -133,6 +133,15 @@ namespace miracle_routine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dark mode.
+        /// </summary>
+        internal static string DarkMode {
+            get {
+                return ResourceManager.GetString("DarkMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Day of week.
         /// </summary>
         internal static string DayOfWeek {
@@ -174,6 +183,15 @@ namespace miracle_routine.Resources {
         internal static string DescriptionAutoFlipHabitSettings {
             get {
                 return ResourceManager.GetString("DescriptionAutoFlipHabitSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The app changes to dark mode..
+        /// </summary>
+        internal static string DescriptionDarkMode {
+            get {
+                return ResourceManager.GetString("DescriptionDarkMode", resourceCulture);
             }
         }
         
