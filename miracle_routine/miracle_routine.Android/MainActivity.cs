@@ -8,7 +8,7 @@ using System;
 
 namespace miracle_routine.Droid
 {
-    [Activity(LaunchMode = LaunchMode.SingleTop, Label = "모닝 루틴", Icon = "@drawable/ic_miracle_routine", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(LaunchMode = LaunchMode.SingleTop, Label = "미라클 루틴", Icon = "@drawable/ic_miracle_routine", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

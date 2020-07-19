@@ -19,8 +19,8 @@
             <Color x:Key="LightThemeMediumGrayTextColor">#4d4d4d</Color>
             <Color x:Key="LightThemeBarTextColor">#fffff</Color>
 
-            <Color x:Key="DarkThemeBackgroundColor">#5c5c5c</Color>
-            <Color x:Key="DarkThemeSecondaryBackgroundColor">#404040</Color>
+            <Color x:Key="DarkThemeBackgroundColor">#545454</Color>
+            <Color x:Key="DarkThemeSecondaryBackgroundColor">#696969</Color>
             <Color x:Key="DarkThemePrimary">#1e88e5</Color>
             <Color x:Key="DarkThemePrimaryDark">#005cb2</Color>
             <Color x:Key="DarkThemeAccent">#ffffff</Color>

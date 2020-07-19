@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:charts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              xmlns:local="clr-namespace:miracle_routine.Helpers"
              xmlns:custom="clr-namespace:miracle_routine.CustomControls"
              xmlns:conv="clr-namespace:miracle_routine.Converters"
@@ -123,7 +122,7 @@
                         <custom:NoRippleListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell Height="50">
-                                    <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1*"/>
                                             <ColumnDefinition Width="1*"/>
@@ -133,9 +132,9 @@
                                             <ColumnDefinition Width="1*"/>
                                             <ColumnDefinition Width="1*"/>
                                         </Grid.ColumnDefinitions>
-                                        <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{Binding ColorOfSun}" Padding="0"
                                                      Opacity="{Binding IsSelectedMonthSun, Converter={StaticResource BooleanOpacityConverter}}">
-                                            <Label Text="{Binding SunDate}" 
+                                            <Label Text="{Binding SunDate}" Margin="5, 0"
                                                    TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
@@ -148,9 +147,9 @@
                                                                     WidthRequest="32"
                                                                     HeightRequest="32"/>
                                         </StackLayout>
-                                        <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{Binding ColorOfMon}"
                                                      Opacity="{Binding IsSelectedMonthMon, Converter={StaticResource BooleanOpacityConverter}}">
-                                            <Label Text="{Binding MonDate}" 
+                                            <Label Text="{Binding MonDate}"  Margin="5, 0"
                                                    TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
@@ -163,9 +162,9 @@
                                                                     WidthRequest="32"
                                                                     HeightRequest="32"/>
                                         </StackLayout>
-                                        <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{Binding ColorOfTue}"
                                                      Opacity="{Binding IsSelectedMonthTue, Converter={StaticResource BooleanOpacityConverter}}">
-                                            <Label Text="{Binding TueDate}" 
+                                            <Label Text="{Binding TueDate}"  Margin="5, 0"
                                                    TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
@@ -178,9 +177,9 @@
                                                                     WidthRequest="32"
                                                                     HeightRequest="32"/>
                                         </StackLayout>
-                                        <StackLayout Grid.Column="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        <StackLayout Grid.Column="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{Binding ColorOfWed}"
                                                      Opacity="{Binding IsSelectedMonthWed, Converter={StaticResource BooleanOpacityConverter}}">
-                                            <Label Text="{Binding WedDate}" 
+                                            <Label Text="{Binding WedDate}"  Margin="5, 0"
                                                    TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
@@ -193,9 +192,9 @@
                                                                     WidthRequest="32"
                                                                     HeightRequest="32"/>
                                         </StackLayout>
-                                        <StackLayout Grid.Column="4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        <StackLayout Grid.Column="4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{Binding ColorOfThu}"
                                                      Opacity="{Binding IsSelectedMonthThu, Converter={StaticResource BooleanOpacityConverter}}">
-                                                <Label Text="{Binding ThuDate}"
+                                            <Label Text="{Binding ThuDate}" Margin="5, 0"
                                                    TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
@@ -208,9 +207,9 @@
                                                                         WidthRequest="32"
                                                                         HeightRequest="32"/>
                                         </StackLayout>
-                                        <StackLayout Grid.Column="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        <StackLayout Grid.Column="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{Binding ColorOfFri}"
                                                      Opacity="{Binding IsSelectedMonthFri, Converter={StaticResource BooleanOpacityConverter}}">
-                                            <Label Text="{Binding FriDate}" 
+                                            <Label Text="{Binding FriDate}"  Margin="5, 0"
                                                    TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"
@@ -223,9 +222,9 @@
                                                                     WidthRequest="32"
                                                                     HeightRequest="32"/>
                                         </StackLayout>
-                                        <StackLayout Grid.Column="6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        <StackLayout Grid.Column="6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{Binding ColorOfSat}"
                                                      Opacity="{Binding IsSelectedMonthSat, Converter={StaticResource BooleanOpacityConverter}}">
-                                            <Label Text="{Binding SatDate}" 
+                                            <Label Text="{Binding SatDate}"  Margin="5, 0"
                                                    TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                                    FontSize="Small"
                                                    HorizontalOptions="Start"

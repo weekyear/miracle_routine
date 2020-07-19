@@ -27,7 +27,7 @@ namespace miracle_routine.Views
 
         protected override bool OnBackButtonPressed()
         {
-            DependencyService.Get<IAdMobInterstitial>().Show();
+            //DependencyService.Get<IAdMobInterstitial>().Show();
 
             return base.OnBackButtonPressed();
         }

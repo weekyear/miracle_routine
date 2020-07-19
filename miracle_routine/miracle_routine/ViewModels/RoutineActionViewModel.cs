@@ -489,7 +489,7 @@ namespace miracle_routine.ViewModels
                     await CloseAllNavigationPage();
                     //DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
                     DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
-                    DependencyService.Get<IAdMobInterstitial>().Show();
+                    //DependencyService.Get<IAdMobInterstitial>().Show();
                 });
         }
 

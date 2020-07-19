@@ -167,154 +167,245 @@ namespace miracle_routine.ViewModels
             {
                 get { return $"{StartDateOfWeek.Day}"; }
             }
+            public string MonDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(1).Day}"; }
+            }
+            public string TueDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(2).Day}"; }
+            }
+            public string WedDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(3).Day}"; }
+            }
+            public string ThuDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(4).Day}"; }
+            }
+            public string FriDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(5).Day}"; }
+            }
+            public string SatDate
+            {
+                get { return $"{StartDateOfWeek.AddDays(6).Day}"; }
+            }
 
             public bool IsSelectedMonthSun
             {
                 get { return StartDateOfWeek.Month == SelectedMonth; }
             }
-
-            public Record SunRecord
-            {
-                get { return DayRecords.FirstOrDefault(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday); }
-            }
-            public bool IsNotNullSun
-            {
-                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday); }
-            }
-            public bool IsSuccessSun
-            {
-                get { return SunRecord != null ? SunRecord.IsSuccess : false; }
-            }
-
-            public string MonDate
-            {
-                get { return $"{StartDateOfWeek.AddDays(1).Day}"; }
-            }
             public bool IsSelectedMonthMon
             {
                 get { return StartDateOfWeek.AddDays(1).Month == SelectedMonth; }
-            }
-            public Record MonRecord
-            {
-                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday); }
-            }
-            public bool IsNotNullMon
-            {
-                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday); }
-            }
-            public bool IsSuccessMon
-            {
-                get { return MonRecord != null ? MonRecord.IsSuccess : false; }
-            }
-
-            public string TueDate
-            {
-                get { return $"{StartDateOfWeek.AddDays(2).Day}"; }
             }
             public bool IsSelectedMonthTue
             {
                 get { return StartDateOfWeek.AddDays(2).Month == SelectedMonth; }
             }
-            public Record TueRecord
-            {
-                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday); }
-            }
-            public bool IsNotNullTue
-            {
-                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday); }
-            }
-            public bool IsSuccessTue
-            {
-                get { return TueRecord != null ? TueRecord.IsSuccess : false; }
-            }
-
-            public string WedDate
-            {
-                get { return $"{StartDateOfWeek.AddDays(3).Day}"; }
-            }
             public bool IsSelectedMonthWed
             {
                 get { return StartDateOfWeek.AddDays(3).Month == SelectedMonth; }
-            }
-            public Record WedRecord
-            {
-                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday); }
-            }
-            public bool IsNotNullWed
-            {
-                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday); }
-            }
-            public bool IsSuccessWed
-            {
-                get { return WedRecord != null ? WedRecord.IsSuccess : false; }
-            }
-
-            public string ThuDate
-            {
-                get { return $"{StartDateOfWeek.AddDays(4).Day}"; }
             }
             public bool IsSelectedMonthThu
             {
                 get { return StartDateOfWeek.AddDays(4).Month == SelectedMonth; }
             }
-            public Record ThuRecord
-            {
-                get 
-                { 
-                    return DayRecords.FirstOrDefault(d => d.RecordTime.DayOfWeek == DayOfWeek.Thursday); 
-                }
-            }
-            public bool IsNotNullThu
-            {
-                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Thursday); }
-            }
-            public bool IsSuccessThu
-            {
-                get { return ThuRecord != null ? ThuRecord.IsSuccess : false; }
-            }
-
-            public string FriDate
-            {
-                get { return $"{StartDateOfWeek.AddDays(5).Day}"; }
-            }
             public bool IsSelectedMonthFri
             {
                 get { return StartDateOfWeek.AddDays(5).Month == SelectedMonth; }
-            }
-            public Record FriRecord
-            {
-                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday); }
-            }
-            public bool IsNotNullFri
-            {
-                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday); }
-            }
-            public bool IsSuccessFri
-            {
-                get { return FriRecord != null ? FriRecord.IsSuccess : false; }
-            }
-
-            public string SatDate
-            {
-                get { return $"{StartDateOfWeek.AddDays(6).Day}"; }
             }
             public bool IsSelectedMonthSat
             {
                 get { return StartDateOfWeek.AddDays(6).Month == SelectedMonth; }
             }
+
+
+            public Record SunRecord
+            {
+                get { return DayRecords.FirstOrDefault(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday); }
+            }
+            public Record MonRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday); }
+            }
+            public Record TueRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday); }
+            }
+            public Record WedRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday); }
+            }
+            public Record ThuRecord
+            {
+                get { return DayRecords.FirstOrDefault(d => d.RecordTime.DayOfWeek == DayOfWeek.Thursday); }
+            }
+            public Record FriRecord
+            {
+                get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday); }
+            }
             public Record SatRecord
             {
                 get { return DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Saturday); }
+            }
+
+            public bool IsNotNullSun
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday); }
+            }
+            public bool IsNotNullMon
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday); }
+            }
+            public bool IsNotNullTue
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday); }
+            }
+            public bool IsNotNullWed
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday); }
+            }
+            public bool IsNotNullThu
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Thursday); }
+            }
+            public bool IsNotNullFri
+            {
+                get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday); }
             }
             public bool IsNotNullSat
             {
                 get { return DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Saturday); }
             }
+
+
+            public bool IsSuccessSun
+            {
+                get { return SunRecord != null ? SunRecord.IsSuccess : false; }
+            }                      
+            public bool IsSuccessMon
+            {
+                get { return MonRecord != null ? MonRecord.IsSuccess : false; }
+            }            
+            public bool IsSuccessTue
+            {
+                get { return TueRecord != null ? TueRecord.IsSuccess : false; }
+            }          
+            public bool IsSuccessWed
+            {
+                get { return WedRecord != null ? WedRecord.IsSuccess : false; }
+            }            
+            public bool IsSuccessThu
+            {
+                get { return ThuRecord != null ? ThuRecord.IsSuccess : false; }
+            }           
+            public bool IsSuccessFri
+            {
+                get { return FriRecord != null ? FriRecord.IsSuccess : false; }
+            }            
             public bool IsSuccessSat
             {
-                get 
-                { 
-                    return SatRecord != null ? SatRecord.IsSuccess : false; 
+                get { return SatRecord != null ? SatRecord.IsSuccess : false; }
+            }
+
+            public Color ColorOfSun
+            {
+                get
+                {
+                    if (StartDateOfWeek.Date <= DateTime.Now.Date)
+                    {
+                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                    }
+                    else
+                    {
+                        return (Color)App.Current.Resources["DynamicBackgroundColor"];
+                    }
+                }
+            }
+            public Color ColorOfMon
+            {
+                get
+                {
+                    if (StartDateOfWeek.AddDays(1).Date <= DateTime.Now.Date)
+                    {
+                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                    }
+                    else
+                    {
+                        return (Color)App.Current.Resources["DynamicBackgroundColor"];
+                    }
+                }
+            }
+            public Color ColorOfTue
+            {
+                get
+                {
+                    if (StartDateOfWeek.AddDays(2).Date <= DateTime.Now.Date)
+                    {
+                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                    }
+                    else
+                    {
+                        return (Color)App.Current.Resources["DynamicBackgroundColor"];
+                    }
+                }
+            }
+            public Color ColorOfWed
+            {
+                get
+                {
+                    if (StartDateOfWeek.AddDays(3).Date <= DateTime.Now.Date)
+                    {
+                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                    }
+                    else
+                    {
+                        return (Color)App.Current.Resources["DynamicBackgroundColor"];
+                    }
+                }
+            }
+            public Color ColorOfThu
+            {
+                get
+                {
+                    if (StartDateOfWeek.AddDays(4).Date <= DateTime.Now.Date)
+                    {
+                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                    }
+                    else
+                    {
+                        return (Color)App.Current.Resources["DynamicBackgroundColor"];
+                    }
+                }
+            }
+            public Color ColorOfFri
+            {
+                get
+                {
+                    if (StartDateOfWeek.AddDays(5).Date <= DateTime.Now.Date)
+                    {
+                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                    }
+                    else
+                    {
+                        return (Color)App.Current.Resources["DynamicBackgroundColor"];
+                    }
+                }
+            }
+            public Color ColorOfSat
+            {
+                get
+                {
+                    if (StartDateOfWeek.AddDays(6).Date <= DateTime.Now.Date)
+                    {
+                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                    }
+                    else
+                    {
+                        return (Color)App.Current.Resources["DynamicBackgroundColor"];
+                    }
                 }
             }
         }
