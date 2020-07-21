@@ -9,6 +9,7 @@ namespace miracle_routine.Helpers
     {
         public const string DynamicBackgroundColor = nameof(DynamicBackgroundColor);
         public const string DynamicSecondaryBackgroundColor = nameof(DynamicSecondaryBackgroundColor);
+        public const string DynamicPrimaryLightColor = nameof(DynamicPrimaryLightColor);
         public const string DynamicPrimaryColor = nameof(DynamicPrimaryColor);
         public const string DynamicPrimaryDarkColor = nameof(DynamicPrimaryDarkColor);
         public const string DynamicAccentColor = nameof(DynamicAccentColor);
@@ -40,6 +41,7 @@ namespace miracle_routine.Helpers
         {
             SetDynamicResource(DynamicBackgroundColor, "LightThemeBackgroundColor");
             SetDynamicResource(DynamicSecondaryBackgroundColor, "LightThemeSecondaryBackgroundColor");
+            SetDynamicResource(DynamicPrimaryLightColor, "LightThemePrimaryLight");
             SetDynamicResource(DynamicPrimaryColor, "LightThemePrimary");
             SetDynamicResource(DynamicPrimaryDarkColor, "LightThemePrimaryDark");
             SetDynamicResource(DynamicAccentColor, "LightThemeAccent");
@@ -56,6 +58,7 @@ namespace miracle_routine.Helpers
         {
             SetDynamicResource(DynamicBackgroundColor, "DarkThemeBackgroundColor");
             SetDynamicResource(DynamicSecondaryBackgroundColor, "DarkThemeSecondaryBackgroundColor");
+            SetDynamicResource(DynamicPrimaryLightColor, "DarkThemePrimaryLight");
             SetDynamicResource(DynamicPrimaryColor, "DarkThemePrimary");
             SetDynamicResource(DynamicPrimaryDarkColor, "DarkThemePrimaryDark");
             SetDynamicResource(DynamicAccentColor, "DarkThemeAccent");

@@ -1,4 +1,5 @@
 ﻿using miracle_routine.Helpers;
+using miracle_routine.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,11 @@ namespace miracle_routine.Views
             {
                 ResourcesHelper.SetLightMode();
             }
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await Application.Current.MainPage.DisplayAlert(StringResources.IconCopyright, "https://icons8.com", StringResources.OK);
         }
     }
 }

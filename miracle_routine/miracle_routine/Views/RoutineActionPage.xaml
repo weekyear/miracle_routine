@@ -24,36 +24,36 @@
     
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Grid Margin="15, 0">
+            <Grid Margin="15, 
+                  00">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
-                <Label Text="{Binding Routine.Name}"
-                       FontSize="Medium"
-                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
-                       LineBreakMode="TailTruncation"
-                       HorizontalOptions="Start"
-                       VerticalOptions="CenterAndExpand"/>
-                <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeCountStringConverter}}"
-                       FontSize="Medium"
-                       TextColor="{DynamicResource DynamicPrimaryTextColor}"
-                       HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="CenterAndExpand"/>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
-                    <ImageButton Source="ic_undo.png"
+                <ImageButton Source="ic_undo.png"
                              WidthRequest="24" HeightRequest="24"
                              BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
-                                 Margin="5, 0"
+                             Margin="5, 0"
+                             HorizontalOptions="Start"
                              Command="{Binding UndoCommand}"/>
+                <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                    <Label Text="{Binding Routine.Name}"
+                           FontSize="Medium"
+                           TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                           LineBreakMode="TailTruncation"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
                     <ImageButton Source="ic_cancel.png"
-                             WidthRequest="24" HeightRequest="24"
-                             BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
+                                 WidthRequest="24" HeightRequest="24"
+                                 BackgroundColor="{DynamicResource DynamicSecondaryBackgroundColor}"
                                  Margin="5, 0"
-                             Command="{Binding CloseAllCommand}"/>
+                                 Command="{Binding CloseAllCommand}"/>
                 </StackLayout>
             </Grid>
             <StackLayout Orientation="Vertical"

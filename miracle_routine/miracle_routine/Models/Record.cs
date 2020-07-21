@@ -18,15 +18,16 @@ namespace miracle_routine.Models
         public int RoutineId { get; set; }
 
         public DateTime RecordTime { get; set; }
-
+        public bool IsStartByNotify { get; set; } = true;
         public bool IsSuccess { get; set; } = true;
 
         public Record() { }
 
-        public Record(Routine routine, bool isSuccess)
+        public Record(Routine routine, bool isSuccess, bool isStartByNotify)
         {
             RoutineId = routine.Id;
             IsSuccess = isSuccess;
+            IsStartByNotify = isStartByNotify;
             RecordTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
         }
     }

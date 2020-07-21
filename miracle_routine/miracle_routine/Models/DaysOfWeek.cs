@@ -20,6 +20,22 @@ namespace miracle_routine.Models
         public bool Friday { get; set; } = false;
         public bool Saturday { get; set; } = false;
 
+        public List<int> SelectedDateList
+        {
+            get
+            {
+                var selectedDayOfWeekList = new List<int>();
+                for (int i = 0; i < 7; i++)
+                {
+                    if (AllDays[i])
+                    {
+                        selectedDayOfWeekList.Add(i);
+                    }
+                }
+                return selectedDayOfWeekList;
+            }
+        }
+
         public bool[] AllDays => new bool[] { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday };
         public static string[] AllDaysString => new string[] { StringResources.Sunday, StringResources.Monday, StringResources.Tuesday, StringResources.Wednesday, StringResources.Thursday, StringResources.Friday, StringResources.Saturday };
 

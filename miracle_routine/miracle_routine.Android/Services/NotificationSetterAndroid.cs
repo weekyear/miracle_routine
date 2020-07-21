@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Media;
@@ -65,6 +66,12 @@ namespace miracle_routine.Droid.Services
             VibrateAndSoundNotificationByPreferences();
 
             SetNotificationManager().Notify(routine.Id, CreateForNotifyRoutineStart(routine));
+
+            if (!App.RecordRepo.RecordFromDB.Any(r => r.RoutineId == routine.Id && r.RecordTime.Date == DateTime.Now.Date))
+            {
+                var IsStartByNotify = routine.Days.SelectedDateList.Contains((int)DateTime.Now.DayOfWeek);
+                App.RecordRepo.SaveRecord(new Record(routine, false, IsStartByNotify));
+            }
         }
 
         public void NotifySoonFinishHabit(Habit habit, string nextHabitName)

@@ -83,6 +83,20 @@
                             Toggled="AutoFlipHabitSettingSwitch_Toggled"/>
                 </StackLayout>
             </StackLayout>
+            <StackLayout Orientation="Vertical" Margin="10">
+                <Label TextColor="{DynamicResource DynamicPrimaryTextColor}" 
+                       Text="{local:Translate IconCopyright}" 
+                       Margin="10, 0" 
+                       FontSize="Medium" 
+                       VerticalOptions="Start"/>
+                <StackLayout Orientation="Horizontal" VerticalOptions="Start">
+                    <Label TextColor="LightSlateGray" 
+                           Text="https://icons8.com" 
+                           Margin="10, 0" 
+                           FontSize="Medium" 
+                           VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

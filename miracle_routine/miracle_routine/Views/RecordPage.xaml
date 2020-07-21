@@ -246,36 +246,6 @@
                     </custom:NoRippleListView>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
                     <StackLayout Orientation="Vertical" Margin="10">
-                        <Label Text="루틴 시도"
-                               TextColor="SlateGray"
-                               FontSize="Body"
-                               Margin="10, 0"/>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding RoutineNumOfThisMonth}"
-                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
-                                   FontSize="Large"
-                                   Margin="5, 0"/>
-                            <Label Text="/"
-                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
-                                   FontSize="Large"
-                                   Margin="5, 0"/>
-                            <Label Text="{Binding AllDayOfSelectedMonthUntilToday}"
-                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
-                                   FontSize="Large"
-                                   Margin="5, 0"/>
-                            <custom:PercentLabel Percent="{Binding RoutineRate}"
-                                                 FontAttributes="Bold"
-                                                 HorizontalOptions="EndAndExpand"
-                                                 HorizontalTextAlignment="Center"
-                                                 VerticalOptions="CenterAndExpand"
-                                                 FontSize="Large"
-                                                 TextColor="LightSlateGray"
-                                                 Margin="10, 0"
-                                                 Text="{Binding RoutineRate, Converter={StaticResource PercentStringConverter}}"/>
-                        </StackLayout>
-                    </StackLayout>
-                    <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
-                    <StackLayout Orientation="Vertical" Margin="10">
                         <Label Text="루틴 성공률"
                                TextColor="SlateGray"
                                FontSize="Body"

@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Gms.Ads;
 using miracle_routine.ViewModels;
 using System;
+using Xamarin.Essentials;
 
 namespace miracle_routine.Droid
 {

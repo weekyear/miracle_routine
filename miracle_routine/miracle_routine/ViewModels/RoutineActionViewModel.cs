@@ -22,6 +22,13 @@ namespace miracle_routine.ViewModels
         public static int CurrentRoutineId = 0;
         public static bool IsFinished { get; set; } = false;
 
+        private static TimeSpan goalTime;
+        public string GoalTime
+        {
+            get { return goalTime.ToString(@"hh\:mm"); }
+        }
+
+        public static bool IsStartByNotify;
 
         private DateTime previousTime = DateTime.MinValue;
         public RoutineActionViewModel(INavigation navigation, Routine routine, int habitIndex, TimeSpan _currentHabitTime = new TimeSpan()) : base(navigation)
@@ -37,11 +44,13 @@ namespace miracle_routine.ViewModels
                 {
                     HabitIndex = 0;
                     CurrentIndex = HabitIndex;
+                    goalTime = DateTime.Now.Add(Routine.TotalTime).TimeOfDay;
+                    
 
-                    if (!App.RecordRepo.RecordFromDB.Any(r => r.RoutineId == CurrentRoutineId && r.RecordTime.Date == DateTime.Now.Date))
-                    {
-                        App.RecordRepo.SaveRecord(new Record(routine, false));
-                    }
+                    //if (!App.RecordRepo.RecordFromDB.Any(r => r.RoutineId == CurrentRoutineId && r.RecordTime.Date == DateTime.Now.Date))
+                    //{
+                    //    App.RecordRepo.SaveRecord(new Record(routine, false, IsStartByNotify));
+                    //}
 
                     AskIfYouWantStart();
                 }
@@ -201,7 +210,7 @@ namespace miracle_routine.ViewModels
             }
         }
 
-        public  Routine Routine
+        public Routine Routine
         {
             get; set;
         }
@@ -300,6 +309,8 @@ namespace miracle_routine.ViewModels
 
         public bool IsSoonFinishTime { get; set; } = false;
         public bool IsMinusHabitTime { get; set; } = false;
+
+        
 
         public TimeSpan ElapsedTime
         {
@@ -418,7 +429,7 @@ namespace miracle_routine.ViewModels
 
                     if (record == null)
                     {
-                        record = new Record(Routine, true);
+                        record = new Record(Routine, true, IsStartByNotify);
                     }
                     else
                     {
@@ -487,9 +498,7 @@ namespace miracle_routine.ViewModels
                 async () =>
                 {
                     await CloseAllNavigationPage();
-                    //DependencyService.Get<INotifySetter>().CancelHabitCountNotify();
                     DependencyService.Get<INotifySetter>().CancelFinishHabitNotify();
-                    //DependencyService.Get<IAdMobInterstitial>().Show();
                 });
         }
 

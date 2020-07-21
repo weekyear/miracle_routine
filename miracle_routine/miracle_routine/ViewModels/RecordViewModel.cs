@@ -54,35 +54,9 @@ namespace miracle_routine.ViewModels
         public List<WeekRecord> WeekRecords { get; set; } = new List<WeekRecord>();
 
         private DateTime FirstDateOfThisMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
-        public int AllDayOfSelectedMonthUntilToday
-        {
-            get 
-            { 
-                if (FirstDateOfThisMonth.Ticks > SelectedMonth.Ticks)
-                {
-                    return DateTime.DaysInMonth(SelectedMonth.Year, SelectedMonth.Month);
-                }
-                else if (FirstDateOfThisMonth.Ticks == SelectedMonth.Ticks)
-                {
-                    return DateTime.Now.Day;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
 
         public int RoutineNumOfThisMonth { get; set; }
         public int SuccessRoutineNumOfThisMonth { get; set; }
-        public double RoutineRate
-        {
-            get
-            {
-                if (AllDayOfSelectedMonthUntilToday == 0) return -1;
-                return (double)RoutineNumOfThisMonth / AllDayOfSelectedMonthUntilToday;
-            }
-        }
         
         public double RoutineSuccessRate
         {
@@ -130,15 +104,31 @@ namespace miracle_routine.ViewModels
 
                 startDateOfMonth = new DateTime(startDateOfWeek.Year, startDateOfWeek.Month, 1, 0, 0, 0);
                 var recordsOfSelectedMonth = RecordsOfWeek.Where(r => r.RecordTime.Month == SelectedMonth.Month).ToList();
-                RoutineNumOfThisMonth += recordsOfSelectedMonth.Count();
-                SuccessRoutineNumOfThisMonth += recordsOfSelectedMonth.Where(r => r.IsSuccess == true).Count();
+
+                foreach (var record in recordsOfSelectedMonth)
+                {
+                    if (SelectedRoutine.Days.SelectedDateList.Contains((int)record.RecordTime.DayOfWeek) && record.IsStartByNotify)
+                    {
+                        RoutineNumOfThisMonth++;
+                    }
+                }
+
+                foreach (var record in recordsOfSelectedMonth.Where(r => r.IsSuccess == true))
+                {
+                    if (SelectedRoutine.Days.SelectedDateList.Contains((int)record.RecordTime.DayOfWeek) && record.IsStartByNotify)
+                    {
+                        SuccessRoutineNumOfThisMonth++;
+                    }
+                }
+
+
+                //SuccessRoutineNumOfThisMonth += recordsOfSelectedMonth.Where(r => r.IsSuccess == true).Count();
             }
 
             WeekRecords.Clear();
 
             WeekRecords = weekRecords;
             OnPropertyChanged(nameof(WeekRecords));
-            OnPropertyChanged(nameof(AllDayOfSelectedMonthUntilToday));
             OnPropertyChanged(nameof(RoutineNumOfThisMonth));
             OnPropertyChanged(nameof(SuccessRoutineNumOfThisMonth));
         }
@@ -316,7 +306,14 @@ namespace miracle_routine.ViewModels
                 {
                     if (StartDateOfWeek.Date <= DateTime.Now.Date)
                     {
-                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        if (DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday) && DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Sunday).IsStartByNotify)
+                        {
+                            return (Color)App.Current.Resources["DynamicPrimaryLightColor"];
+                        }
+                        else
+                        {
+                            return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        }
                     }
                     else
                     {
@@ -330,7 +327,15 @@ namespace miracle_routine.ViewModels
                 {
                     if (StartDateOfWeek.AddDays(1).Date <= DateTime.Now.Date)
                     {
-                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+
+                        if (DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday) && DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Monday).IsStartByNotify)
+                        {
+                            return (Color)App.Current.Resources["DynamicPrimaryLightColor"];
+                        }
+                        else
+                        {
+                            return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        }
                     }
                     else
                     {
@@ -344,7 +349,15 @@ namespace miracle_routine.ViewModels
                 {
                     if (StartDateOfWeek.AddDays(2).Date <= DateTime.Now.Date)
                     {
-                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+
+                        if (DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday) && DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Tuesday).IsStartByNotify)
+                        {
+                            return (Color)App.Current.Resources["DynamicPrimaryLightColor"];
+                        }
+                        else
+                        {
+                            return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        }
                     }
                     else
                     {
@@ -358,7 +371,14 @@ namespace miracle_routine.ViewModels
                 {
                     if (StartDateOfWeek.AddDays(3).Date <= DateTime.Now.Date)
                     {
-                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        if (DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday) && DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Wednesday).IsStartByNotify)
+                        {
+                            return (Color)App.Current.Resources["DynamicPrimaryLightColor"];
+                        }
+                        else
+                        {
+                            return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        }
                     }
                     else
                     {
@@ -372,7 +392,14 @@ namespace miracle_routine.ViewModels
                 {
                     if (StartDateOfWeek.AddDays(4).Date <= DateTime.Now.Date)
                     {
-                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        if (DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Thursday) && DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Thursday).IsStartByNotify)
+                        {
+                            return (Color)App.Current.Resources["DynamicPrimaryLightColor"];
+                        }
+                        else
+                        {
+                            return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        }
                     }
                     else
                     {
@@ -386,7 +413,14 @@ namespace miracle_routine.ViewModels
                 {
                     if (StartDateOfWeek.AddDays(5).Date <= DateTime.Now.Date)
                     {
-                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        if (DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday) && DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Friday).IsStartByNotify)
+                        {
+                            return (Color)App.Current.Resources["DynamicPrimaryLightColor"];
+                        }
+                        else
+                        {
+                            return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        }
                     }
                     else
                     {
@@ -400,7 +434,14 @@ namespace miracle_routine.ViewModels
                 {
                     if (StartDateOfWeek.AddDays(6).Date <= DateTime.Now.Date)
                     {
-                        return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        if (DayRecords.Exists(d => d.RecordTime.DayOfWeek == DayOfWeek.Saturday) && DayRecords.Find(d => d.RecordTime.DayOfWeek == DayOfWeek.Saturday).IsStartByNotify)
+                        {
+                            return (Color)App.Current.Resources["DynamicPrimaryLightColor"];
+                        }
+                        else
+                        {
+                            return (Color)App.Current.Resources["DynamicSecondaryBackgroundColor"];
+                        }
                     }
                     else
                     {

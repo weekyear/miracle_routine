@@ -11,6 +11,7 @@
             <!--Global Styles-->
             <Color x:Key="LightThemeBackgroundColor">#f3f3f3</Color>
             <Color x:Key="LightThemeSecondaryBackgroundColor">#ffffff</Color>
+            <Color x:Key="LightThemePrimaryLight">#4Da1cff7</Color>
             <Color x:Key="LightThemePrimary">#90caf9</Color>
             <Color x:Key="LightThemePrimaryDark">#5e92f3</Color>
             <Color x:Key="LightThemeAccent">#003c8f</Color>
@@ -21,6 +22,7 @@
 
             <Color x:Key="DarkThemeBackgroundColor">#545454</Color>
             <Color x:Key="DarkThemeSecondaryBackgroundColor">#696969</Color>
+            <Color x:Key="DarkThemePrimaryLight">#4Da1cff7</Color>
             <Color x:Key="DarkThemePrimary">#1e88e5</Color>
             <Color x:Key="DarkThemePrimaryDark">#005cb2</Color>
             <Color x:Key="DarkThemeAccent">#ffffff</Color>
