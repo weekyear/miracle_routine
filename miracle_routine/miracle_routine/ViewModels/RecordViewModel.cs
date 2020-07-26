@@ -58,7 +58,7 @@ namespace miracle_routine.ViewModels
         public int RoutineNumOfThisMonth { get; set; }
         public int SuccessRoutineNumOfThisMonth { get; set; }
         
-        public double RoutineSuccessRate
+        public double RoutineSuccessRateOfThisMonth
         {
             get
             {
@@ -67,8 +67,46 @@ namespace miracle_routine.ViewModels
             }
         }
 
+        public int RoutineNumOfThreeMonth { get; set; }
+        public int SuccessRoutineNumOfThreeMonth { get; set; }
+
+        public double RoutineSuccessRateOfThreeMonth
+        {
+            get
+            {
+                if (RoutineNumOfThreeMonth == 0) return -1;
+                return (double)SuccessRoutineNumOfThreeMonth / RoutineNumOfThreeMonth;
+            }
+        }
+
+        public int RoutineNumOfAll { get; set; }
+        public int SuccessRoutineNumOfAll { get; set; }
+
+        public double RoutineSuccessRateOfAll
+        {
+            get
+            {
+                if (RoutineNumOfAll == 0) return -1;
+                return (double)SuccessRoutineNumOfAll / RoutineNumOfAll;
+            }
+        }
+
         public Command PreviousMonthCommand { get; set; }
         public Command NextMonthCommand { get; set; }
+
+        private bool IsInThisMonth(DateTime recordDate)
+        {
+            var firstDady = new DateTime(SelectedMonth.Year, SelectedMonth.Month, 1, 0, 0, 0);
+            var lastDay = new DateTime(SelectedMonth.Year, SelectedMonth.Month, DateTime.DaysInMonth(SelectedMonth.Year, SelectedMonth.Month), 23, 59, 59);
+            return recordDate <= lastDay && recordDate >= firstDady;
+        }
+
+        private bool IsInThreeMonth(DateTime recordDate)
+        {
+            var firstDady = new DateTime(SelectedMonth.Year, SelectedMonth.Month, 1, 0, 0, 0).AddMonths(-2);
+            var lastDay = new DateTime(SelectedMonth.Year, SelectedMonth.Month, DateTime.DaysInMonth(SelectedMonth.Year, SelectedMonth.Month), 23, 59, 59);
+            return recordDate <= lastDay && recordDate >= firstDady;
+        }
 
         #endregion
 
@@ -83,9 +121,6 @@ namespace miracle_routine.ViewModels
             while (startDateOfWeek.Date.DayOfWeek != DayOfWeek.Sunday) startDateOfWeek = startDateOfWeek.AddDays(-1);
 
             var startDateOfMonth = startDateOfWeek;
-
-            RoutineNumOfThisMonth = 0;
-            SuccessRoutineNumOfThisMonth = 0;
 
             while (startDateOfMonth.Ticks <= startDateOfSelectedMonth.Ticks)
             {
@@ -103,27 +138,8 @@ namespace miracle_routine.ViewModels
                 startDateOfWeek = startDateOfWeek.AddDays(7);
 
                 startDateOfMonth = new DateTime(startDateOfWeek.Year, startDateOfWeek.Month, 1, 0, 0, 0);
-                var recordsOfSelectedMonth = RecordsOfWeek.Where(r => r.RecordTime.Month == SelectedMonth.Month).ToList();
-
-                foreach (var record in recordsOfSelectedMonth)
-                {
-                    if (SelectedRoutine.Days.SelectedDateList.Contains((int)record.RecordTime.DayOfWeek) && record.IsStartByNotify)
-                    {
-                        RoutineNumOfThisMonth++;
-                    }
-                }
-
-                foreach (var record in recordsOfSelectedMonth.Where(r => r.IsSuccess == true))
-                {
-                    if (SelectedRoutine.Days.SelectedDateList.Contains((int)record.RecordTime.DayOfWeek) && record.IsStartByNotify)
-                    {
-                        SuccessRoutineNumOfThisMonth++;
-                    }
-                }
-
-
-                //SuccessRoutineNumOfThisMonth += recordsOfSelectedMonth.Where(r => r.IsSuccess == true).Count();
             }
+            ResetSuccessRate();
 
             WeekRecords.Clear();
 
@@ -131,6 +147,63 @@ namespace miracle_routine.ViewModels
             OnPropertyChanged(nameof(WeekRecords));
             OnPropertyChanged(nameof(RoutineNumOfThisMonth));
             OnPropertyChanged(nameof(SuccessRoutineNumOfThisMonth));
+        }
+
+        private void ResetSuccessRate()
+        {
+            RoutineNumOfThisMonth = 0;
+            SuccessRoutineNumOfThisMonth = 0;
+            RoutineNumOfThreeMonth = 0;
+            SuccessRoutineNumOfThreeMonth = 0;
+            RoutineNumOfAll = 0;
+            SuccessRoutineNumOfAll = 0;
+
+            var recordsOfSelectedMonth = Records.Where(r => IsInThisMonth(r.RecordTime));
+
+            foreach (var record in recordsOfSelectedMonth)
+            {
+                // SelectedRoutine.Days.SelectedDateList.Contains((int)record.RecordTime.DayOfWeek) && 
+                if (record.IsStartByNotify)
+                {
+                    RoutineNumOfThisMonth++;
+                }
+            }
+            foreach (var record in recordsOfSelectedMonth.Where(r => r.IsSuccess == true))
+            {
+                if (record.IsStartByNotify)
+                {
+                    SuccessRoutineNumOfThisMonth++;
+                }
+            }
+            var recordsOfThreeSelectedMonth = Records.Where(r => IsInThreeMonth(r.RecordTime));
+            foreach (var record in recordsOfThreeSelectedMonth)
+            {
+                if (record.IsStartByNotify)
+                {
+                    RoutineNumOfThreeMonth++;
+                }
+            }
+            foreach (var record in recordsOfThreeSelectedMonth.Where(r => r.IsSuccess == true))
+            {
+                if (record.IsStartByNotify)
+                {
+                    SuccessRoutineNumOfThreeMonth++;
+                }
+            }
+            foreach (var record in Records)
+            {
+                if (record.IsStartByNotify)
+                {
+                    RoutineNumOfAll++;
+                }
+            }
+            foreach (var record in Records.Where(r => r.IsSuccess == true))
+            {
+                if (record.IsStartByNotify)
+                {
+                    SuccessRoutineNumOfAll++;
+                }
+            }
         }
 
 

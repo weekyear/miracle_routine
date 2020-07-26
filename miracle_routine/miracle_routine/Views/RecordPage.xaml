@@ -246,8 +246,8 @@
                     </custom:NoRippleListView>
                     <BoxView Color="LightGray" Margin="7, 0" HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="0.5"/>
                     <StackLayout Orientation="Vertical" Margin="10">
-                        <Label Text="루틴 성공률"
-                               TextColor="SlateGray"
+                        <Label Text="이 달의 루틴 성공률"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                FontSize="Body"
                                Margin="10, 0"/>
                         <StackLayout Orientation="Horizontal">
@@ -263,7 +263,7 @@
                                    TextColor="{DynamicResource DynamicPrimaryTextColor}"
                                    FontSize="Large"
                                    Margin="5, 0"/>
-                            <custom:PercentLabel Percent="{Binding RoutineSuccessRate}"
+                            <custom:PercentLabel Percent="{Binding RoutineSuccessRateOfThisMonth}"
                                                  FontAttributes="Bold"
                                                  HorizontalOptions="EndAndExpand"
                                                  HorizontalTextAlignment="Center"
@@ -271,7 +271,65 @@
                                                  FontSize="Large"
                                                  TextColor="LightSlateGray"
                                                  Margin="10, 0"
-                                                 Text="{Binding RoutineSuccessRate, Converter={StaticResource PercentStringConverter}}"/>
+                                                 Text="{Binding RoutineSuccessRateOfThisMonth, Converter={StaticResource PercentStringConverter}}"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Margin="10">
+                        <Label Text="최근 3달 루틴 성공률"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                               FontSize="Body"
+                               Margin="10, 0"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding SuccessRoutineNumOfThreeMonth}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <Label Text="/"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <Label Text="{Binding RoutineNumOfThreeMonth}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <custom:PercentLabel Percent="{Binding RoutineSuccessRateOfThreeMonth}"
+                                                 FontAttributes="Bold"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 HorizontalTextAlignment="Center"
+                                                 VerticalOptions="CenterAndExpand"
+                                                 FontSize="Large"
+                                                 TextColor="LightSlateGray"
+                                                 Margin="10, 0"
+                                                 Text="{Binding RoutineSuccessRateOfThreeMonth, Converter={StaticResource PercentStringConverter}}"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Margin="10">
+                        <Label Text="루틴 전체 성공률"
+                               TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                               FontSize="Body"
+                               Margin="10, 0"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding SuccessRoutineNumOfAll}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <Label Text="/"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <Label Text="{Binding RoutineNumOfAll}"
+                                   TextColor="{DynamicResource DynamicPrimaryTextColor}"
+                                   FontSize="Large"
+                                   Margin="5, 0"/>
+                            <custom:PercentLabel Percent="{Binding RoutineSuccessRateOfAll}"
+                                                 FontAttributes="Bold"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 HorizontalTextAlignment="Center"
+                                                 VerticalOptions="CenterAndExpand"
+                                                 FontSize="Large"
+                                                 TextColor="LightSlateGray"
+                                                 Margin="10, 0"
+                                                 Text="{Binding RoutineSuccessRateOfAll, Converter={StaticResource PercentStringConverter}}"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
